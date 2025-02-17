@@ -19,7 +19,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
 import com.banap.banap.ui.theme.BRANCO
 import com.banap.banap.ui.theme.CINZA_CLARO
-import com.banap.banap.ui.theme.ShapeBox
+import com.banap.banap.ui.theme.ShapeCarousel
 import com.banap.banap.ui.theme.VERDE_CLARO
 
 @Composable
@@ -32,9 +32,9 @@ fun Carousel(
     ) {
         Card (
             modifier = Modifier
-                .shadow(elevation = 3.dp, shape = ShapeBox.medium)
+                .shadow(elevation = 3.dp, shape = ShapeCarousel.medium)
                 .clip(
-                    shape = ShapeBox.medium
+                    shape = ShapeCarousel.medium
                 )
                 .height(156.dp)
                 .fillMaxWidth(),
@@ -55,7 +55,7 @@ fun Carousel(
             Card (
                 modifier = Modifier
                     .clip(
-                        shape = ShapeBox.small
+                        shape = ShapeCarousel.small
                     )
                     .height(8.dp)
                     .width(16.dp),
@@ -72,7 +72,7 @@ fun Carousel(
             Card (
                 modifier = Modifier
                     .clip(
-                        shape = ShapeBox.large
+                        shape = ShapeCarousel.large
                     )
                     .size(8.dp),
                 colors = CardDefaults.cardColors(
@@ -88,7 +88,7 @@ fun Carousel(
             Card (
                 modifier = Modifier
                     .clip(
-                        shape = ShapeBox.large
+                        shape = ShapeCarousel.large
                     )
                     .size(8.dp),
                 colors = CardDefaults.cardColors(
@@ -104,7 +104,7 @@ fun Carousel(
             Card (
                 modifier = Modifier
                     .clip(
-                        shape = ShapeBox.large
+                        shape = ShapeCarousel.large
                     )
                     .size(8.dp),
                 colors = CardDefaults.cardColors(

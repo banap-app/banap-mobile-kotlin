@@ -3,9 +3,13 @@ package com.banap.banap.components
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -26,8 +30,9 @@ fun Screen() {
     ) {
         Column (
             modifier = Modifier
+                .verticalScroll(rememberScrollState())
                 .fillMaxSize()
-                .padding(top = 10.dp),
+                .padding(top = 10.dp, bottom = 60.dp),
         ) {
             Header(
                 nome = "Gilmar"
@@ -44,6 +49,18 @@ fun Screen() {
             )
 
             Carousel()
+
+            Spacer(modifier = Modifier.height(60.dp))
+
+            Property(
+                titulo = "Propriedade 01"
+            )
+
+            Spacer(modifier = Modifier.height(60.dp))
+
+            Property(
+                titulo = "Propriedade 02"
+            )
         }
     }
 }
