@@ -16,12 +16,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.banap.banap.R
 import com.banap.banap.ui.theme.BRANCO
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun Screen() {
+fun Home(
+    navigationController: NavController
+) {
     Scaffold (
         modifier = Modifier
             .statusBarsPadding()
@@ -58,8 +61,16 @@ fun Screen() {
 
             Spacer(modifier = Modifier.height(60.dp))
 
-            Property(
-                titulo = "Propriedade 02"
+            RecentActivities(
+                titulo = "Atividades recentes",
+                textoAtividade = "Voce cadastrou uma propriedade."
+            )
+
+            Spacer(modifier = Modifier.height(60.dp))
+
+            Tasks(
+                titulo = "Lista de tarefas",
+                subTitulo = "Seus afazeres da semana!"
             )
         }
     }

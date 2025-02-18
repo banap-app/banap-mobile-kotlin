@@ -84,7 +84,7 @@ fun Property(
             horizontalArrangement = Arrangement.End
         ) {
             Button(
-                texto = "Nova propriedade"
+                texto = "Nova Propriedade"
             )
         }
     }
