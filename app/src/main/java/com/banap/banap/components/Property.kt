@@ -50,6 +50,7 @@ fun Property(
                 modifier = Modifier
                     .rotate(90.0F)
                     .scale(scale = 1.2F),
+                tint = VERDE_ESCURO
             )
         }
 
@@ -59,21 +60,16 @@ fun Property(
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            CardNewProperty()
+            FieldCard(
+                nomeTalhao = "Talhão 01"
+            )
 
             Spacer(
                 modifier = Modifier
                     .width(25.dp)
             )
 
-            CardNewProperty()
-
-            Spacer(
-                modifier = Modifier
-                    .width(25.dp)
-            )
-
-            CardNewProperty()
+            NewFieldCard()
         }
 
         Spacer(modifier = Modifier.height(60.dp))

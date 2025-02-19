@@ -33,6 +33,8 @@ fun BanapTheme(
         else -> LightColorScheme
     }
 
+
+
     MaterialTheme(
         colorScheme = colorScheme,
         typography = Typography,

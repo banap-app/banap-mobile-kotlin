@@ -18,10 +18,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.unit.dp
 import com.banap.banap.ui.theme.CINZA_CLARO
+import com.banap.banap.ui.theme.CINZA_INTERMEDIARIO
 import com.banap.banap.ui.theme.ShapeProperty
 
 @Composable
-fun CardNewProperty () {
+fun NewFieldCard () {
     Card (
         modifier = Modifier
             .clip(
@@ -42,9 +43,10 @@ fun CardNewProperty () {
         ) {
             Icon(
                 Icons.Outlined.Add,
-                contentDescription = "Icone de adicionar nova propriedade",
+                contentDescription = "Icone de adicionar novo talhão",
                 modifier = Modifier
-                    .scale(scale = 2F)
+                    .scale(scale = 2F),
+                tint = CINZA_INTERMEDIARIO
             )
         }
     }

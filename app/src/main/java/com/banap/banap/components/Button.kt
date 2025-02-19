@@ -29,6 +29,9 @@ fun Button(
         shape = ShapeProperty.small,
         colors = CardDefaults.cardColors(
             containerColor = VERDE_CLARO
+        ),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 2.dp
         )
     ) {
         Row (
@@ -40,9 +43,12 @@ fun Button(
                 Icons.Outlined.Add,
                 contentDescription = "Icone de adicionar nova propriedade",
                 modifier = Modifier
-                    .scale(scale = 1.2F)
+                    .scale(scale = 1.2F),
+                tint = BRANCO
             )
+
             Spacer(modifier = Modifier.width(10.dp))
+
             Text(
                 text = texto,
                 style = Typography.bodyMedium,

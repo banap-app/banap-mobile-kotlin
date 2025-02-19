@@ -12,11 +12,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.banap.banap.model.setColorInText
 import com.banap.banap.ui.theme.Typography
+import com.banap.banap.ui.theme.VERDE_CLARO
 
 @Composable
 fun Activities(
-    textoAtividade: String
+    atividadeRealizada: String,
+    autorAtividade: String
 ) {
     Row (
         verticalAlignment = Alignment.CenterVertically
@@ -29,7 +32,13 @@ fun Activities(
         Spacer(modifier = Modifier.width(10.dp))
 
         Text(
-            text = textoAtividade,
+            text = setColorInText(
+                texto = atividadeRealizada,
+                textoASerDestacado = autorAtividade,
+                fontWeight = FontWeight.Normal,
+                corEmDestaque = VERDE_CLARO,
+                ordemInversa = true
+            ),
             style = Typography.bodyLarge,
             fontWeight = FontWeight.Normal
         )

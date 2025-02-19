@@ -17,7 +17,8 @@ import com.banap.banap.ui.theme.VERDE_ESCURO
 @Composable
 fun RecentActivities(
     titulo: String,
-    textoAtividade: String
+    atividadeRealizada: String,
+    autorAtividade: String
 ) {
     Column (
         modifier = Modifier
@@ -32,11 +33,17 @@ fun RecentActivities(
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        Activities(textoAtividade = textoAtividade)
+        Activities(
+            atividadeRealizada,
+            autorAtividade
+        )
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        Activities(textoAtividade = textoAtividade)
+        Activities(
+            atividadeRealizada,
+            autorAtividade
+        )
 
         Spacer(modifier = Modifier.height(20.dp))
 

@@ -13,11 +13,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.banap.banap.R
+import com.banap.banap.model.setColorInText
 import com.banap.banap.ui.theme.PRETO
 import com.banap.banap.ui.theme.Typography
+import com.banap.banap.ui.theme.VERDE_CLARO
 
 @Composable
 fun Header(
@@ -31,7 +35,13 @@ fun Header(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = "Olá, $nome!",
+            text = setColorInText(
+                texto = "Olá, ",
+                textoASerDestacado = "$nome!",
+                fontWeight = FontWeight.Bold,
+                corEmDestaque = VERDE_CLARO,
+                ordemInversa = false
+            ),
             style = Typography.headlineSmall,
             color = PRETO
         )
@@ -43,7 +53,7 @@ fun Header(
                 Icons.Outlined.Notifications,
                 contentDescription = "Icone de notificação",
                 modifier = Modifier
-                    .size(55.dp)
+                    .scale(1.2F)
                     .padding(end = 20.dp)
             )
 

@@ -27,7 +27,6 @@ fun Home(
 ) {
     Scaffold (
         modifier = Modifier
-            .statusBarsPadding()
             .fillMaxSize(),
         containerColor = BRANCO
     ) {
@@ -35,7 +34,7 @@ fun Home(
             modifier = Modifier
                 .verticalScroll(rememberScrollState())
                 .fillMaxSize()
-                .padding(top = 10.dp, bottom = 60.dp),
+                .padding(top = 40.dp, bottom = 60.dp),
         ) {
             Header(
                 nome = "Gilmar"
@@ -63,7 +62,8 @@ fun Home(
 
             RecentActivities(
                 titulo = "Atividades recentes",
-                textoAtividade = "Voce cadastrou uma propriedade."
+                atividadeRealizada = "cadastrou uma propriedade.",
+                autorAtividade = "Você "
             )
 
             Spacer(modifier = Modifier.height(60.dp))
