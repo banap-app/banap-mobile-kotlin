@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.unit.dp
+import com.banap.banap.ui.theme.ShapeProperty
 import com.banap.banap.ui.theme.Typography
 import com.banap.banap.ui.theme.VERDE_ESCURO
 
@@ -80,7 +81,11 @@ fun Property(
             horizontalArrangement = Arrangement.End
         ) {
             Button(
-                texto = "Nova Propriedade"
+                texto = "Nova Propriedade",
+                modifier = Modifier
+                    .padding(vertical = 18.dp, horizontal = 15.dp),
+                icon = true,
+                shape = ShapeProperty.small
             )
         }
     }

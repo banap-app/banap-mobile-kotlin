@@ -1,11 +1,9 @@
 package com.banap.banap.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material3.Icon
@@ -14,10 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.banap.banap.R
+import androidx.navigation.NavController
 import com.banap.banap.model.setColorInText
 import com.banap.banap.ui.theme.PRETO
 import com.banap.banap.ui.theme.Typography
@@ -25,7 +22,8 @@ import com.banap.banap.ui.theme.VERDE_CLARO
 
 @Composable
 fun Header(
-    nome: String
+    nome: String,
+    navigationController: NavController
 ) {
     Row (
         modifier = Modifier
@@ -57,11 +55,13 @@ fun Header(
                     .padding(end = 20.dp)
             )
 
-            Image(
-                painter = painterResource(R.drawable.foto_de_perfil),
-                contentDescription = "Foto de perfil",
-                modifier = Modifier
-                    .size(60.dp)
+            Menu(
+                dropDownItems = listOf(
+                    DropDownItem("Sair")
+                ),
+                onItemClick = {
+                    navigationController.navigate("Login")
+                }
             )
         }
     }

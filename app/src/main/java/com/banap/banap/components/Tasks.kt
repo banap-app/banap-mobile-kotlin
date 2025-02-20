@@ -14,6 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.banap.banap.ui.theme.CINZA_ESCURO
+import com.banap.banap.ui.theme.ShapeProperty
 import com.banap.banap.ui.theme.Typography
 import com.banap.banap.ui.theme.VERDE_ESCURO
 
@@ -60,7 +61,11 @@ fun Tasks (
             Spacer(modifier = Modifier.height(40.dp))
 
             Button(
-                texto = "Nova Tarefa"
+                texto = "Nova Tarefa",
+                modifier = Modifier
+                    .padding(vertical = 18.dp, horizontal = 15.dp),
+                icon = true,
+                shape = ShapeProperty.small
             )
         }
     }

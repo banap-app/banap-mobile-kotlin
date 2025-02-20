@@ -1,4 +1,4 @@
-package com.banap.banap.components
+package com.banap.banap.view
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
@@ -18,6 +17,11 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.banap.banap.R
+import com.banap.banap.components.Carousel
+import com.banap.banap.components.Header
+import com.banap.banap.components.Property
+import com.banap.banap.components.RecentActivities
+import com.banap.banap.components.Tasks
 import com.banap.banap.ui.theme.BRANCO
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -37,7 +41,8 @@ fun Home(
                 .padding(top = 40.dp, bottom = 60.dp),
         ) {
             Header(
-                nome = "Gilmar"
+                nome = "Gilmar",
+                navigationController
             )
 
             Image(

@@ -7,8 +7,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.banap.banap.components.Home
+import com.banap.banap.view.Home
 import com.banap.banap.ui.theme.BanapTheme
+import com.banap.banap.view.Login
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,11 +19,17 @@ class MainActivity : ComponentActivity() {
             BanapTheme {
                 val navigationController = rememberNavController()
 
-                NavHost(navController = navigationController, startDestination = "Home"){
+                NavHost(navController = navigationController, startDestination = "Login"){
                     composable (
                         route = "Home"
                     ) {
                         Home(navigationController)
+                    }
+
+                    composable (
+                        route = "Login"
+                    ) {
+                        Login(navigationController)
                     }
                 }
             }

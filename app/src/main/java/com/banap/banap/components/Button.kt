@@ -1,9 +1,8 @@
 package com.banap.banap.components
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
@@ -15,18 +14,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
 import com.banap.banap.ui.theme.BRANCO
-import com.banap.banap.ui.theme.ShapeProperty
 import com.banap.banap.ui.theme.Typography
 import com.banap.banap.ui.theme.VERDE_CLARO
 
 @Composable
 fun Button(
-    texto: String
+    texto: String,
+    modifier: Modifier,
+    icon: Boolean,
+    shape: Shape
 ) {
     Card (
-        shape = ShapeProperty.small,
+        shape = shape,
         colors = CardDefaults.cardColors(
             containerColor = VERDE_CLARO
         ),
@@ -35,19 +37,21 @@ fun Button(
         )
     ) {
         Row (
-            modifier = Modifier
-                .padding(horizontal = 15.dp, vertical = 18.dp),
-            verticalAlignment = Alignment.CenterVertically
+            modifier = modifier,
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
         ) {
-            Icon(
-                Icons.Outlined.Add,
-                contentDescription = "Icone de adicionar nova propriedade",
-                modifier = Modifier
-                    .scale(scale = 1.2F),
-                tint = BRANCO
-            )
+            if (icon) {
+                Icon(
+                    Icons.Outlined.Add,
+                    contentDescription = "Icone de adicionar nova propriedade",
+                    modifier = Modifier
+                        .scale(scale = 1.2F),
+                    tint = BRANCO
+                )
 
-            Spacer(modifier = Modifier.width(10.dp))
+                Spacer(modifier = Modifier.width(10.dp))
+            }
 
             Text(
                 text = texto,

@@ -14,3 +14,7 @@ val ShapeProperty = Shapes(
     small = RoundedCornerShape(10.dp),
     medium = RoundedCornerShape(15.dp)
 )
+
+val ShapeLogin = Shapes(
+    small = RoundedCornerShape(5.dp)
+)
