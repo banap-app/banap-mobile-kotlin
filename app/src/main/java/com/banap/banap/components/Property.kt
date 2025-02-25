@@ -85,7 +85,9 @@ fun Property(
                 modifier = Modifier
                     .padding(vertical = 18.dp, horizontal = 15.dp),
                 icon = true,
-                shape = ShapeProperty.small
+                shape = ShapeProperty.small,
+                fieldvalues = null,
+                navigationController = null
             )
         }
     }

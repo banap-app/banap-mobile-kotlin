@@ -1,8 +1,9 @@
 package com.banap.banap.view
 
 import android.annotation.SuppressLint
-import android.view.WindowMetrics
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,8 +13,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -23,6 +22,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.vector.DefaultStrokeLineWidth
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
@@ -31,12 +31,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.banap.banap.R
 import com.banap.banap.components.Button
 import com.banap.banap.components.TextBox
+import com.banap.banap.components.ApiComponent
+import com.banap.banap.domain.model.DataViewModel
 import com.banap.banap.model.setColorInText
 import com.banap.banap.ui.theme.BRANCO
+import com.banap.banap.ui.theme.PRETO
 import com.banap.banap.ui.theme.ShapeLogin
 import com.banap.banap.ui.theme.Typography
 import com.banap.banap.ui.theme.VERDE_ESCURO
@@ -59,8 +63,12 @@ fun Login(
             mutableStateOf("")
         }
 
+        val fieldValues = mutableListOf(fieldEmail, fieldSenha)
+
         val screenWidth = LocalConfiguration.current.screenWidthDp.dp
         val screenHeight = LocalConfiguration.current.screenHeightDp.dp
+
+        val dataViewModel: DataViewModel = viewModel()
 
         Image(
             imageVector = ImageVector.vectorResource(id = R.drawable.desenho_de_cima),
@@ -78,9 +86,11 @@ fun Login(
             modifier = Modifier
                 .absoluteOffset(
                     x = screenWidth - 130.dp,
-                    y = 230.dp
+                    y = 195.dp
                 ).scale(0.9F)
         )
+
+        // Usar uma box para alinhar os elementos mais facilmente na tela
 
         Column (
             modifier = Modifier
@@ -98,13 +108,13 @@ fun Login(
             Spacer(modifier = Modifier.height(20.dp))
 
             Text(
-                text = "Entre com sua\n conta!",
+                text = "Entre com sua\n conta de id: ${ApiComponent(dataUiState = dataViewModel.dataUiState)}!",
                 textAlign = TextAlign.Center,
                 style = Typography.titleSmall,
                 color = VERDE_ESCURO
             )
 
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(40.dp))
 
             TextBox(
                 value = fieldEmail,
@@ -112,14 +122,19 @@ fun Login(
                     fieldEmail = it
                 },
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 70.dp),
-                label = "Email",
+                    .fillMaxWidth(),
                 maxLines = 1,
-                keyboardType = KeyboardType.Email
+                keyboardType = KeyboardType.Email,
+                icon = R.drawable.email,
+                iconColor = PRETO,
+                placeholder = "email@gmail.com",
+                passwordTextBox = false,
+                label = "Email",
+                labelTextStyle = Typography.labelSmall,
+                labelColor = PRETO
             )
 
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(30.dp))
 
             TextBox(
                 value = fieldSenha,
@@ -127,11 +142,16 @@ fun Login(
                     fieldSenha = it
                 },
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 70.dp),
-                label = "Senha",
+                    .fillMaxWidth(),
                 maxLines = 1,
-                keyboardType = KeyboardType.Password
+                keyboardType = KeyboardType.Password,
+                icon = R.drawable.lock,
+                iconColor = PRETO,
+                placeholder = "Senha123",
+                passwordTextBox = true,
+                label = "Senha",
+                labelTextStyle = Typography.labelSmall,
+                labelColor = PRETO
             )
 
             Spacer(modifier = Modifier.height(5.dp))
@@ -159,7 +179,9 @@ fun Login(
                 modifier = Modifier
                     .padding(vertical = 12.dp, horizontal = 98.dp),
                 icon = false,
-                shape = ShapeLogin.small
+                shape = ShapeLogin.small,
+                fieldvalues = fieldValues,
+                navigationController = navigationController
             )
 
             Spacer(modifier = Modifier.height(10.dp))
@@ -184,7 +206,7 @@ fun Login(
             modifier = Modifier
                 .absoluteOffset(
                     x = 50.dp,
-                    y = screenHeight - 200.dp
+                    y = screenHeight - 175.dp
                 ).scale(0.9F)
         )
 
