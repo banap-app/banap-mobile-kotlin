@@ -1,12 +1,10 @@
 package com.banap.banap.view
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.absoluteOffset
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,7 +20,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.graphics.vector.DefaultStrokeLineWidth
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
@@ -90,8 +87,6 @@ fun Login(
                 ).scale(0.9F)
         )
 
-        // Usar uma box para alinhar os elementos mais facilmente na tela
-
         Column (
             modifier = Modifier
                 .fillMaxSize(),
@@ -116,88 +111,94 @@ fun Login(
 
             Spacer(modifier = Modifier.height(40.dp))
 
-            TextBox(
-                value = fieldEmail,
-                onValueChange = {
-                    fieldEmail = it
-                },
+            Box (
                 modifier = Modifier
-                    .fillMaxWidth(),
-                maxLines = 1,
-                keyboardType = KeyboardType.Email,
-                icon = R.drawable.email,
-                iconColor = PRETO,
-                placeholder = "email@gmail.com",
-                passwordTextBox = false,
-                label = "Email",
-                labelTextStyle = Typography.labelSmall,
-                labelColor = PRETO
-            )
-
-            Spacer(modifier = Modifier.height(30.dp))
-
-            TextBox(
-                value = fieldSenha,
-                onValueChange = {
-                    fieldSenha = it
-                },
-                modifier = Modifier
-                    .fillMaxWidth(),
-                maxLines = 1,
-                keyboardType = KeyboardType.Password,
-                icon = R.drawable.lock,
-                iconColor = PRETO,
-                placeholder = "Senha123",
-                passwordTextBox = true,
-                label = "Senha",
-                labelTextStyle = Typography.labelSmall,
-                labelColor = PRETO
-            )
-
-            Spacer(modifier = Modifier.height(5.dp))
-
-            Row (
-                modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.End
+                    .fillMaxWidth()
+                    .padding(horizontal = 70.dp)
             ) {
-                Text(
-                    text = "Esqueceu sua senha?",
-                    textAlign = TextAlign.Center,
-                    style = Typography.bodySmall,
-                    fontWeight = FontWeight.Medium,
-                    color = VERDE_ESCURO,
-                    modifier = Modifier
-                        .padding(end = 70.dp)
-                )
+                Column {
+                    TextBox(
+                        value = fieldEmail,
+                        onValueChange = {
+                            fieldEmail = it
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        maxLines = 1,
+                        keyboardType = KeyboardType.Email,
+                        icon = R.drawable.email,
+                        iconColor = PRETO,
+                        placeholder = "email@gmail.com",
+                        passwordTextBox = false,
+                        label = "Email",
+                        labelTextStyle = Typography.labelSmall,
+                        labelColor = PRETO
+                    )
+
+                    Spacer(modifier = Modifier.height(30.dp))
+
+                    TextBox(
+                        value = fieldSenha,
+                        onValueChange = {
+                            fieldSenha = it
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        maxLines = 1,
+                        keyboardType = KeyboardType.Password,
+                        icon = R.drawable.lock,
+                        iconColor = PRETO,
+                        placeholder = "Senha123",
+                        passwordTextBox = true,
+                        label = "Senha",
+                        labelTextStyle = Typography.labelSmall,
+                        labelColor = PRETO
+                    )
+
+                    Spacer(modifier = Modifier.height(5.dp))
+
+                    Text(
+                        text = "Esqueceu sua senha?",
+                        textAlign = TextAlign.End,
+                        style = Typography.bodySmall,
+                        fontWeight = FontWeight.Medium,
+                        color = VERDE_ESCURO,
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                    )
+
+                    Spacer(modifier = Modifier.height(15.dp))
+
+                    Button(
+                        texto = "Entrar",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 12.dp),
+                        icon = false,
+                        shape = ShapeLogin.small,
+                        fieldValues = fieldValues,
+                        navigationController = navigationController,
+                        navigateTo = null
+                    )
+
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    Text(
+                        text = setColorInText(
+                            texto = "Não possui uma conta? ",
+                            textoASerDestacado = "Crie uma.",
+                            fontWeight = FontWeight.Medium,
+                            corEmDestaque = VERDE_ESCURO,
+                            ordemInversa = false
+                        ),
+                        textAlign = TextAlign.Center,
+                        style = Typography.bodySmall,
+                        fontWeight = FontWeight.Medium,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                    )
+                }
             }
-
-            Spacer(modifier = Modifier.height(15.dp))
-            
-            Button(
-                texto = "Entrar",
-                modifier = Modifier
-                    .padding(vertical = 12.dp, horizontal = 98.dp),
-                icon = false,
-                shape = ShapeLogin.small,
-                fieldvalues = fieldValues,
-                navigationController = navigationController
-            )
-
-            Spacer(modifier = Modifier.height(10.dp))
-
-            Text(
-                text = setColorInText(
-                    texto = "Não possui uma conta? ",
-                    textoASerDestacado = "Crie uma.",
-                    fontWeight = FontWeight.Medium,
-                    corEmDestaque = VERDE_ESCURO,
-                    ordemInversa = false
-                ),
-                textAlign = TextAlign.Center,
-                style = Typography.bodySmall,
-                fontWeight = FontWeight.Medium
-            )
         }
 
         Image(

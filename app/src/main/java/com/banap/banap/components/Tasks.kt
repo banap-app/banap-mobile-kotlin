@@ -51,7 +51,7 @@ fun Tasks (
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "Voce ainda não tem\n uma tarefa á ser feita!",
+                text = "Ainda não há um\ntalhão cadastrado!",
                 textAlign = TextAlign.Center,
                 style = Typography.bodyLarge,
                 fontWeight = FontWeight.Bold,
@@ -61,13 +61,14 @@ fun Tasks (
             Spacer(modifier = Modifier.height(40.dp))
 
             Button(
-                texto = "Nova Tarefa",
+                texto = "Novo Talhão",
                 modifier = Modifier
                     .padding(vertical = 18.dp, horizontal = 15.dp),
                 icon = true,
                 shape = ShapeProperty.small,
-                fieldvalues = null,
-                navigationController = null
+                fieldValues = null,
+                navigationController = null,
+                navigateTo = null
             )
         }
     }

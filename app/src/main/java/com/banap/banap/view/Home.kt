@@ -60,7 +60,8 @@ fun Home(
             Spacer(modifier = Modifier.height(60.dp))
 
             Property(
-                titulo = "Propriedade 01"
+                titulo = "Propriedade 01",
+                navigationController = navigationController
             )
 
             Spacer(modifier = Modifier.height(60.dp))

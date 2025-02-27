@@ -3,7 +3,6 @@ package com.banap.banap.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.IconButton
@@ -22,12 +21,10 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.banap.banap.R
 import com.banap.banap.ui.theme.BRANCO
 import com.banap.banap.ui.theme.Typography
@@ -51,7 +48,6 @@ fun TextBox(
     Column (
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 70.dp)
     ) {
         var open by remember {
             mutableStateOf(false)

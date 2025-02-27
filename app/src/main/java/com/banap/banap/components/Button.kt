@@ -28,8 +28,9 @@ fun Button(
     modifier: Modifier,
     icon: Boolean,
     shape: Shape,
-    fieldvalues: MutableList<String>?,
-    navigationController: NavController?
+    fieldValues: MutableList<String>?,
+    navigationController: NavController?,
+    navigateTo: String?
 ) {
     Card (
         shape = shape,
@@ -40,10 +41,15 @@ fun Button(
             defaultElevation = 2.dp
         ),
         onClick = {
-            checkCredentials(
-                fieldvalues,
-                navigationController
-            )
+            if (fieldValues != null) {
+                checkCredentials(
+                    fieldValues,
+                    navigationController
+                )
+            } else {
+                println(navigateTo + "teste")
+                navigationController?.navigate(navigateTo ?: "")
+            }
         }
     ) {
         Row (
