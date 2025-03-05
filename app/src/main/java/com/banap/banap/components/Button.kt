@@ -16,6 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.banap.banap.model.checkCredentials
 import com.banap.banap.ui.theme.BRANCO
 import com.banap.banap.ui.theme.Typography
 import com.banap.banap.ui.theme.VERDE_CLARO
@@ -25,7 +27,10 @@ fun Button(
     texto: String,
     modifier: Modifier,
     icon: Boolean,
-    shape: Shape
+    shape: Shape,
+    fieldValues: MutableList<String>?,
+    navigationController: NavController?,
+    navigateTo: String?
 ) {
     Card (
         shape = shape,
@@ -34,7 +39,18 @@ fun Button(
         ),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 2.dp
-        )
+        ),
+        onClick = {
+            if (fieldValues != null) {
+                checkCredentials(
+                    fieldValues,
+                    navigationController
+                )
+            } else {
+                println(navigateTo + "teste")
+                navigationController?.navigate(navigateTo ?: "")
+            }
+        }
     ) {
         Row (
             modifier = modifier,

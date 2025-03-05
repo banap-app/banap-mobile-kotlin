@@ -20,13 +20,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.banap.banap.ui.theme.ShapeProperty
 import com.banap.banap.ui.theme.Typography
 import com.banap.banap.ui.theme.VERDE_ESCURO
 
 @Composable
 fun Property(
-    titulo: String
+    titulo: String,
+    navigationController: NavController
 ) {
     Column (
         modifier = Modifier
@@ -85,7 +87,10 @@ fun Property(
                 modifier = Modifier
                     .padding(vertical = 18.dp, horizontal = 15.dp),
                 icon = true,
-                shape = ShapeProperty.small
+                shape = ShapeProperty.small,
+                fieldValues = null,
+                navigationController = navigationController,
+                navigateTo = "NewProperty"
             )
         }
     }

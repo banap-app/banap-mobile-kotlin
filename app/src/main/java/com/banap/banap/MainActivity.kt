@@ -10,6 +10,7 @@ import androidx.navigation.compose.rememberNavController
 import com.banap.banap.view.Home
 import com.banap.banap.ui.theme.BanapTheme
 import com.banap.banap.view.Login
+import com.banap.banap.view.NewProperty
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,7 +20,7 @@ class MainActivity : ComponentActivity() {
             BanapTheme {
                 val navigationController = rememberNavController()
 
-                NavHost(navController = navigationController, startDestination = "Login"){
+                NavHost(navController = navigationController, startDestination = "NewProperty"){
                     composable (
                         route = "Home"
                     ) {
@@ -30,6 +31,12 @@ class MainActivity : ComponentActivity() {
                         route = "Login"
                     ) {
                         Login(navigationController)
+                    }
+
+                    composable (
+                        route = "NewProperty"
+                    ) {
+                        NewProperty(navigationController)
                     }
                 }
             }
