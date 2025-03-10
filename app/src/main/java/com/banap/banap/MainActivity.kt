@@ -10,6 +10,7 @@ import androidx.navigation.compose.rememberNavController
 import com.banap.banap.view.Home
 import com.banap.banap.ui.theme.BanapTheme
 import com.banap.banap.view.Login
+import com.banap.banap.view.NewProducer
 import com.banap.banap.view.NewProperty
 
 class MainActivity : ComponentActivity() {
@@ -20,7 +21,7 @@ class MainActivity : ComponentActivity() {
             BanapTheme {
                 val navigationController = rememberNavController()
 
-                NavHost(navController = navigationController, startDestination = "NewProperty"){
+                NavHost(navController = navigationController, startDestination = "NewProducer"){
                     composable (
                         route = "Home"
                     ) {
@@ -37,6 +38,12 @@ class MainActivity : ComponentActivity() {
                         route = "NewProperty"
                     ) {
                         NewProperty(navigationController)
+                    }
+
+                    composable (
+                        route = "NewProducer"
+                    ) {
+                        NewProducer(navigationController)
                     }
                 }
             }
