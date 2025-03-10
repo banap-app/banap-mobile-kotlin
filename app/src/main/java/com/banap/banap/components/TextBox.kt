@@ -169,7 +169,7 @@ fun TextBox(
                 placeholder = {
                     Text(placeholder)
                 },
-                textStyle = Typography.bodySmall,
+                textStyle = Typography.bodySmall
             )
         }
     }
