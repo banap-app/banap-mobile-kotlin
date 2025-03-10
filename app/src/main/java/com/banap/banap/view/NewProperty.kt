@@ -1,13 +1,17 @@
 package com.banap.banap.view
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
+import com.banap.banap.components.ButtonRegistration
 import com.banap.banap.components.RegistrationHeader
+import com.banap.banap.components.TextBoxRegistration
+import com.banap.banap.components.TitleRegistration
 import com.banap.banap.ui.theme.BRANCO
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -21,7 +25,33 @@ fun NewProperty(
         containerColor = BRANCO
     ) {
         Column {
-            RegistrationHeader(navigationController)
+            RegistrationHeader(
+                navigationController,
+                rota = "Home"
+            )
+
+            TitleRegistration(
+                texto = "Cadastrando sua ",
+                textoASerDestacado = "propriedade...",
+                subtitulo = "O primeiro passo a ser feito é cadastrar sua propriedade..."
+            )
+
+            Column (
+                modifier = Modifier
+                    .fillMaxSize(),
+                verticalArrangement = Arrangement.SpaceBetween
+            ) {
+                var fieldValue = TextBoxRegistration(
+                    label = "Nome da Propriedade",
+                    placeholder = "Propriedade 01"
+                )
+
+                ButtonRegistration(
+                    navigationController,
+                    fieldValue,
+                    rota = "Home"
+                )
+            }
         }
     }
 }

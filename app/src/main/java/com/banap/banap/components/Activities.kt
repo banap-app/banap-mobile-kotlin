@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.banap.banap.model.setColorInText
 import com.banap.banap.ui.theme.Typography
 import com.banap.banap.ui.theme.VERDE_CLARO
@@ -36,6 +37,7 @@ fun Activities(
                 texto = atividadeRealizada,
                 textoASerDestacado = autorAtividade,
                 fontWeight = FontWeight.Normal,
+                fontSize = 16.sp,
                 corEmDestaque = VERDE_CLARO,
                 ordemInversa = true
             ),

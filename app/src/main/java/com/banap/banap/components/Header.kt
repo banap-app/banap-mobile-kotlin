@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.banap.banap.model.setColorInText
 import com.banap.banap.ui.theme.PRETO
@@ -37,6 +38,7 @@ fun Header(
                 texto = "Olá, ",
                 textoASerDestacado = "$nome!",
                 fontWeight = FontWeight.Bold,
+                fontSize = 16.sp,
                 corEmDestaque = VERDE_CLARO,
                 ordemInversa = false
             ),

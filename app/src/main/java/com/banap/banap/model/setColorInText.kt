@@ -5,11 +5,13 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.TextUnit
 
 fun setColorInText(
     texto: String,
     textoASerDestacado: String,
     fontWeight: FontWeight,
+    fontSize: TextUnit,
     corEmDestaque: Color,
     ordemInversa: Boolean
 ): AnnotatedString {
@@ -42,7 +44,8 @@ fun setColorInText(
             pushStyle(
                 SpanStyle(
                     fontWeight = fontWeight,
-                    color = corEmDestaque
+                    color = corEmDestaque,
+                    fontSize = fontSize
                 )
             )
 
