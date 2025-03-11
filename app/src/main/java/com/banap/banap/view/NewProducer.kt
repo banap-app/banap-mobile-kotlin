@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.banap.banap.components.ButtonRegistration
 import com.banap.banap.components.RegistrationHeader
@@ -30,11 +31,14 @@ fun NewProducer(
                 rota = "Home"
             )
 
-            // Arrumar componente
             TitleRegistration(
                 texto = "Olá, ",
-                textoASerDestacado = "Produtor! Antes de tudo...",
-                subtitulo = "Um cadastro deve ser realizado! Precisamos das suas informações, nos diga seu..."
+                textoASerDestacado = "Produtor!",
+                subTexto = "Antes de tudo...",
+                tamanhoTextoDestacado = 28.sp,
+                paginaUsuario = true,
+                subtituloDestacado = "Um cadastro deve ser realizado!",
+                subtitulo = "Precisamos das suas informações, nos diga seu..."
             )
 
             Column (

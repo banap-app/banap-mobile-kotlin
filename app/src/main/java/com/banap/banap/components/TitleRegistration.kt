@@ -10,8 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.banap.banap.model.setColorInText
 import com.banap.banap.ui.theme.Typography
 import com.banap.banap.ui.theme.VERDE_ESCURO
@@ -20,6 +20,10 @@ import com.banap.banap.ui.theme.VERDE_ESCURO
 fun TitleRegistration (
     texto: String,
     textoASerDestacado: String,
+    subTexto: String,
+    tamanhoTextoDestacado: TextUnit,
+    paginaUsuario: Boolean,
+    subtituloDestacado: String,
     subtitulo: String
 ) {
     Column (
@@ -27,26 +31,60 @@ fun TitleRegistration (
             .fillMaxWidth()
             .padding(horizontal = 30.dp)
     ) {
-        Text(
-            text = setColorInText(
-                texto = texto,
-                textoASerDestacado = textoASerDestacado,
-                fontWeight = FontWeight.ExtraBold,
-                fontSize = 36.sp,
-                corEmDestaque = VERDE_ESCURO,
-                ordemInversa = false
-            ),
-            style = Typography.titleLarge
-        )
+        if (paginaUsuario) {
+            Text(
+                text = setColorInText(
+                    texto = texto,
+                    textoASerDestacado = textoASerDestacado,
+                    fontWeight = FontWeight.ExtraBold,
+                    fontSize = tamanhoTextoDestacado,
+                    corEmDestaque = VERDE_ESCURO,
+                    ordemInversa = false
+                ),
+                style = Typography.titleLarge
+            )
+
+            Text(
+                text = subTexto,
+                style = Typography.titleLarge
+            )
+        } else {
+            Text(
+                text = setColorInText(
+                    texto = texto,
+                    textoASerDestacado = textoASerDestacado,
+                    fontWeight = FontWeight.ExtraBold,
+                    fontSize = tamanhoTextoDestacado,
+                    corEmDestaque = VERDE_ESCURO,
+                    ordemInversa = false
+                ),
+                style = Typography.titleLarge
+            )
+        }
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        Text(
-            text = subtitulo,
-            style = Typography.bodyLarge,
-            fontWeight = FontWeight.Normal,
-            textAlign = TextAlign.Justify
-        )
+        if (paginaUsuario) {
+            Text(
+                text = subtituloDestacado,
+                style = Typography.bodyLarge,
+                fontWeight = FontWeight.Medium
+            )
+
+            Text(
+                text = subtitulo,
+                style = Typography.bodyLarge,
+                fontWeight = FontWeight.Normal,
+                textAlign = TextAlign.Justify
+            )
+        } else {
+            Text(
+                text = subtitulo,
+                style = Typography.bodyLarge,
+                fontWeight = FontWeight.Normal,
+                textAlign = TextAlign.Justify
+            )
+        }
 
         Spacer(modifier = Modifier.height(40.dp))
     }

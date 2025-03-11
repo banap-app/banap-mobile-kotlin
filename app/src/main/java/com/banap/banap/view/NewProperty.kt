@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.banap.banap.components.ButtonRegistration
 import com.banap.banap.components.RegistrationHeader
@@ -33,6 +34,10 @@ fun NewProperty(
             TitleRegistration(
                 texto = "Cadastrando sua ",
                 textoASerDestacado = "propriedade...",
+                subTexto = "",
+                tamanhoTextoDestacado = 36.sp,
+                paginaUsuario = false,
+                subtituloDestacado = "",
                 subtitulo = "O primeiro passo a ser feito é cadastrar sua propriedade..."
             )
 
