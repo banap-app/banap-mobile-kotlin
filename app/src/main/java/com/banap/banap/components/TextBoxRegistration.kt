@@ -14,7 +14,8 @@ import com.banap.banap.ui.theme.Typography
 @Composable
 fun TextBoxRegistration(
     label: String,
-    placeholder: String
+    placeholder: String,
+    tipoTeclado: KeyboardType
 ) : String {
     var fieldBoxProperty by remember {
         mutableStateOf("")
@@ -33,7 +34,7 @@ fun TextBoxRegistration(
             modifier = Modifier
                 .fillMaxWidth(),
             maxLines = 1,
-            keyboardType = KeyboardType.Text,
+            keyboardType = tipoTeclado,
             icon = null,
             iconColor = PRETO,
             placeholder = placeholder,

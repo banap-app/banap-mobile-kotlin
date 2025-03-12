@@ -5,7 +5,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.sp
@@ -18,7 +20,7 @@ import com.banap.banap.ui.theme.BRANCO
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun NewProperty(
+fun NewProducer(
     navigationController: NavController
 ) {
     Scaffold (
@@ -33,13 +35,13 @@ fun NewProperty(
             )
 
             TitleRegistration(
-                texto = "Cadastrando sua ",
-                textoASerDestacado = "propriedade...",
-                subTexto = "",
-                tamanhoTextoDestacado = 36.sp,
-                paginaUsuario = false,
-                subtituloDestacado = "",
-                subtitulo = "O primeiro passo a ser feito é cadastrar sua propriedade..."
+                texto = "Olá, ",
+                textoASerDestacado = "Produtor!",
+                subTexto = "Antes de tudo...",
+                tamanhoTextoDestacado = 28.sp,
+                paginaUsuario = true,
+                subtituloDestacado = "Um cadastro deve ser realizado!",
+                subtitulo = "Precisamos das suas informações, nos diga seu..."
             )
 
             Column (
@@ -47,13 +49,25 @@ fun NewProperty(
                     .fillMaxSize(),
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
-                var fieldValue = TextBoxRegistration(
-                    label = "Nome da Propriedade",
-                    placeholder = "Propriedade 01",
+                var fieldNameValue = TextBoxRegistration(
+                    label = "Nome",
+                    placeholder = "Exemplo",
                     tipoTeclado = KeyboardType.Text
                 )
 
-                var fieldsNewProducer = mutableListOf(fieldValue)
+                var fieldEmailValue = TextBoxRegistration(
+                    label = "Email",
+                    placeholder = "exemplo@gmail.com",
+                    tipoTeclado = KeyboardType.Email
+                )
+
+                var fieldPasswordValue = TextBoxRegistration(
+                    label = "Senha",
+                    placeholder = "12345678",
+                    tipoTeclado = KeyboardType.Password
+                )
+
+                var fieldsNewProducer = mutableListOf(fieldNameValue, fieldEmailValue, fieldPasswordValue)
 
                 ButtonRegistration(
                     navigationController,
