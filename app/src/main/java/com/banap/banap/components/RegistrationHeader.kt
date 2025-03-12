@@ -2,6 +2,7 @@ package com.banap.banap.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -27,7 +28,8 @@ fun RegistrationHeader(
                 .padding(
                     top = 17.dp
                 )
-                .scale(1.1F)
+                .fillMaxWidth()
+                .scale(1.2F)
         )
 
         IconButton(
