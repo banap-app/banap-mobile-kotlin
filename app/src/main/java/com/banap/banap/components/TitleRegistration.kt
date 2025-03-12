@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
@@ -20,6 +21,7 @@ import com.banap.banap.ui.theme.VERDE_ESCURO
 fun TitleRegistration (
     texto: String,
     textoASerDestacado: String,
+    corEmDestaque: Color,
     subTexto: String,
     tamanhoTextoDestacado: TextUnit,
     paginaUsuario: Boolean,
@@ -38,7 +40,7 @@ fun TitleRegistration (
                     textoASerDestacado = textoASerDestacado,
                     fontWeight = FontWeight.ExtraBold,
                     fontSize = tamanhoTextoDestacado,
-                    corEmDestaque = VERDE_ESCURO,
+                    corEmDestaque = corEmDestaque,
                     ordemInversa = false
                 ),
                 style = Typography.titleLarge
@@ -64,7 +66,7 @@ fun TitleRegistration (
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        if (paginaUsuario) {
+        if (paginaUsuario || subtituloDestacado.isNotEmpty()) {
             Text(
                 text = subtituloDestacado,
                 style = Typography.bodyLarge,

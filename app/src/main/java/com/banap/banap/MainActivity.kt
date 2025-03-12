@@ -10,6 +10,8 @@ import androidx.navigation.compose.rememberNavController
 import com.banap.banap.view.Home
 import com.banap.banap.ui.theme.BanapTheme
 import com.banap.banap.view.Login
+import com.banap.banap.view.NewEngineerFirstPage
+import com.banap.banap.view.NewEngineerSecondPage
 import com.banap.banap.view.NewProducer
 import com.banap.banap.view.NewProperty
 
@@ -21,7 +23,7 @@ class MainActivity : ComponentActivity() {
             BanapTheme {
                 val navigationController = rememberNavController()
 
-                NavHost(navController = navigationController, startDestination = "NewProducer"){
+                NavHost(navController = navigationController, startDestination = "NewEngineerFirstPage"){
                     composable (
                         route = "Home"
                     ) {
@@ -44,6 +46,18 @@ class MainActivity : ComponentActivity() {
                         route = "NewProducer"
                     ) {
                         NewProducer(navigationController)
+                    }
+
+                    composable (
+                        route = "NewEngineerFirstPage"
+                    ) {
+                        NewEngineerFirstPage(navigationController)
+                    }
+
+                    composable (
+                        route = "NewEngineerSecondPage"
+                    ) {
+                        NewEngineerSecondPage(navigationController)
                     }
                 }
             }
