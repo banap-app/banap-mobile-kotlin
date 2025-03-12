@@ -5,8 +5,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.banap.banap.components.ButtonRegistration
@@ -46,26 +49,30 @@ fun NewProducer(
                     .fillMaxSize(),
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
-                // Arrumar componente
                 var fieldNameValue = TextBoxRegistration(
                     label = "Nome",
-                    placeholder = "Exemplo"
+                    placeholder = "Exemplo",
+                    tipoTeclado = KeyboardType.Text
                 )
 
                 var fieldEmailValue = TextBoxRegistration(
                     label = "Email",
-                    placeholder = "exemplo@gmail.com"
+                    placeholder = "exemplo@gmail.com",
+                    tipoTeclado = KeyboardType.Email
                 )
 
                 var fieldPasswordValue = TextBoxRegistration(
                     label = "Senha",
-                    placeholder = "12345678"
+                    placeholder = "12345678",
+                    tipoTeclado = KeyboardType.Password
                 )
 
-                // Arrumar componente
+                var fieldsNewProducer = mutableListOf(fieldNameValue, fieldEmailValue, fieldPasswordValue)
+
                 ButtonRegistration(
                     navigationController,
-                    fieldNameValue,
+                    fieldsNewProducer,
+                    buttonValue = "Cadastrar",
                     rota = "Home"
                 )
             }

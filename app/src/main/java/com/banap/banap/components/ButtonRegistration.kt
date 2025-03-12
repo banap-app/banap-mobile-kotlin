@@ -34,13 +34,21 @@ import com.banap.banap.ui.theme.VERDE_CLARO
 @Composable
 fun ButtonRegistration (
     navigationController: NavController,
-    fieldValue: String,
+    fieldValue: MutableList<String>,
+    buttonValue: String,
     rota: String
 ) {
     var containerColor: Color = CINZA_CLARO
     var contentColor: Color = CINZA_ESCURO
+    var countFields: Int = 0
 
-    if (fieldValue.length >= 8) {
+    for(item in fieldValue) {
+        if (item.length >= 8) {
+            countFields++
+        }
+    }
+
+    if (countFields == fieldValue.count()) {
         containerColor = VERDE_CLARO
         contentColor = BRANCO
     }
@@ -48,7 +56,7 @@ fun ButtonRegistration (
     Card (
         onClick = {
             if (fieldValue.isNotEmpty()) {
-                if (fieldValue.length >= 8) {
+                if (countFields == fieldValue.count()) {
                     navigationController.navigate(rota)
                 }
             }
@@ -69,7 +77,7 @@ fun ButtonRegistration (
             horizontalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "Continuar",
+                text = buttonValue,
                 modifier = Modifier
                     .padding(vertical = 35.dp),
                 style = Typography.titleMedium,
