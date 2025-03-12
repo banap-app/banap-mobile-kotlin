@@ -19,7 +19,7 @@ import com.banap.banap.ui.theme.VERDE_ESCURO
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun NewProperty(
+fun NewEngineerSecondPage (
     navigationController: NavController
 ) {
     Scaffold (
@@ -30,18 +30,18 @@ fun NewProperty(
         Column {
             RegistrationHeader(
                 navigationController,
-                rota = "Home"
+                rota = "NewEngineerFirstPage"
             )
 
             TitleRegistration(
-                texto = "Cadastrando sua ",
-                textoASerDestacado = "propriedade...",
+                texto = "Precisamos dos \nseus ",
+                textoASerDestacado = "documentos...",
                 corEmDestaque = VERDE_ESCURO,
                 subTexto = "",
-                tamanhoTextoDestacado = 36.sp,
+                tamanhoTextoDestacado = 28.sp,
                 paginaUsuario = false,
-                subtituloDestacado = "",
-                subtitulo = "O primeiro passo a ser feito é cadastrar sua propriedade..."
+                subtituloDestacado = "Agora falta pouco!",
+                subtitulo = "Só precisamos de uma confirmação de seus dados... "
             )
 
             Column (
@@ -49,17 +49,17 @@ fun NewProperty(
                     .fillMaxSize(),
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
-                var fieldValue = TextBoxRegistration(
-                    label = "Nome da Propriedade",
-                    placeholder = "Propriedade 01",
-                    tipoTeclado = KeyboardType.Text
+                var fieldCreaValue = TextBoxRegistration(
+                    label = "CREA",
+                    placeholder = "12345678",
+                    tipoTeclado = KeyboardType.Number
                 )
 
-                var fieldsNewProducer = mutableListOf(fieldValue)
+                var fieldNewEngineer = mutableListOf(fieldCreaValue)
 
                 ButtonRegistration(
                     navigationController,
-                    fieldsNewProducer,
+                    fieldNewEngineer,
                     buttonValue = "Cadastrar",
                     rota = "Home"
                 )

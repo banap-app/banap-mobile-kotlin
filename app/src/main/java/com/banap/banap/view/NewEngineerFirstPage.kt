@@ -19,7 +19,7 @@ import com.banap.banap.ui.theme.VERDE_ESCURO
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun NewProperty(
+fun NewEngineerFirstPage (
     navigationController: NavController
 ) {
     Scaffold (
@@ -34,14 +34,14 @@ fun NewProperty(
             )
 
             TitleRegistration(
-                texto = "Cadastrando sua ",
-                textoASerDestacado = "propriedade...",
+                texto = "Olá, ",
+                textoASerDestacado = "Engenheiro!",
                 corEmDestaque = VERDE_ESCURO,
-                subTexto = "",
-                tamanhoTextoDestacado = 36.sp,
-                paginaUsuario = false,
-                subtituloDestacado = "",
-                subtitulo = "O primeiro passo a ser feito é cadastrar sua propriedade..."
+                subTexto = "Antes de tudo...",
+                tamanhoTextoDestacado = 28.sp,
+                paginaUsuario = true,
+                subtituloDestacado = "Um cadastro deve ser realizado!",
+                subtitulo = "Precisamos das suas informações, nos diga seu..."
             )
 
             Column (
@@ -49,19 +49,31 @@ fun NewProperty(
                     .fillMaxSize(),
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
-                var fieldValue = TextBoxRegistration(
-                    label = "Nome da Propriedade",
-                    placeholder = "Propriedade 01",
+                var fieldNameValue = TextBoxRegistration(
+                    label = "Nome",
+                    placeholder = "Exemplo",
                     tipoTeclado = KeyboardType.Text
                 )
 
-                var fieldsNewProducer = mutableListOf(fieldValue)
+                var fieldEmailValue = TextBoxRegistration(
+                    label = "Email",
+                    placeholder = "exemplo@gmail.com",
+                    tipoTeclado = KeyboardType.Email
+                )
+
+                var fieldPasswordValue = TextBoxRegistration(
+                    label = "Senha",
+                    placeholder = "12345678",
+                    tipoTeclado = KeyboardType.Password
+                )
+
+                var fieldsNewEngineer = mutableListOf(fieldNameValue, fieldEmailValue, fieldPasswordValue)
 
                 ButtonRegistration(
                     navigationController,
-                    fieldsNewProducer,
-                    buttonValue = "Cadastrar",
-                    rota = "Home"
+                    fieldsNewEngineer,
+                    buttonValue = "Continuar",
+                    rota = "NewEngineerSecondPage"
                 )
             }
         }

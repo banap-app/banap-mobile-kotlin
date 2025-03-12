@@ -5,9 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.sp
@@ -17,6 +15,7 @@ import com.banap.banap.components.RegistrationHeader
 import com.banap.banap.components.TextBoxRegistration
 import com.banap.banap.components.TitleRegistration
 import com.banap.banap.ui.theme.BRANCO
+import com.banap.banap.ui.theme.VERDE_CLARO
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -37,6 +36,7 @@ fun NewProducer(
             TitleRegistration(
                 texto = "Olá, ",
                 textoASerDestacado = "Produtor!",
+                corEmDestaque = VERDE_CLARO,
                 subTexto = "Antes de tudo...",
                 tamanhoTextoDestacado = 28.sp,
                 paginaUsuario = true,
