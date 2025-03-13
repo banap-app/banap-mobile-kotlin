@@ -15,6 +15,7 @@ import com.banap.banap.view.NewEngineerFirstPage
 import com.banap.banap.view.NewEngineerSecondPage
 import com.banap.banap.view.NewProducer
 import com.banap.banap.view.NewProperty
+import com.banap.banap.view.Tutorial
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +26,7 @@ class MainActivity : ComponentActivity() {
             BanapTheme {
                 val navigationController = rememberNavController()
 
-                NavHost(navController = navigationController, startDestination = "Login"){
+                NavHost(navController = navigationController, startDestination = "Tutorial"){
                     composable (
                         route = "Home"
                     ) {
@@ -60,6 +61,12 @@ class MainActivity : ComponentActivity() {
                         route = "NewEngineerSecondPage"
                     ) {
                         NewEngineerSecondPage(navigationController)
+                    }
+
+                    composable (
+                        route = "Tutorial"
+                    ) {
+                        Tutorial(navigationController)
                     }
                 }
             }
