@@ -107,7 +107,8 @@ fun Tutorial(
                             }
                         },
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = VERDE_CLARO
+                            containerColor = VERDE_CLARO,
+                            contentColor = BRANCO
                         ),
                         shape = RoundedCornerShape(10.dp),
                         elevation = ButtonDefaults.elevatedButtonElevation(
@@ -131,7 +132,8 @@ fun Tutorial(
                             }
                         },
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = VERDE_CLARO
+                            containerColor = VERDE_CLARO,
+                            contentColor = BRANCO
                         ),
                         shape = RoundedCornerShape(10.dp),
                         elevation = ButtonDefaults.elevatedButtonElevation(

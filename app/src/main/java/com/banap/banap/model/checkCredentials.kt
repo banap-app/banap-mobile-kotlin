@@ -7,7 +7,7 @@ fun checkCredentials (
     navigationController: NavController?
 ) {
     if (
-        ((fieldValues?.get(0) ?: "") == "email@gmail.com") && ((fieldValues?.get(1) ?: "") == "Senha123")
+        ((fieldValues?.get(0) ?: "") == "email@gmail.com") && ((fieldValues?.get(1) ?: "") == "123")
     ) {
         navigationController?.navigate("Home")
     }
