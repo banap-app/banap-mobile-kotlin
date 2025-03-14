@@ -41,6 +41,7 @@ import com.banap.banap.ui.theme.BRANCO
 import com.banap.banap.ui.theme.PRETO
 import com.banap.banap.ui.theme.ShapeLogin
 import com.banap.banap.ui.theme.Typography
+import com.banap.banap.ui.theme.VERDE_CLARO
 import com.banap.banap.ui.theme.VERDE_ESCURO
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -179,7 +180,10 @@ fun Login(
                         shape = ShapeLogin.small,
                         fieldValues = fieldValues,
                         navigationController = navigationController,
-                        navigateTo = null
+                        navigateTo = null,
+                        backgroundColor = VERDE_CLARO,
+                        contentColor = BRANCO,
+                        defaultElevetion = 3.dp
                     )
 
                     Spacer(modifier = Modifier.height(10.dp))

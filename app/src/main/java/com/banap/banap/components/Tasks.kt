@@ -13,9 +13,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.banap.banap.ui.theme.BRANCO
 import com.banap.banap.ui.theme.CINZA_ESCURO
 import com.banap.banap.ui.theme.ShapeProperty
 import com.banap.banap.ui.theme.Typography
+import com.banap.banap.ui.theme.VERDE_CLARO
 import com.banap.banap.ui.theme.VERDE_ESCURO
 
 @Composable
@@ -68,7 +70,10 @@ fun Tasks (
                 shape = ShapeProperty.small,
                 fieldValues = null,
                 navigationController = null,
-                navigateTo = null
+                navigateTo = null,
+                backgroundColor = VERDE_CLARO,
+                contentColor = BRANCO,
+                defaultElevetion = 3.dp
             )
         }
     }
