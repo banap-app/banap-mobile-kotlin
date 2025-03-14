@@ -95,34 +95,9 @@ fun Tutorial(
                 horizontalArrangement = Arrangement.SpaceAround,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Row (
+                Row(
                     horizontalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
-                    Button(
-                        onClick = {
-                            scope.launch {
-                                pagerState.animateScrollToPage(
-                                    pagerState.currentPage + 1
-                                )
-                            }
-                        },
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = VERDE_CLARO,
-                            contentColor = BRANCO
-                        ),
-                        shape = RoundedCornerShape(10.dp),
-                        elevation = ButtonDefaults.elevatedButtonElevation(
-                            defaultElevation = 2.dp
-                        )
-                    ) {
-                        Icon(
-                            Icons.AutoMirrored.Filled.KeyboardArrowRight,
-                            contentDescription = "Flecha para a direita",
-                            modifier = Modifier
-                                .scale(1.2F)
-                        )
-                    }
-
                     Button(
                         onClick = {
                             scope.launch {
@@ -148,17 +123,36 @@ fun Tutorial(
                                 .scale(1.2F)
                         )
                     }
+
+                    Button(
+                        onClick = {
+                            scope.launch {
+                                pagerState.animateScrollToPage(
+                                    pagerState.currentPage + 1
+                                )
+                            }
+                        },
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = VERDE_CLARO,
+                            contentColor = BRANCO
+                        ),
+                        shape = RoundedCornerShape(10.dp),
+                        elevation = ButtonDefaults.elevatedButtonElevation(
+                            defaultElevation = 2.dp
+                        )
+                    ) {
+                        Icon(
+                            Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                            contentDescription = "Flecha para a direita",
+                            modifier = Modifier
+                                .scale(1.2F)
+                        )
+                    }
                 }
 
                 Button(
                     onClick = {
-                        if (pagerState.currentPage == 3) {
-                            navigationController.navigate("Login")
-                        } else {
-                            scope.launch {
-                                pagerState.animateScrollToPage(4)
-                            }
-                        }
+                        navigationController.navigate("Login")
                     },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = BRANCO,
@@ -176,7 +170,7 @@ fun Tutorial(
                     )
                 ) {
                     Text(
-                        text = if (pagerState.currentPage == 3) "Sair" else "Pular",
+                        text = "Pular",
                         style = Typography.bodyMedium,
                         fontSize = 14.sp
                     )
