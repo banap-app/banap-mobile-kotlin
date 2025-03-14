@@ -144,7 +144,7 @@ fun ReadyToStart(
                     shape = ShapeLogin.small,
                     fieldValues = null,
                     navigationController = navigationController,
-                    navigateTo = "",
+                    navigateTo = "UserChoice",
                     backgroundColor = VERDE_CLARO,
                     contentColor = BRANCO,
                     defaultElevetion = 1.dp

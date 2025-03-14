@@ -30,7 +30,7 @@ fun NewProducer(
         Column {
             RegistrationHeader(
                 navigationController,
-                rota = "Home"
+                rota = "UserChoice"
             )
 
             TitleRegistration(
@@ -73,7 +73,8 @@ fun NewProducer(
                     navigationController,
                     fieldsNewProducer,
                     buttonValue = "Cadastrar",
-                    rota = "Home"
+                    rota = "Home",
+                    backgroundColor = VERDE_CLARO
                 )
             }
         }

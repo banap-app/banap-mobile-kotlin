@@ -36,6 +36,7 @@ fun ButtonRegistration (
     navigationController: NavController,
     fieldValue: MutableList<String>,
     buttonValue: String,
+    backgroundColor: Color,
     rota: String
 ) {
     var containerColor: Color = CINZA_CLARO
@@ -49,7 +50,7 @@ fun ButtonRegistration (
     }
 
     if (countFields == fieldValue.count()) {
-        containerColor = VERDE_CLARO
+        containerColor = backgroundColor
         contentColor = BRANCO
     }
 

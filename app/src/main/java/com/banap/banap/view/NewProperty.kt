@@ -15,6 +15,7 @@ import com.banap.banap.components.RegistrationHeader
 import com.banap.banap.components.TextBoxRegistration
 import com.banap.banap.components.TitleRegistration
 import com.banap.banap.ui.theme.BRANCO
+import com.banap.banap.ui.theme.VERDE_CLARO
 import com.banap.banap.ui.theme.VERDE_ESCURO
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -61,7 +62,8 @@ fun NewProperty(
                     navigationController,
                     fieldsNewProducer,
                     buttonValue = "Cadastrar",
-                    rota = "Home"
+                    rota = "Home",
+                    backgroundColor = VERDE_CLARO
                 )
             }
         }
