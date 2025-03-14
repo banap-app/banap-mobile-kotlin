@@ -147,7 +147,7 @@ fun Tutorial(
 
                 Button(
                     onClick = {
-                        navigationController.navigate("Login")
+                        navigationController.navigate("ReadyToStart")
                     },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = BRANCO,

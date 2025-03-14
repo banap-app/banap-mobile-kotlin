@@ -21,8 +21,10 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.banap.banap.ui.theme.BRANCO
 import com.banap.banap.ui.theme.ShapeProperty
 import com.banap.banap.ui.theme.Typography
+import com.banap.banap.ui.theme.VERDE_CLARO
 import com.banap.banap.ui.theme.VERDE_ESCURO
 
 @Composable
@@ -90,7 +92,10 @@ fun Property(
                 shape = ShapeProperty.small,
                 fieldValues = null,
                 navigationController = navigationController,
-                navigateTo = "NewProperty"
+                navigateTo = "NewProperty",
+                backgroundColor = VERDE_CLARO,
+                contentColor = BRANCO,
+                defaultElevetion = 3.dp
             )
         }
     }

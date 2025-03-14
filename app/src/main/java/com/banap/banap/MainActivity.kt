@@ -15,6 +15,7 @@ import com.banap.banap.view.NewEngineerFirstPage
 import com.banap.banap.view.NewEngineerSecondPage
 import com.banap.banap.view.NewProducer
 import com.banap.banap.view.NewProperty
+import com.banap.banap.view.ReadyToStart
 import com.banap.banap.view.Tutorial
 
 class MainActivity : ComponentActivity() {
@@ -67,6 +68,12 @@ class MainActivity : ComponentActivity() {
                         route = "Tutorial"
                     ) {
                         Tutorial(navigationController)
+                    }
+
+                    composable (
+                        route = "ReadyToStart"
+                    ) {
+                        ReadyToStart(navigationController)
                     }
                 }
             }
