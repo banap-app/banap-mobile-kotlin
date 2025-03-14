@@ -15,6 +15,7 @@ import com.banap.banap.components.RegistrationHeader
 import com.banap.banap.components.TextBoxRegistration
 import com.banap.banap.components.TitleRegistration
 import com.banap.banap.ui.theme.BRANCO
+import com.banap.banap.ui.theme.VERDE_CLARO
 import com.banap.banap.ui.theme.VERDE_ESCURO
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -30,7 +31,7 @@ fun NewEngineerFirstPage (
         Column {
             RegistrationHeader(
                 navigationController,
-                rota = "Home"
+                rota = "UserChoice"
             )
 
             TitleRegistration(
@@ -73,7 +74,8 @@ fun NewEngineerFirstPage (
                     navigationController,
                     fieldsNewEngineer,
                     buttonValue = "Continuar",
-                    rota = "NewEngineerSecondPage"
+                    rota = "NewEngineerSecondPage",
+                    backgroundColor = VERDE_CLARO
                 )
             }
         }

@@ -17,6 +17,7 @@ import com.banap.banap.view.NewProducer
 import com.banap.banap.view.NewProperty
 import com.banap.banap.view.ReadyToStart
 import com.banap.banap.view.Tutorial
+import com.banap.banap.view.UserChoice
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,6 +75,12 @@ class MainActivity : ComponentActivity() {
                         route = "ReadyToStart"
                     ) {
                         ReadyToStart(navigationController)
+                    }
+
+                    composable (
+                        route = "UserChoice"
+                    ) {
+                        UserChoice(navigationController)
                     }
                 }
             }
