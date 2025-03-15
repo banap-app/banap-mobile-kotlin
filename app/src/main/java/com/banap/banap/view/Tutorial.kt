@@ -4,6 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -38,6 +39,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.min
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.banap.banap.R
@@ -109,7 +111,8 @@ fun Tutorial(
                         elevation = ButtonDefaults.elevatedButtonElevation(
                             defaultElevation = 2.dp
                         ),
-                        enabled = if (pagerState.currentPage >= 1) true else false
+                        enabled = if (pagerState.currentPage >= 1) true else false,
+                        contentPadding = PaddingValues(min(0.dp, 0.dp))
                     ) {
                         Icon(
                             Icons.AutoMirrored.Filled.KeyboardArrowLeft,
@@ -134,7 +137,9 @@ fun Tutorial(
                         shape = RoundedCornerShape(10.dp),
                         elevation = ButtonDefaults.elevatedButtonElevation(
                             defaultElevation = 2.dp
-                        )
+                        ),
+                        enabled = if (pagerState.currentPage == 3) false else true,
+                        contentPadding = PaddingValues(min(0.dp, 0.dp))
                     ) {
                         Icon(
                             Icons.AutoMirrored.Filled.KeyboardArrowRight,
@@ -185,7 +190,7 @@ fun Tutorial(
                         }
 
                         1 -> {
-                            imagem = R.drawable.tutorial_01
+                            imagem = R.drawable.tutorial_02
                             texto = "Ou utilize nosso produto para detectá-los automaticamente"
                         }
 
@@ -213,7 +218,7 @@ fun Tutorial(
                             ),
                             contentDescription = "Imagem de uma pessoa mexendo no celular",
                             modifier = Modifier
-                                .scale(1.2F)
+                                .scale(1.0F)
                         )
 
                         Spacer(modifier = Modifier.height(60.dp))

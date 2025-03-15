@@ -1,18 +1,24 @@
 package com.banap.banap.view
 
 import android.annotation.SuppressLint
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.ClickableSpan
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.absoluteOffset
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -28,6 +34,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.min
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
@@ -49,7 +56,7 @@ import com.banap.banap.ui.theme.VERDE_ESCURO
 fun Login(
     navigationController: NavController
 ) {
-    Scaffold (
+    Scaffold(
         modifier = Modifier
             .fillMaxSize(),
         containerColor = BRANCO
@@ -76,7 +83,8 @@ fun Login(
                 .absoluteOffset(
                     x = screenWidth - 150.dp,
                     y = 0.dp
-                ).scale(1.2F)
+                )
+                .scale(1.2F)
         )
 
         Image(
@@ -86,10 +94,11 @@ fun Login(
                 .absoluteOffset(
                     x = screenWidth - 130.dp,
                     y = 195.dp
-                ).scale(0.9F)
+                )
+                .scale(0.9F)
         )
 
-        Column (
+        Column(
             modifier = Modifier
                 .fillMaxSize(),
             verticalArrangement = Arrangement.Center,
@@ -113,7 +122,7 @@ fun Login(
 
             Spacer(modifier = Modifier.height(40.dp))
 
-            Box (
+            Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 70.dp)
@@ -195,7 +204,9 @@ fun Login(
                             fontWeight = FontWeight.Medium,
                             fontSize = 14.sp,
                             corEmDestaque = VERDE_ESCURO,
-                            ordemInversa = false
+                            ordemInversa = false,
+                            useLink = true,
+                            navigationController = navigationController
                         ),
                         textAlign = TextAlign.Center,
                         style = Typography.bodySmall,
@@ -214,7 +225,8 @@ fun Login(
                 .absoluteOffset(
                     x = 50.dp,
                     y = screenHeight - 175.dp
-                ).scale(0.9F)
+                )
+                .scale(0.9F)
         )
 
         Image(
@@ -224,7 +236,8 @@ fun Login(
                 .absoluteOffset(
                     x = 0.dp,
                     y = screenHeight - 150.dp
-                ).scale(1.2F)
+                )
+                .scale(1.2F)
         )
     }
 }

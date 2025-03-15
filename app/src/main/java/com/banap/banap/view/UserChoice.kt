@@ -80,8 +80,7 @@ fun UserChoice(
     ) {
         Column {
             RegistrationHeader(
-                navigationController,
-                rota = "ReadyToStart"
+                navigationController
             )
 
             TitleRegistration(

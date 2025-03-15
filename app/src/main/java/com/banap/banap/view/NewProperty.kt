@@ -30,8 +30,7 @@ fun NewProperty(
     ) {
         Column {
             RegistrationHeader(
-                navigationController,
-                rota = "Home"
+                navigationController
             )
 
             TitleRegistration(

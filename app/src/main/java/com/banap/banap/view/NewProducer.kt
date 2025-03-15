@@ -29,8 +29,7 @@ fun NewProducer(
     ) {
         Column {
             RegistrationHeader(
-                navigationController,
-                rota = "UserChoice"
+                navigationController
             )
 
             TitleRegistration(

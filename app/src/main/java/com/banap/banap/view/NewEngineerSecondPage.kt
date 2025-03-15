@@ -30,8 +30,7 @@ fun NewEngineerSecondPage (
     ) {
         Column {
             RegistrationHeader(
-                navigationController,
-                rota = "NewEngineerFirstPage"
+                navigationController
             )
 
             TitleRegistration(
