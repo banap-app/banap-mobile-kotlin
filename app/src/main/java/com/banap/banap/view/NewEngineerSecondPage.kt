@@ -49,21 +49,21 @@ fun NewEngineerSecondPage (
                     .fillMaxSize(),
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
-                var fieldCreaValue = TextBoxRegistration(
-                    label = "CREA",
-                    placeholder = "12345678",
-                    tipoTeclado = KeyboardType.Number
-                )
-
-                var fieldNewEngineer = mutableListOf(fieldCreaValue)
-
-                ButtonRegistration(
-                    navigationController,
-                    fieldNewEngineer,
-                    buttonValue = "Cadastrar",
-                    rota = "Home",
-                    backgroundColor = VERDE_CLARO
-                )
+//                var fieldCreaValue = TextBoxRegistration(
+//                    label = "CREA",
+//                    placeholder = "12345678",
+//                    tipoTeclado = KeyboardType.Number
+//                )
+//
+//                var fieldNewEngineer = mutableListOf(fieldCreaValue)
+//
+//                ButtonRegistration(
+//                    navigationController,
+//                    fieldNewEngineer,
+//                    buttonValue = "Cadastrar",
+//                    rota = "Home",
+//                    backgroundColor = VERDE_CLARO
+//                )
             }
         }
     }

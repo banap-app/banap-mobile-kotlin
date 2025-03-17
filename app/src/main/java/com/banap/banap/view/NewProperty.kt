@@ -49,21 +49,21 @@ fun NewProperty(
                     .fillMaxSize(),
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
-                var fieldValue = TextBoxRegistration(
-                    label = "Nome da Propriedade",
-                    placeholder = "Propriedade 01",
-                    tipoTeclado = KeyboardType.Text
-                )
-
-                var fieldsNewProducer = mutableListOf(fieldValue)
-
-                ButtonRegistration(
-                    navigationController,
-                    fieldsNewProducer,
-                    buttonValue = "Cadastrar",
-                    rota = "Home",
-                    backgroundColor = VERDE_CLARO
-                )
+//                var fieldValue = TextBoxRegistration(
+//                    label = "Nome da Propriedade",
+//                    placeholder = "Propriedade 01",
+//                    tipoTeclado = KeyboardType.Text
+//                )
+//
+//                var fieldsNewProducer = mutableListOf(fieldValue)
+//
+//                ButtonRegistration(
+//                    navigationController,
+//                    fieldsNewProducer,
+//                    buttonValue = "Cadastrar",
+//                    rota = "Home",
+//                    backgroundColor = VERDE_CLARO
+//                )
             }
         }
     }

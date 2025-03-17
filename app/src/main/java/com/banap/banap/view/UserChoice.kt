@@ -203,13 +203,13 @@ fun UserChoice(
 
             Spacer(modifier = Modifier.weight(1F))
 
-            ButtonRegistration(
-                navigationController,
-                fieldValue = cardsUserChoice,
-                buttonValue = "Continuar",
-                backgroundColor = colorButton,
-                rota = if (cardProducer) "NewProducer" else "NewEngineerFirstPage"
-            )
+//            ButtonRegistration(
+//                navigationController,
+//                fieldValue = cardsUserChoice,
+//                buttonValue = "Continuar",
+//                backgroundColor = colorButton,
+//                rota = if (cardProducer) "NewProducer" else "NewEngineerFirstPage"
+//            )
         }
     }
 }

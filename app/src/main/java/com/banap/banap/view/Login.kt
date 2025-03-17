@@ -128,43 +128,43 @@ fun Login(
                     .padding(horizontal = 70.dp)
             ) {
                 Column {
-                    TextBox(
-                        value = fieldEmail,
-                        onValueChange = {
-                            fieldEmail = it
-                        },
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        maxLines = 1,
-                        keyboardType = KeyboardType.Email,
-                        icon = R.drawable.email,
-                        iconColor = PRETO,
-                        placeholder = "email@gmail.com",
-                        passwordTextBox = false,
-                        label = "Email",
-                        labelTextStyle = Typography.labelSmall,
-                        labelColor = PRETO
-                    )
+//                    TextBox(
+//                        value = fieldEmail,
+//                        onValueChange = {
+//                            fieldEmail = it
+//                        },
+//                        modifier = Modifier
+//                            .fillMaxWidth(),
+//                        maxLines = 1,
+//                        keyboardType = KeyboardType.Email,
+//                        icon = R.drawable.email,
+//                        iconColor = PRETO,
+//                        placeholder = "email@gmail.com",
+//                        passwordTextBox = false,
+//                        label = "Email",
+//                        labelTextStyle = Typography.labelSmall,
+//                        labelColor = PRETO
+//                    )
 
                     Spacer(modifier = Modifier.height(30.dp))
 
-                    TextBox(
-                        value = fieldSenha,
-                        onValueChange = {
-                            fieldSenha = it
-                        },
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        maxLines = 1,
-                        keyboardType = KeyboardType.Password,
-                        icon = R.drawable.lock,
-                        iconColor = PRETO,
-                        placeholder = "Senha123",
-                        passwordTextBox = true,
-                        label = "Senha",
-                        labelTextStyle = Typography.labelSmall,
-                        labelColor = PRETO
-                    )
+//                    TextBox(
+//                        value = fieldSenha,
+//                        onValueChange = {
+//                            fieldSenha = it
+//                        },
+//                        modifier = Modifier
+//                            .fillMaxWidth(),
+//                        maxLines = 1,
+//                        keyboardType = KeyboardType.Password,
+//                        icon = R.drawable.lock,
+//                        iconColor = PRETO,
+//                        placeholder = "Senha123",
+//                        passwordTextBox = true,
+//                        label = "Senha",
+//                        labelTextStyle = Typography.labelSmall,
+//                        labelColor = PRETO
+//                    )
 
                     Spacer(modifier = Modifier.height(5.dp))
 

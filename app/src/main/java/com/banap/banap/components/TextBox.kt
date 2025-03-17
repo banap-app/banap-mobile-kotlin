@@ -43,7 +43,8 @@ fun TextBox(
     passwordTextBox: Boolean,
     label: String,
     labelTextStyle: TextStyle,
-    labelColor: Color
+    labelColor: Color,
+    isError: Boolean
 ) {
     Column (
         modifier = Modifier
@@ -169,7 +170,8 @@ fun TextBox(
                 placeholder = {
                     Text(placeholder)
                 },
-                textStyle = Typography.bodySmall
+                textStyle = Typography.bodySmall,
+                isError = isError
             )
         }
     }

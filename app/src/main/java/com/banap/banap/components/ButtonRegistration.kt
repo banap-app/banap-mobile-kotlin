@@ -1,5 +1,6 @@
 package com.banap.banap.components
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,12 +15,14 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -29,38 +32,43 @@ import com.banap.banap.ui.theme.BRANCO
 import com.banap.banap.ui.theme.CINZA_CLARO
 import com.banap.banap.ui.theme.CINZA_ESCURO
 import com.banap.banap.ui.theme.Typography
-import com.banap.banap.ui.theme.VERDE_CLARO
+import com.banap.banap.view.RegistrationFormEvent
+import com.banap.banap.view.RegistrationFormState
+import com.banap.banap.view.RegistrationViewModel
 
 @Composable
-fun ButtonRegistration (
+fun ButtonRegistration(
     navigationController: NavController,
-    fieldValue: MutableList<String>,
+    viewModel: RegistrationViewModel,
+    textFieldState: RegistrationFormState,
     buttonValue: String,
     backgroundColor: Color,
     rota: String
 ) {
-    var containerColor: Color = CINZA_CLARO
-    var contentColor: Color = CINZA_ESCURO
-    var countFields: Int = 0
+    val context = LocalContext.current
 
-    for(item in fieldValue) {
-        if (item.length >= 8) {
-            countFields++
-        }
-    }
+    LaunchedEffect(key1 = context) {
+        viewModel.validationEvents.collect { event ->
+            when (event) {
+                is RegistrationViewModel.ValidationEvent.Success -> {
+                    Toast.makeText(
+                        context,
+                        "Registration successful",
+                        Toast.LENGTH_LONG
+                    ).show()
 
-    if (countFields == fieldValue.count()) {
-        containerColor = backgroundColor
-        contentColor = BRANCO
-    }
-
-    Card (
-        onClick = {
-            if (fieldValue.isNotEmpty()) {
-                if (countFields == fieldValue.count()) {
                     navigationController.navigate(rota)
                 }
             }
+        }
+    }
+
+    var containerColor: Color = CINZA_CLARO
+    var contentColor: Color = CINZA_ESCURO
+
+    Card(
+        onClick = {
+            viewModel.onEvent(RegistrationFormEvent.Submit)
         },
         modifier = Modifier
             .height(98.dp)
@@ -71,7 +79,7 @@ fun ButtonRegistration (
         ),
         shape = RoundedCornerShape(0.dp)
     ) {
-        Row (
+        Row(
             modifier = Modifier
                 .fillMaxSize(),
             verticalAlignment = Alignment.CenterVertically,

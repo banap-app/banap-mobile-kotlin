@@ -3,7 +3,6 @@ package com.banap.banap.components
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.runtime.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
@@ -13,24 +12,21 @@ import com.banap.banap.ui.theme.Typography
 
 @Composable
 fun TextBoxRegistration(
+    value: String,
+    onValueChange: (String) -> Unit,
+    isError: Boolean,
     label: String,
     placeholder: String,
     tipoTeclado: KeyboardType
-) : String {
-    var fieldBoxProperty by remember {
-        mutableStateOf("")
-    }
-
+) {
     Row (
         modifier = Modifier
             .padding(horizontal = 30.dp)
             .fillMaxWidth(),
     ) {
         TextBox(
-            value = fieldBoxProperty,
-            onValueChange = {
-                fieldBoxProperty = it
-            },
+            value = value,
+            onValueChange = onValueChange,
             modifier = Modifier
                 .fillMaxWidth(),
             maxLines = 1,
@@ -41,9 +37,8 @@ fun TextBoxRegistration(
             passwordTextBox = false,
             label = label,
             labelTextStyle = Typography.titleMedium,
-            labelColor = PRETO
+            labelColor = PRETO,
+            isError = isError
         )
     }
-
-    return fieldBoxProperty
 }
