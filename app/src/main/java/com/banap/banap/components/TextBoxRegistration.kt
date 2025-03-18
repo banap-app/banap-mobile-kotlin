@@ -19,9 +19,12 @@ fun TextBoxRegistration(
     onValueChange: (String) -> Unit,
     isError: Boolean,
     errorState: String?,
+    isPassword: Boolean = false,
     label: String,
     placeholder: String,
-    tipoTeclado: KeyboardType
+    tipoTeclado: KeyboardType,
+    modifier: Modifier,
+    lastOne: Boolean = false
 ) {
     Row (
         modifier = Modifier
@@ -32,18 +35,18 @@ fun TextBoxRegistration(
             TextBox(
                 value = value,
                 onValueChange = onValueChange,
-                modifier = Modifier
-                    .fillMaxWidth(),
+                modifier = modifier,
                 maxLines = 1,
                 keyboardType = tipoTeclado,
                 icon = null,
                 iconColor = PRETO,
                 placeholder = placeholder,
-                passwordTextBox = false,
+                passwordTextBox = isPassword,
                 label = label,
                 labelTextStyle = Typography.titleMedium,
                 labelColor = PRETO,
-                isError = isError
+                isError = isError,
+                lastOne = lastOne
             )
 
             if (errorState != null) {

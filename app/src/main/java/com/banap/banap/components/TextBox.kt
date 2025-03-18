@@ -1,9 +1,11 @@
 package com.banap.banap.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -16,11 +18,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -44,9 +49,12 @@ fun TextBox(
     label: String,
     labelTextStyle: TextStyle,
     labelColor: Color,
-    isError: Boolean
+    isError: Boolean,
+    lastOne: Boolean = false
 ) {
-    Column (
+    val focusManager = LocalFocusManager.current
+
+    Column(
         modifier = Modifier
             .fillMaxWidth()
     ) {
@@ -148,31 +156,94 @@ fun TextBox(
             }
 
         } else {
-            TextField(
-                value = value,
-                onValueChange,
-                modifier,
-                maxLines = maxLines,
-                colors = OutlinedTextFieldDefaults.colors(
-                    focusedBorderColor = VERDE_ESCURO,
-                    cursorColor = VERDE_ESCURO,
-                    focusedContainerColor = BRANCO,
-                    unfocusedContainerColor = BRANCO,
-                    unfocusedTextColor = VERDE_ESCURO,
-                    focusedTextColor = VERDE_ESCURO,
-                    unfocusedPlaceholderColor = VERDE_ESCURO,
-                    focusedPlaceholderColor = VERDE_ESCURO
-                ),
-                shape = RoundedCornerShape(0.dp),
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = keyboardType
-                ),
-                placeholder = {
-                    Text(placeholder)
-                },
-                textStyle = Typography.bodySmall,
-                isError = isError
-            )
+
+            if (passwordTextBox) {
+                TextField(
+                    value = value,
+                    onValueChange,
+                    modifier,
+                    maxLines = maxLines,
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedBorderColor = VERDE_ESCURO,
+                        cursorColor = VERDE_ESCURO,
+                        focusedContainerColor = BRANCO,
+                        unfocusedContainerColor = BRANCO,
+                        unfocusedTextColor = VERDE_ESCURO,
+                        focusedTextColor = VERDE_ESCURO,
+                        unfocusedPlaceholderColor = VERDE_ESCURO,
+                        focusedPlaceholderColor = VERDE_ESCURO
+                    ),
+                    shape = RoundedCornerShape(0.dp),
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = keyboardType,
+                        imeAction = if (!lastOne) ImeAction.Next else ImeAction.Done
+                    ),
+                    keyboardActions = KeyboardActions(
+                        onNext = {
+                            focusManager.moveFocus(FocusDirection.Down)
+                        },
+                        onDone = {
+                            focusManager.clearFocus()
+                        }
+                    ),
+                    placeholder = {
+                        Text(placeholder)
+                    },
+                    textStyle = Typography.bodySmall,
+                    isError = isError,
+                    trailingIcon = {
+                        IconButton(
+                            onClick = {
+                                open = !open
+                            }
+                        ) {
+                            Image(
+                                imageVector = ImageVector.vectorResource(id = if (!open) R.drawable.eye_slashed else R.drawable.eye_open),
+                                contentDescription = "Icone de visão",
+                                modifier = Modifier
+                                    .scale(1.4F)
+                            )
+                        }
+                    },
+                    visualTransformation = if (!open) PasswordVisualTransformation() else VisualTransformation.None,
+                )
+            } else {
+                TextField(
+                    value = value,
+                    onValueChange,
+                    modifier,
+                    maxLines = maxLines,
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedBorderColor = VERDE_ESCURO,
+                        cursorColor = VERDE_ESCURO,
+                        focusedContainerColor = BRANCO,
+                        unfocusedContainerColor = BRANCO,
+                        unfocusedTextColor = VERDE_ESCURO,
+                        focusedTextColor = VERDE_ESCURO,
+                        unfocusedPlaceholderColor = VERDE_ESCURO,
+                        focusedPlaceholderColor = VERDE_ESCURO
+                    ),
+                    shape = RoundedCornerShape(0.dp),
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = keyboardType,
+                        imeAction = if (!lastOne) ImeAction.Next else ImeAction.Done
+                    ),
+                    keyboardActions = KeyboardActions(
+                        onNext = {
+                            focusManager.moveFocus(FocusDirection.Down)
+                        },
+                        onDone = {
+                            focusManager.clearFocus()
+                        }
+                    ),
+                    placeholder = {
+                        Text(placeholder)
+                    },
+                    textStyle = Typography.bodySmall,
+                    isError = isError
+                )
+            }
+
         }
     }
 }

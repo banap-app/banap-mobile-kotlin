@@ -4,9 +4,13 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.focus.onFocusEvent
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -60,36 +64,47 @@ fun NewProducer(
                         value = state.name,
                         onValueChange = {
                             viewModel.onEvent(RegistrationFormEvent.NameChanged(it))
+                            viewModel.onEvent(RegistrationFormEvent.Submit)
                         },
                         isError = state.nameError != null,
                         errorState = state.nameError,
                         label = "Nome",
                         placeholder = "Exemplo",
-                        tipoTeclado = KeyboardType.Text
+                        tipoTeclado = KeyboardType.Text,
+                        modifier = Modifier
+                            .fillMaxWidth()
                     )
 
                     TextBoxRegistration(
                         value = state.email,
                         onValueChange = {
                             viewModel.onEvent(RegistrationFormEvent.EmailChanged(it))
+                            viewModel.onEvent(RegistrationFormEvent.Submit)
                         },
                         isError = state.emailError != null,
                         errorState = state.emailError,
                         label = "Email",
                         placeholder = "exemplo@gmail.com",
-                        tipoTeclado = KeyboardType.Email
+                        tipoTeclado = KeyboardType.Email,
+                        modifier = Modifier
+                            .fillMaxWidth()
                     )
 
                     TextBoxRegistration(
                         value = state.password,
                         onValueChange = {
                             viewModel.onEvent(RegistrationFormEvent.PasswordChanged(it))
+                            viewModel.onEvent(RegistrationFormEvent.Submit)
                         },
                         isError = state.passwordError != null,
                         errorState = state.passwordError,
+                        isPassword = true,
                         label = "Senha",
                         placeholder = "12345678",
-                        tipoTeclado = KeyboardType.Password
+                        tipoTeclado = KeyboardType.Password,
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        lastOne = true
                     )
                 }
 

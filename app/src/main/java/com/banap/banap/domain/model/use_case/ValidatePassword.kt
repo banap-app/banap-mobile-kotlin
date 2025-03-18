@@ -3,6 +3,13 @@ package com.banap.banap.domain.model.use_case
 class ValidatePassword {
 
     fun execute (password: String) : ValidationResult {
+        if (password.isBlank()) {
+            return ValidationResult(
+                successful = false,
+                errorMessage = "A senha não pode estar em branco"
+            )
+        }
+
         if (password.length < 8) {
             return ValidationResult(
                 successful = false,
