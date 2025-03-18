@@ -1,20 +1,12 @@
 package com.banap.banap.view
 
 import android.annotation.SuppressLint
-import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -25,9 +17,7 @@ import com.banap.banap.components.RegistrationHeader
 import com.banap.banap.components.TextBoxRegistration
 import com.banap.banap.components.TitleRegistration
 import com.banap.banap.ui.theme.BRANCO
-import com.banap.banap.ui.theme.Typography
 import com.banap.banap.ui.theme.VERDE_CLARO
-import com.banap.banap.ui.theme.VERMELHO
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -63,30 +53,20 @@ fun NewProducer(
                     .fillMaxSize(),
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
-                Column {
+                Column (
+                    verticalArrangement = Arrangement.spacedBy(40.dp)
+                ) {
                     TextBoxRegistration(
                         value = state.name,
                         onValueChange = {
                             viewModel.onEvent(RegistrationFormEvent.NameChanged(it))
                         },
                         isError = state.nameError != null,
+                        errorState = state.nameError,
                         label = "Nome",
                         placeholder = "Exemplo",
                         tipoTeclado = KeyboardType.Text
                     )
-
-                    if (state.nameError != null) {
-                        Text(
-                            text = state.nameError,
-                            color = VERMELHO,
-                            style = Typography.displaySmall,
-                            modifier = Modifier
-                                .padding(horizontal = 30.dp)
-                                .fillMaxWidth()
-                        )
-                    }
-
-                    Spacer(modifier = Modifier.height(40.dp))
 
                     TextBoxRegistration(
                         value = state.email,
@@ -94,23 +74,11 @@ fun NewProducer(
                             viewModel.onEvent(RegistrationFormEvent.EmailChanged(it))
                         },
                         isError = state.emailError != null,
+                        errorState = state.emailError,
                         label = "Email",
                         placeholder = "exemplo@gmail.com",
                         tipoTeclado = KeyboardType.Email
                     )
-
-                    if (state.emailError != null) {
-                        Text(
-                            text = state.emailError,
-                            color = VERMELHO,
-                            style = Typography.displaySmall,
-                            modifier = Modifier
-                                .padding(horizontal = 30.dp)
-                                .fillMaxWidth()
-                        )
-                    }
-
-                    Spacer(modifier = Modifier.height(40.dp))
 
                     TextBoxRegistration(
                         value = state.password,
@@ -118,21 +86,11 @@ fun NewProducer(
                             viewModel.onEvent(RegistrationFormEvent.PasswordChanged(it))
                         },
                         isError = state.passwordError != null,
+                        errorState = state.passwordError,
                         label = "Senha",
                         placeholder = "12345678",
                         tipoTeclado = KeyboardType.Password
                     )
-
-                    if (state.passwordError != null) {
-                        Text(
-                            text = state.passwordError,
-                            color = VERMELHO,
-                            style = Typography.displaySmall,
-                            modifier = Modifier
-                                .padding(horizontal = 30.dp)
-                                .fillMaxWidth()
-                        )
-                    }
                 }
 
                 ButtonRegistration(
