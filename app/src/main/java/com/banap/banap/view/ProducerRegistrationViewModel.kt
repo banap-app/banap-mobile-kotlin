@@ -11,7 +11,7 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
-class RegistrationViewModel (
+class ProducerRegistrationViewModel (
     private val validateName: ValidateName = ValidateName(),
     private val validateEmail: ValidateEmail = ValidateEmail(),
     private val validatePassword: ValidatePassword = ValidatePassword()
@@ -21,27 +21,27 @@ class RegistrationViewModel (
     private val validationEventChannel = Channel<ValidationEvent>()
     val validationEvents = validationEventChannel.receiveAsFlow()
 
-    fun onEvent(event: RegistrationFormEvent) {
+    fun onEvent(event: ProducerRegistrationFormEvent) {
         when (event) {
-            is RegistrationFormEvent.NameChanged -> {
+            is ProducerRegistrationFormEvent.NameChanged -> {
                 state = state.copy(
                     name = event.name
                 )
             }
 
-            is RegistrationFormEvent.EmailChanged -> {
+            is ProducerRegistrationFormEvent.EmailChanged -> {
                 state = state.copy(
                     email = event.email
                 )
             }
 
-            is RegistrationFormEvent.PasswordChanged -> {
+            is ProducerRegistrationFormEvent.PasswordChanged -> {
                 state = state.copy(
                     password = event.password
                 )
             }
 
-            is RegistrationFormEvent.Submit -> {
+            is ProducerRegistrationFormEvent.Submit -> {
                 submitData()
             }
         }

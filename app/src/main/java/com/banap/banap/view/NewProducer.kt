@@ -1,16 +1,18 @@
 package com.banap.banap.view
 
 import android.annotation.SuppressLint
+import android.content.Context
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.focus.onFocusEvent
-import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -28,8 +30,26 @@ import com.banap.banap.ui.theme.VERDE_CLARO
 fun NewProducer(
     navigationController: NavController
 ) {
-    val viewModel = viewModel<RegistrationViewModel>()
-    val state = viewModel.state
+    val context = LocalContext.current
+
+    val viewModelName = viewModel<NameTextFieldViewModel>()
+    val stateName = viewModelName.state
+
+    val viewModelEmail = viewModel<EmailTextFieldViewModel>()
+    val stateEmail = viewModelEmail.state
+
+    val viewModelPassword = viewModel<PasswordTextFieldViewModel>()
+    val statePassword = viewModelPassword.state
+
+    val isSuccess = ValidationData(
+        context,
+        viewModelName,
+        viewModelEmail,
+        viewModelPassword,
+        stateName,
+        stateEmail,
+        statePassword
+    )
 
     Scaffold(
         modifier = Modifier
@@ -61,13 +81,13 @@ fun NewProducer(
                     verticalArrangement = Arrangement.spacedBy(40.dp)
                 ) {
                     TextBoxRegistration(
-                        value = state.name,
+                        value = stateName.name,
                         onValueChange = {
-                            viewModel.onEvent(RegistrationFormEvent.NameChanged(it))
-                            viewModel.onEvent(RegistrationFormEvent.Submit)
+                            viewModelName.onEvent(NameTextFieldFormEvent.NameChanged(it))
+                            viewModelName.onEvent(NameTextFieldFormEvent.Submit)
                         },
-                        isError = state.nameError != null,
-                        errorState = state.nameError,
+                        isError = stateName.nameError != null,
+                        errorState = stateName.nameError,
                         label = "Nome",
                         placeholder = "Exemplo",
                         tipoTeclado = KeyboardType.Text,
@@ -76,13 +96,13 @@ fun NewProducer(
                     )
 
                     TextBoxRegistration(
-                        value = state.email,
+                        value = stateEmail.email,
                         onValueChange = {
-                            viewModel.onEvent(RegistrationFormEvent.EmailChanged(it))
-                            viewModel.onEvent(RegistrationFormEvent.Submit)
+                            viewModelEmail.onEvent(EmailTextFieldFormEvent.EmailChanged(it))
+                            viewModelEmail.onEvent(EmailTextFieldFormEvent.Submit)
                         },
-                        isError = state.emailError != null,
-                        errorState = state.emailError,
+                        isError = stateEmail.emailError != null,
+                        errorState = stateEmail.emailError,
                         label = "Email",
                         placeholder = "exemplo@gmail.com",
                         tipoTeclado = KeyboardType.Email,
@@ -91,13 +111,13 @@ fun NewProducer(
                     )
 
                     TextBoxRegistration(
-                        value = state.password,
+                        value = statePassword.password,
                         onValueChange = {
-                            viewModel.onEvent(RegistrationFormEvent.PasswordChanged(it))
-                            viewModel.onEvent(RegistrationFormEvent.Submit)
+                            viewModelPassword.onEvent(PasswordTextFieldFormEvent.PasswordChanged(it))
+                            viewModelPassword.onEvent(PasswordTextFieldFormEvent.Submit)
                         },
-                        isError = state.passwordError != null,
-                        errorState = state.passwordError,
+                        isError = statePassword.passwordError != null,
+                        errorState = statePassword.passwordError,
                         isPassword = true,
                         label = "Senha",
                         placeholder = "12345678",
@@ -109,14 +129,91 @@ fun NewProducer(
                 }
 
                 ButtonRegistration(
-                    navigationController,
-                    viewModel,
-                    textFieldState = state,
+                    onClick = {
+                        viewModelName.onEvent(NameTextFieldFormEvent.Submit)
+                        viewModelEmail.onEvent(EmailTextFieldFormEvent.Submit)
+                        viewModelPassword.onEvent(PasswordTextFieldFormEvent.Submit)
+
+                        if (isSuccess) {
+                            navigationController.navigate("Home")
+                        }
+                    },
                     buttonValue = "Cadastrar",
-                    rota = "Home",
+                    isSuccess = isSuccess,
                     backgroundColor = VERDE_CLARO
                 )
             }
         }
     }
+}
+
+@Composable
+fun ValidationData (
+    context: Context,
+    viewModelName: NameTextFieldViewModel,
+    viewModelEmail: EmailTextFieldViewModel,
+    viewModelPassword: PasswordTextFieldViewModel,
+    stateName: RegistrationFormState,
+    stateEmail: RegistrationFormState,
+    statePassword: RegistrationFormState
+) : Boolean {
+    var nameSuccess by remember {
+        mutableStateOf(false)
+    }
+
+    var emailSuccess by remember {
+        mutableStateOf(false)
+    }
+
+    var passwordSuccess by remember {
+        mutableStateOf(false)
+    }
+
+    LaunchedEffect(key1 = context) {
+        viewModelName.validatioEventName.collect { event ->
+            when (event) {
+                is NameTextFieldViewModel.ValidationEventNameTextField.Success -> {
+                    nameSuccess = true
+                }
+            }
+        }
+    }
+
+    LaunchedEffect(key1 = context) {
+        viewModelEmail.validatioEventEmail.collect { event ->
+            when (event) {
+                is EmailTextFieldViewModel.ValidationEmailTextField.Success -> {
+                    emailSuccess = true
+                }
+            }
+        }
+    }
+
+    LaunchedEffect(key1 = context) {
+        viewModelPassword.validatioEventPassword.collect { event ->
+            when (event) {
+                is PasswordTextFieldViewModel.ValidationPasswordTextField.Success -> {
+                    passwordSuccess = true
+                }
+            }
+        }
+    }
+
+    if (stateName.nameError != null) {
+        nameSuccess = false
+    }
+
+    if (stateEmail.emailError != null) {
+        emailSuccess = false
+    }
+
+    if (statePassword.passwordError != null) {
+        passwordSuccess = false
+    }
+
+    println("name: $nameSuccess")
+    println("email: $emailSuccess")
+    println("password: $passwordSuccess")
+
+    return nameSuccess && emailSuccess && passwordSuccess
 }
