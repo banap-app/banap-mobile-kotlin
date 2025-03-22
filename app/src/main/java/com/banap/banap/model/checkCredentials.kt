@@ -1,14 +1,14 @@
 package com.banap.banap.model
 
-import androidx.navigation.NavController
-
 fun checkCredentials (
-    fieldValues: MutableList<String>?,
-    navigationController: NavController?
-) {
-    if (
-        ((fieldValues?.get(0) ?: "") == "email@gmail.com") && ((fieldValues?.get(1) ?: "") == "123")
-    ) {
-        navigationController?.navigate("Home")
+    email: String,
+    password: String
+) : Boolean {
+    var isCredentialsCorrect = false
+
+    if (email == "email@gmail.com" && password == "Preto159") {
+        isCredentialsCorrect = true
     }
+
+    return isCredentialsCorrect
 }

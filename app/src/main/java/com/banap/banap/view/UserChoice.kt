@@ -1,6 +1,9 @@
 package com.banap.banap.view
 
 import android.annotation.SuppressLint
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -38,6 +41,7 @@ import com.banap.banap.components.TitleRegistration
 import com.banap.banap.model.setColorInTextUserChoice
 import com.banap.banap.ui.theme.BRANCO
 import com.banap.banap.ui.theme.CINZA_CLARO
+import com.banap.banap.ui.theme.CINZA_ESCURO
 import com.banap.banap.ui.theme.Typography
 import com.banap.banap.ui.theme.VERDE_CLARO
 import com.banap.banap.ui.theme.VERDE_ESCURO
@@ -47,13 +51,6 @@ import com.banap.banap.ui.theme.VERDE_ESCURO
 fun UserChoice(
     navigationController: NavController
 ) {
-    var userChoice by remember {
-        mutableStateOf("")
-    }
-
-    var colorButton by remember {
-        mutableStateOf(CINZA_CLARO)
-    }
 
     var cardProducer by remember {
         mutableStateOf(false)
@@ -63,14 +60,58 @@ fun UserChoice(
         mutableStateOf(false)
     }
 
-    var cardsUserChoice = mutableListOf(userChoice)
+    var isSuccessful by remember {
+        mutableStateOf(false)
+    }
 
-    if (cardProducer && !cardEngineer) {
-        colorButton = VERDE_CLARO
-    } else if (cardEngineer && !cardProducer) {
-        colorButton = VERDE_ESCURO
-    } else {
-        colorButton = CINZA_CLARO
+    var backgroundColorButton by remember {
+        mutableStateOf(CINZA_CLARO)
+    }
+
+    var contentColorButton by remember {
+        mutableStateOf(CINZA_ESCURO)
+    }
+
+    val backgroundColor by animateColorAsState(
+        targetValue = backgroundColorButton,
+        label = "Button Background color",
+        animationSpec = tween(
+            durationMillis = 200,
+            easing = LinearEasing
+        )
+    )
+
+    val contentColor by animateColorAsState(
+        targetValue = contentColorButton,
+        label = "Button Content Color",
+        animationSpec = tween(
+            durationMillis = 200,
+            easing = LinearEasing
+        )
+    )
+
+    backgroundColorButton = when {
+        cardProducer && !cardEngineer -> {
+            VERDE_CLARO
+        }
+
+        cardEngineer && !cardProducer -> {
+            VERDE_ESCURO
+        }
+
+        else -> {
+            CINZA_CLARO
+        }
+    }
+
+    contentColorButton = when {
+        cardProducer || cardEngineer -> {
+            BRANCO
+        }
+
+        else -> {
+            CINZA_ESCURO
+        }
     }
 
     Scaffold(
@@ -124,14 +165,15 @@ fun UserChoice(
                 ),
                 verticalAlignment = Alignment.Bottom
             ) {
-                Box (
+                Box(
                     contentAlignment = Alignment.BottomCenter
                 ) {
                     Card(
                         onClick = {
                             cardProducer = !cardProducer
                             cardEngineer = false
-                            userChoice = if (cardProducer) "userChoice" else ""
+
+                            isSuccessful = cardProducer
                         },
                         modifier = Modifier
                             .size(135.dp),
@@ -141,10 +183,9 @@ fun UserChoice(
                         ),
                         elevation = CardDefaults.elevatedCardElevation(
                             defaultElevation = 4.dp
-                        )
-                    ) {
-
-                    }
+                        ),
+                        content = {}
+                    )
 
                     Image(
                         imageVector = ImageVector.vectorResource(id = R.drawable.produtor),
@@ -166,14 +207,15 @@ fun UserChoice(
                         .padding(bottom = 60.dp)
                 )
 
-                Box (
+                Box(
                     contentAlignment = Alignment.BottomCenter
                 ) {
                     Card(
                         onClick = {
                             cardEngineer = !cardEngineer
                             cardProducer = false
-                            userChoice = if (cardEngineer) "userChoice" else ""
+
+                            isSuccessful = cardEngineer
                         },
                         modifier = Modifier
                             .size(135.dp),
@@ -183,10 +225,9 @@ fun UserChoice(
                         ),
                         elevation = CardDefaults.elevatedCardElevation(
                             defaultElevation = 4.dp
-                        )
-                    ) {
-
-                    }
+                        ),
+                        content = {}
+                    )
 
                     Image(
                         imageVector = ImageVector.vectorResource(id = R.drawable.engenheiro),
@@ -203,13 +244,18 @@ fun UserChoice(
 
             Spacer(modifier = Modifier.weight(1F))
 
-//            ButtonRegistration(
-//                navigationController,
-//                fieldValue = cardsUserChoice,
-//                buttonValue = "Continuar",
-//                backgroundColor = colorButton,
-//                rota = if (cardProducer) "NewProducer" else "NewEngineerFirstPage"
-//            )
+            ButtonRegistration(
+                onClick = {
+                    if (isSuccessful) {
+                        navigationController.navigate(
+                            if (cardProducer) "NewProducer" else "NewEngineerFirstPage"
+                        )
+                    }
+                },
+                buttonValue = "Continuar",
+                backgroundColor = backgroundColor,
+                contentColor = contentColor
+            )
         }
     }
 }

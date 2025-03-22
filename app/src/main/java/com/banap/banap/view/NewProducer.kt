@@ -1,16 +1,19 @@
 package com.banap.banap.view
 
 import android.annotation.SuppressLint
-import android.content.Context
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
@@ -23,6 +26,8 @@ import com.banap.banap.components.RegistrationHeader
 import com.banap.banap.components.TextBoxRegistration
 import com.banap.banap.components.TitleRegistration
 import com.banap.banap.ui.theme.BRANCO
+import com.banap.banap.ui.theme.CINZA_CLARO
+import com.banap.banap.ui.theme.CINZA_ESCURO
 import com.banap.banap.ui.theme.VERDE_CLARO
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -41,15 +46,71 @@ fun NewProducer(
     val viewModelPassword = viewModel<PasswordTextFieldViewModel>()
     val statePassword = viewModelPassword.state
 
-    val isSuccess = ValidationData(
-        context,
-        viewModelName,
-        viewModelEmail,
-        viewModelPassword,
-        stateName,
-        stateEmail,
-        statePassword
+    val validationDataName = validationDataName(
+        context = context,
+        viewModelName = viewModelName,
+        stateName = stateName
     )
+
+    val validationDataEmail = validationDataEmail(
+        context = context,
+        viewModelEmail = viewModelEmail,
+        stateEmail = stateEmail
+    )
+
+    val validationDataPassword = validationDataPassword(
+        context = context,
+        viewModelPassword = viewModelPassword,
+        statePassword = statePassword
+    )
+
+    val isValidationSuccessful = validationDataName && validationDataEmail && validationDataPassword
+
+    var backgroundColorButton by remember {
+        mutableStateOf(CINZA_CLARO)
+    }
+
+    var contentColorButton by remember {
+        mutableStateOf(CINZA_ESCURO)
+    }
+
+    val backgroundColor by animateColorAsState(
+        targetValue = backgroundColorButton,
+        label = "Button Background color",
+        animationSpec = tween(
+            durationMillis = 200,
+            easing = LinearEasing
+        )
+    )
+
+    val contentColor by animateColorAsState(
+        targetValue = contentColorButton,
+        label = "Button Content Color",
+        animationSpec = tween(
+            durationMillis = 200,
+            easing = LinearEasing
+        )
+    )
+
+    backgroundColorButton = when {
+        isValidationSuccessful -> {
+            VERDE_CLARO
+        }
+
+        else -> {
+            CINZA_CLARO
+        }
+    }
+
+    contentColorButton = when {
+        isValidationSuccessful -> {
+            BRANCO
+        }
+
+        else -> {
+            CINZA_ESCURO
+        }
+    }
 
     Scaffold(
         modifier = Modifier
@@ -134,86 +195,15 @@ fun NewProducer(
                         viewModelEmail.onEvent(EmailTextFieldFormEvent.Submit)
                         viewModelPassword.onEvent(PasswordTextFieldFormEvent.Submit)
 
-                        if (isSuccess) {
+                        if (isValidationSuccessful) {
                             navigationController.navigate("Home")
                         }
                     },
                     buttonValue = "Cadastrar",
-                    isSuccess = isSuccess,
-                    backgroundColor = VERDE_CLARO
+                    backgroundColor = backgroundColor,
+                    contentColor = contentColor
                 )
             }
         }
     }
-}
-
-@Composable
-fun ValidationData (
-    context: Context,
-    viewModelName: NameTextFieldViewModel,
-    viewModelEmail: EmailTextFieldViewModel,
-    viewModelPassword: PasswordTextFieldViewModel,
-    stateName: RegistrationFormState,
-    stateEmail: RegistrationFormState,
-    statePassword: RegistrationFormState
-) : Boolean {
-    var nameSuccess by remember {
-        mutableStateOf(false)
-    }
-
-    var emailSuccess by remember {
-        mutableStateOf(false)
-    }
-
-    var passwordSuccess by remember {
-        mutableStateOf(false)
-    }
-
-    LaunchedEffect(key1 = context) {
-        viewModelName.validatioEventName.collect { event ->
-            when (event) {
-                is NameTextFieldViewModel.ValidationEventNameTextField.Success -> {
-                    nameSuccess = true
-                }
-            }
-        }
-    }
-
-    LaunchedEffect(key1 = context) {
-        viewModelEmail.validatioEventEmail.collect { event ->
-            when (event) {
-                is EmailTextFieldViewModel.ValidationEmailTextField.Success -> {
-                    emailSuccess = true
-                }
-            }
-        }
-    }
-
-    LaunchedEffect(key1 = context) {
-        viewModelPassword.validatioEventPassword.collect { event ->
-            when (event) {
-                is PasswordTextFieldViewModel.ValidationPasswordTextField.Success -> {
-                    passwordSuccess = true
-                }
-            }
-        }
-    }
-
-    if (stateName.nameError != null) {
-        nameSuccess = false
-    }
-
-    if (stateEmail.emailError != null) {
-        emailSuccess = false
-    }
-
-    if (statePassword.passwordError != null) {
-        passwordSuccess = false
-    }
-
-    println("name: $nameSuccess")
-    println("email: $emailSuccess")
-    println("password: $passwordSuccess")
-
-    return nameSuccess && emailSuccess && passwordSuccess
 }

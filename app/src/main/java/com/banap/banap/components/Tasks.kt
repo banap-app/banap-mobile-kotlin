@@ -68,9 +68,7 @@ fun Tasks (
                     .padding(vertical = 18.dp, horizontal = 15.dp),
                 icon = true,
                 shape = ShapeProperty.small,
-                fieldValues = null,
-                navigationController = null,
-                navigateTo = null,
+                onClick = {},
                 backgroundColor = VERDE_CLARO,
                 contentColor = BRANCO,
                 defaultElevetion = 3.dp

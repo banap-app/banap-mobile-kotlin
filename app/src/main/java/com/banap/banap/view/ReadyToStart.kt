@@ -142,9 +142,9 @@ fun ReadyToStart(
                         .padding(vertical = 11.dp, horizontal = 74.dp),
                     icon = false,
                     shape = ShapeLogin.small,
-                    fieldValues = null,
-                    navigationController = navigationController,
-                    navigateTo = "UserChoice",
+                    onClick = {
+                        navigationController.navigate("UserChoice")
+                    },
                     backgroundColor = VERDE_CLARO,
                     contentColor = BRANCO,
                     defaultElevetion = 1.dp
@@ -156,9 +156,9 @@ fun ReadyToStart(
                         .padding(vertical = 11.dp, horizontal = 100.dp),
                     icon = false,
                     shape = ShapeLogin.small,
-                    fieldValues = null,
-                    navigationController = navigationController,
-                    navigateTo = "Login",
+                    onClick = {
+                        navigationController.navigate("Login")
+                    },
                     backgroundColor = BRANCO,
                     contentColor = VERDE_CLARO,
                     defaultElevetion = 1.dp

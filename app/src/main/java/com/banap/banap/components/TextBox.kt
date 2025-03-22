@@ -1,7 +1,6 @@
 package com.banap.banap.components
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -88,7 +87,16 @@ fun TextBox(
                     ),
                     shape = RoundedCornerShape(0.dp),
                     keyboardOptions = KeyboardOptions(
-                        keyboardType = keyboardType
+                        keyboardType = keyboardType,
+                        imeAction = if (!lastOne) ImeAction.Next else ImeAction.Done
+                    ),
+                    keyboardActions = KeyboardActions(
+                        onNext = {
+                            focusManager.moveFocus(FocusDirection.Down)
+                        },
+                        onDone = {
+                            focusManager.clearFocus()
+                        }
                     ),
                     leadingIcon = {
                         Image(
@@ -118,6 +126,7 @@ fun TextBox(
                     },
                     visualTransformation = if (!open) PasswordVisualTransformation() else VisualTransformation.None,
                     textStyle = Typography.bodySmall,
+                    isError = isError
                 )
             } else {
                 TextField(
@@ -137,7 +146,16 @@ fun TextBox(
                     ),
                     shape = RoundedCornerShape(0.dp),
                     keyboardOptions = KeyboardOptions(
-                        keyboardType = keyboardType
+                        keyboardType = keyboardType,
+                        imeAction = if (!lastOne) ImeAction.Next else ImeAction.Done
+                    ),
+                    keyboardActions = KeyboardActions(
+                        onNext = {
+                            focusManager.moveFocus(FocusDirection.Down)
+                        },
+                        onDone = {
+                            focusManager.clearFocus()
+                        }
                     ),
                     leadingIcon = {
                         Image(
@@ -152,6 +170,7 @@ fun TextBox(
                         Text(placeholder)
                     },
                     textStyle = Typography.bodySmall,
+                    isError = isError
                 )
             }
 

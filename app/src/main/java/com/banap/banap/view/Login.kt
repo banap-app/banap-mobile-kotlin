@@ -26,8 +26,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
@@ -43,6 +45,7 @@ import com.banap.banap.components.Button
 import com.banap.banap.components.TextBox
 import com.banap.banap.components.ApiComponent
 import com.banap.banap.domain.model.DataViewModel
+import com.banap.banap.model.checkCredentials
 import com.banap.banap.model.setColorInText
 import com.banap.banap.ui.theme.BRANCO
 import com.banap.banap.ui.theme.PRETO
@@ -50,6 +53,7 @@ import com.banap.banap.ui.theme.ShapeLogin
 import com.banap.banap.ui.theme.Typography
 import com.banap.banap.ui.theme.VERDE_CLARO
 import com.banap.banap.ui.theme.VERDE_ESCURO
+import com.banap.banap.ui.theme.VERMELHO
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -61,15 +65,31 @@ fun Login(
             .fillMaxSize(),
         containerColor = BRANCO
     ) {
-        var fieldEmail by remember {
-            mutableStateOf("")
-        }
+        val context = LocalContext.current
 
-        var fieldSenha by remember {
-            mutableStateOf("")
-        }
+        val viewModelEmail = viewModel<EmailTextFieldViewModel>()
+        val stateEmail = viewModelEmail.state
 
-        val fieldValues = mutableListOf(fieldEmail, fieldSenha)
+        val viewModelPassword = viewModel<PasswordTextFieldViewModel>()
+        val statePassword = viewModelPassword.state
+
+        val validationDataEmail = validationDataEmail(
+            context = context,
+            viewModelEmail = viewModelEmail,
+            stateEmail = stateEmail
+        )
+
+        val validationDataPassword = validationDataPassword(
+            context = context,
+            viewModelPassword = viewModelPassword,
+            statePassword = statePassword
+        )
+
+        val isValidationSuccessful = validationDataEmail && validationDataPassword
+
+        var isCredentialsCorrect: Boolean? by remember {
+            mutableStateOf(null)
+        }
 
         val screenWidth = LocalConfiguration.current.screenWidthDp.dp
         val screenHeight = LocalConfiguration.current.screenHeightDp.dp
@@ -128,43 +148,69 @@ fun Login(
                     .padding(horizontal = 70.dp)
             ) {
                 Column {
-//                    TextBox(
-//                        value = fieldEmail,
-//                        onValueChange = {
-//                            fieldEmail = it
-//                        },
-//                        modifier = Modifier
-//                            .fillMaxWidth(),
-//                        maxLines = 1,
-//                        keyboardType = KeyboardType.Email,
-//                        icon = R.drawable.email,
-//                        iconColor = PRETO,
-//                        placeholder = "email@gmail.com",
-//                        passwordTextBox = false,
-//                        label = "Email",
-//                        labelTextStyle = Typography.labelSmall,
-//                        labelColor = PRETO
-//                    )
+                    TextBox(
+                        value = stateEmail.email,
+                        onValueChange = {
+                            viewModelEmail.onEvent(EmailTextFieldFormEvent.EmailChanged(it))
+                            viewModelEmail.onEvent(EmailTextFieldFormEvent.Submit)
+                        },
+                        modifier = Modifier
+                            .onFocusChanged {
+                                if (it.isFocused) {
+                                    isCredentialsCorrect = null
+                                }
+                            }
+                            .fillMaxWidth(),
+                        maxLines = 1,
+                        keyboardType = KeyboardType.Email,
+                        icon = R.drawable.email,
+                        iconColor = PRETO,
+                        placeholder = "email@gmail.com",
+                        passwordTextBox = false,
+                        label = "Email",
+                        labelTextStyle = Typography.labelSmall,
+                        labelColor = PRETO,
+                        isError = stateEmail.emailError != null || isCredentialsCorrect == false
+                    )
+
+                    if (stateEmail.emailError != null || isCredentialsCorrect == false) {
+                        Text(
+                            text = stateEmail.emailError ?: "O email está incorreto",
+                            color = VERMELHO,
+                            style = Typography.displaySmall
+                        )
+                    }
 
                     Spacer(modifier = Modifier.height(30.dp))
 
-//                    TextBox(
-//                        value = fieldSenha,
-//                        onValueChange = {
-//                            fieldSenha = it
-//                        },
-//                        modifier = Modifier
-//                            .fillMaxWidth(),
-//                        maxLines = 1,
-//                        keyboardType = KeyboardType.Password,
-//                        icon = R.drawable.lock,
-//                        iconColor = PRETO,
-//                        placeholder = "Senha123",
-//                        passwordTextBox = true,
-//                        label = "Senha",
-//                        labelTextStyle = Typography.labelSmall,
-//                        labelColor = PRETO
-//                    )
+                    TextBox(
+                        value = statePassword.password,
+                        onValueChange = {
+                            viewModelPassword.onEvent(PasswordTextFieldFormEvent.PasswordChanged(it))
+                            viewModelPassword.onEvent(PasswordTextFieldFormEvent.Submit)
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        maxLines = 1,
+                        keyboardType = KeyboardType.Password,
+                        icon = R.drawable.lock,
+                        iconColor = PRETO,
+                        placeholder = "Senha123",
+                        passwordTextBox = true,
+                        label = "Senha",
+                        labelTextStyle = Typography.labelSmall,
+                        labelColor = PRETO,
+                        isError = statePassword.passwordError != null || isCredentialsCorrect == false,
+                        lastOne = true
+                    )
+
+                    if (statePassword.passwordError != null || isCredentialsCorrect == false) {
+                        Text(
+                            text = statePassword.passwordError ?: "A senha está incorreta",
+                            color = VERMELHO,
+                            style = Typography.displaySmall
+                        )
+                    }
 
                     Spacer(modifier = Modifier.height(5.dp))
 
@@ -187,9 +233,21 @@ fun Login(
                             .padding(vertical = 12.dp),
                         icon = false,
                         shape = ShapeLogin.small,
-                        fieldValues = fieldValues,
-                        navigationController = navigationController,
-                        navigateTo = null,
+                        onClick = {
+                            viewModelEmail.onEvent(EmailTextFieldFormEvent.Submit)
+                            viewModelPassword.onEvent(PasswordTextFieldFormEvent.Submit)
+
+                            if (isValidationSuccessful) {
+                                isCredentialsCorrect = checkCredentials(
+                                    email = stateEmail.email,
+                                    password = statePassword.password
+                                )
+
+                                if (isCredentialsCorrect == true) {
+                                    navigationController.navigate("Home")
+                                }
+                            }
+                        },
                         backgroundColor = VERDE_CLARO,
                         contentColor = BRANCO,
                         defaultElevetion = 3.dp

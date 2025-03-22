@@ -16,7 +16,7 @@ class EmailTextFieldViewModel (
     var state by mutableStateOf(RegistrationFormState())
 
     private val validationEventChannel = Channel<ValidationEmailTextField>()
-    val validatioEventEmail = validationEventChannel.receiveAsFlow()
+    val validationEventEmail = validationEventChannel.receiveAsFlow()
 
     fun onEvent (event: EmailTextFieldFormEvent) {
         when (event) {

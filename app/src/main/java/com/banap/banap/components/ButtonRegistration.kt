@@ -23,35 +23,23 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.banap.banap.R
-import com.banap.banap.ui.theme.BRANCO
-import com.banap.banap.ui.theme.CINZA_CLARO
-import com.banap.banap.ui.theme.CINZA_ESCURO
 import com.banap.banap.ui.theme.Typography
 
 @Composable
 fun ButtonRegistration(
     onClick: () -> Unit,
-    isSuccess: Boolean = false,
     buttonValue: String,
-    backgroundColor: Color
+    backgroundColor: Color,
+    contentColor: Color
 ) {
-    var containerColor: Color = CINZA_CLARO
-    var contentColor: Color = CINZA_ESCURO
-
-    if (isSuccess) {
-        containerColor = backgroundColor
-        contentColor = BRANCO
-    }
-
     Card(
         onClick = onClick,
         modifier = Modifier
             .height(98.dp)
             .fillMaxWidth(),
         colors = CardDefaults.cardColors(
-            containerColor = containerColor,
+            containerColor = backgroundColor,
             contentColor = contentColor
         ),
         shape = RoundedCornerShape(0.dp)

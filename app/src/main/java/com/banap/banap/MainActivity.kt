@@ -28,7 +28,7 @@ class MainActivity : ComponentActivity() {
             BanapTheme {
                 val navigationController = rememberNavController()
 
-                NavHost(navController = navigationController, startDestination = "NewProducer"){
+                NavHost(navController = navigationController, startDestination = "Tutorial"){
                     composable (
                         route = "Home"
                     ) {
