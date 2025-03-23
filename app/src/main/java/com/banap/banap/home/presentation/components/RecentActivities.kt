@@ -1,4 +1,4 @@
-package com.banap.banap.components
+package com.banap.banap.home.presentation.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer

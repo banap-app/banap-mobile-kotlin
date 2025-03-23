@@ -31,7 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.banap.banap.R
-import com.banap.banap.login.presentation.components.Button
+import com.banap.banap.ui.components.Button
 import com.banap.banap.ui.theme.BRANCO
 import com.banap.banap.ui.theme.CINZA_CLARO
 import com.banap.banap.ui.theme.ShapeLogin

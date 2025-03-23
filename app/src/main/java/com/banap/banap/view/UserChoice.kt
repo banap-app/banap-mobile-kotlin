@@ -35,9 +35,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.banap.banap.R
-import com.banap.banap.components.ButtonRegistration
-import com.banap.banap.components.RegistrationHeader
-import com.banap.banap.components.TitleRegistration
+import com.banap.banap.ui.components.ButtonRegistration
+import com.banap.banap.ui.components.RegistrationHeader
+import com.banap.banap.ui.components.TitleRegistration
 import com.banap.banap.model.setColorInTextUserChoice
 import com.banap.banap.ui.theme.BRANCO
 import com.banap.banap.ui.theme.CINZA_CLARO

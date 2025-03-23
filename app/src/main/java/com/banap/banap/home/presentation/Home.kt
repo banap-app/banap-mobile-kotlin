@@ -1,4 +1,4 @@
-package com.banap.banap.view
+package com.banap.banap.home.presentation
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
@@ -17,11 +17,11 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.banap.banap.R
-import com.banap.banap.components.Carousel
-import com.banap.banap.components.Header
-import com.banap.banap.components.Property
-import com.banap.banap.components.RecentActivities
-import com.banap.banap.components.Tasks
+import com.banap.banap.home.presentation.components.Carousel
+import com.banap.banap.home.presentation.components.Header
+import com.banap.banap.home.presentation.components.Property
+import com.banap.banap.home.presentation.components.RecentActivities
+import com.banap.banap.home.presentation.components.Tasks
 import com.banap.banap.ui.theme.BRANCO
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")

@@ -1,4 +1,4 @@
-package com.banap.banap.login.presentation.components
+package com.banap.banap.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

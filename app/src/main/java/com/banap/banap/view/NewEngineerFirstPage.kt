@@ -20,10 +20,10 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.banap.banap.components.ButtonRegistration
-import com.banap.banap.components.RegistrationHeader
-import com.banap.banap.components.TextBoxRegistration
-import com.banap.banap.components.TitleRegistration
+import com.banap.banap.ui.components.ButtonRegistration
+import com.banap.banap.ui.components.RegistrationHeader
+import com.banap.banap.ui.components.TextBoxRegistration
+import com.banap.banap.ui.components.TitleRegistration
 import com.banap.banap.ui.theme.BRANCO
 import com.banap.banap.ui.theme.CINZA_CLARO
 import com.banap.banap.ui.theme.CINZA_ESCURO

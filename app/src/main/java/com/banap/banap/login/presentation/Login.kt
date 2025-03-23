@@ -34,7 +34,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.banap.banap.R
-import com.banap.banap.login.presentation.components.Button
+import com.banap.banap.ui.components.Button
 import com.banap.banap.login.presentation.components.TextBox
 import com.banap.banap.api.presentation.components.ApiComponent
 import com.banap.banap.api.model.DataViewModel

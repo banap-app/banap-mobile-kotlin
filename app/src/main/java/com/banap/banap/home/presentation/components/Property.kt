@@ -1,4 +1,4 @@
-package com.banap.banap.components
+package com.banap.banap.home.presentation.components
 
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
@@ -21,7 +21,7 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.banap.banap.login.presentation.components.Button
+import com.banap.banap.ui.components.Button
 import com.banap.banap.ui.theme.BRANCO
 import com.banap.banap.ui.theme.ShapeProperty
 import com.banap.banap.ui.theme.Typography
