@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.banap.banap.login.presentation.components.TextBox
 import com.banap.banap.ui.theme.PRETO
 import com.banap.banap.ui.theme.Typography
 import com.banap.banap.ui.theme.VERMELHO

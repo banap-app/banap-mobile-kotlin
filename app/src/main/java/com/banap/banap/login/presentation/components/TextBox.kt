@@ -1,4 +1,4 @@
-package com.banap.banap.components
+package com.banap.banap.login.presentation.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column

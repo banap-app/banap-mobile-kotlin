@@ -1,4 +1,4 @@
-package com.banap.banap.model
+package com.banap.banap.login.model
 
 fun checkCredentials (
     email: String,

@@ -1,4 +1,4 @@
-package com.banap.banap.view
+package com.banap.banap.login.presentation
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
@@ -34,11 +34,11 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.banap.banap.R
-import com.banap.banap.components.Button
-import com.banap.banap.components.TextBox
+import com.banap.banap.login.presentation.components.Button
+import com.banap.banap.login.presentation.components.TextBox
 import com.banap.banap.api.presentation.components.ApiComponent
 import com.banap.banap.api.model.DataViewModel
-import com.banap.banap.model.checkCredentials
+import com.banap.banap.login.model.checkCredentials
 import com.banap.banap.model.setColorInText
 import com.banap.banap.ui.theme.BRANCO
 import com.banap.banap.ui.theme.PRETO
@@ -47,6 +47,12 @@ import com.banap.banap.ui.theme.Typography
 import com.banap.banap.ui.theme.VERDE_CLARO
 import com.banap.banap.ui.theme.VERDE_ESCURO
 import com.banap.banap.ui.theme.VERMELHO
+import com.banap.banap.view.EmailTextFieldFormEvent
+import com.banap.banap.view.EmailTextFieldViewModel
+import com.banap.banap.view.PasswordTextFieldFormEvent
+import com.banap.banap.view.PasswordTextFieldViewModel
+import com.banap.banap.view.validationDataEmail
+import com.banap.banap.view.validationDataPassword
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
