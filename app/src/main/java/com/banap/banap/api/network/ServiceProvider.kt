@@ -1,6 +1,6 @@
-package com.banap.banap.network
+package com.banap.banap.api.network
 
-import com.banap.banap.data.api.ServiceApi
+import com.banap.banap.api.service.ServiceApi
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType

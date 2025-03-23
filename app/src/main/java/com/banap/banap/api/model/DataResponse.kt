@@ -1,4 +1,4 @@
-package com.banap.banap.data.model
+package com.banap.banap.api.model
 
 import kotlinx.serialization.Serializable
 

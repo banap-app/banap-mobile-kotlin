@@ -1,6 +1,6 @@
-package com.banap.banap.data.api
+package com.banap.banap.api.service
 
-import com.banap.banap.data.model.DataResponse
+import com.banap.banap.api.model.DataResponse
 import retrofit2.http.GET
 
 interface ServiceApi {

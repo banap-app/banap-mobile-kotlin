@@ -1,7 +1,7 @@
-package com.banap.banap.components
+package com.banap.banap.api.presentation.components
 
 import androidx.compose.runtime.Composable
-import com.banap.banap.domain.model.DataViewModel
+import com.banap.banap.api.model.DataViewModel
 
 @Composable
 fun ApiComponent (

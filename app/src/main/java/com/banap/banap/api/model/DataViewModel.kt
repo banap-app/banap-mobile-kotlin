@@ -1,11 +1,11 @@
-package com.banap.banap.domain.model
+package com.banap.banap.api.model
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.banap.banap.network.ServiceProvider
+import com.banap.banap.api.network.ServiceProvider
 import kotlinx.coroutines.launch
 import java.io.IOException
 
