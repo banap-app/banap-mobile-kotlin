@@ -1,4 +1,4 @@
-package com.banap.banap.view
+package com.banap.banap.property.registration.presentation
 
 import android.annotation.SuppressLint
 import androidx.compose.animation.animateColorAsState

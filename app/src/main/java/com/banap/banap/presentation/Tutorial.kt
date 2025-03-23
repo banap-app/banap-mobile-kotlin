@@ -1,4 +1,4 @@
-package com.banap.banap.view
+package com.banap.banap.presentation
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
