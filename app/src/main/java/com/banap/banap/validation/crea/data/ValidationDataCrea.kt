@@ -1,9 +1,11 @@
-package com.banap.banap.view
+package com.banap.banap.validation.crea.data
 
 import android.content.Context
 import androidx.compose.runtime.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import com.banap.banap.validation.crea.model.CreaTextFieldViewModel
+import com.banap.banap.validation.RegistrationFormState
 
 @Composable
 fun validationDataCrea (

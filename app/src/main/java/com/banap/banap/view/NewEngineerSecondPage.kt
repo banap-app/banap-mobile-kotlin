@@ -29,6 +29,9 @@ import com.banap.banap.ui.theme.CINZA_CLARO
 import com.banap.banap.ui.theme.CINZA_ESCURO
 import com.banap.banap.ui.theme.VERDE_CLARO
 import com.banap.banap.ui.theme.VERDE_ESCURO
+import com.banap.banap.validation.crea.data.validationDataCrea
+import com.banap.banap.validation.crea.model.CreaTextFieldFormEvent
+import com.banap.banap.validation.crea.model.CreaTextFieldViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable

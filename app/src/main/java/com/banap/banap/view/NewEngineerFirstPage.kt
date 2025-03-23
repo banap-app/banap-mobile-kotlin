@@ -29,6 +29,15 @@ import com.banap.banap.ui.theme.CINZA_CLARO
 import com.banap.banap.ui.theme.CINZA_ESCURO
 import com.banap.banap.ui.theme.VERDE_CLARO
 import com.banap.banap.ui.theme.VERDE_ESCURO
+import com.banap.banap.validation.email.data.validationDataEmail
+import com.banap.banap.validation.email.model.EmailTextFieldFormEvent
+import com.banap.banap.validation.email.model.EmailTextFieldViewModel
+import com.banap.banap.validation.name.data.validationDataName
+import com.banap.banap.validation.name.model.NameTextFieldFormEvent
+import com.banap.banap.validation.name.model.NameTextFieldViewModel
+import com.banap.banap.validation.password.data.validationDataPassword
+import com.banap.banap.validation.password.model.PasswordTextFieldFormEvent
+import com.banap.banap.validation.password.model.PasswordTextFieldViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable

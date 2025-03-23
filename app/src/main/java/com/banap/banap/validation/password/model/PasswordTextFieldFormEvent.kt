@@ -1,4 +1,4 @@
-package com.banap.banap.view
+package com.banap.banap.validation.password.model
 
 sealed class PasswordTextFieldFormEvent {
     data class PasswordChanged(val password: String) : PasswordTextFieldFormEvent()

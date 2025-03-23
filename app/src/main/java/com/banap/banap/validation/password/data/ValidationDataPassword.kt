@@ -1,4 +1,4 @@
-package com.banap.banap.view
+package com.banap.banap.validation.password.data
 
 import android.content.Context
 import androidx.compose.runtime.Composable
@@ -7,6 +7,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import com.banap.banap.validation.RegistrationFormState
+import com.banap.banap.validation.password.model.PasswordTextFieldViewModel
 
 @Composable
 fun validationDataPassword (

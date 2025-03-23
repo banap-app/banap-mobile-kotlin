@@ -1,4 +1,4 @@
-package com.banap.banap.view
+package com.banap.banap.validation
 
 data class RegistrationFormState(
     val name: String = "",
