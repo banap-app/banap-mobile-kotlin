@@ -1,4 +1,4 @@
-package com.banap.banap.domain.model.use_case
+package com.banap.banap.validation
 
 data class ValidationResult(
     val successful: Boolean,

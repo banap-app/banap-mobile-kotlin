@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.banap.banap.domain.model.use_case.ValidateName
+import com.banap.banap.validation.name.model.use_case.ValidateName
 import com.banap.banap.validation.RegistrationFormState
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow

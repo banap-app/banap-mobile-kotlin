@@ -1,6 +1,7 @@
-package com.banap.banap.domain.model.use_case
+package com.banap.banap.validation.email.model.use_case
 
 import android.util.Patterns
+import com.banap.banap.validation.ValidationResult
 
 class ValidateEmail {
 

@@ -1,4 +1,6 @@
-package com.banap.banap.domain.model.use_case
+package com.banap.banap.validation.name.model.use_case
+
+import com.banap.banap.validation.ValidationResult
 
 class ValidateName {
 
