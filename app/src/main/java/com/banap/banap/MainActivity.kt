@@ -8,16 +8,16 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.banap.banap.view.Home
+import com.banap.banap.home.presentation.Home
 import com.banap.banap.ui.theme.BanapTheme
-import com.banap.banap.view.Login
-import com.banap.banap.view.NewEngineerFirstPage
-import com.banap.banap.view.NewEngineerSecondPage
-import com.banap.banap.view.NewProducer
-import com.banap.banap.view.NewProperty
-import com.banap.banap.view.ReadyToStart
-import com.banap.banap.view.Tutorial
-import com.banap.banap.view.UserChoice
+import com.banap.banap.login.presentation.Login
+import com.banap.banap.engineer.registration.presentation.NewEngineerFirstPage
+import com.banap.banap.engineer.registration.presentation.NewEngineerSecondPage
+import com.banap.banap.producer.registration.presentation.NewProducer
+import com.banap.banap.property.registration.presentation.NewProperty
+import com.banap.banap.presentation.ReadyToStart
+import com.banap.banap.presentation.Tutorial
+import com.banap.banap.presentation.UserChoice
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
