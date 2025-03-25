@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.secrets.gradle)
 }
 
 android {
@@ -37,10 +38,22 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
+secrets {
+    propertiesFileName = "secrets.properties"
+    defaultPropertiesFileName = "local.defaults.properties"
+    ignoreList.add("keyToIgnore")
+    ignoreList.add("sdk.")
+}
+
 dependencies {
+    implementation(libs.maps.compose)
+    implementation(libs.maps.compose.utils)
+    implementation(libs.maps.compose.widgets)
+    implementation(libs.play.services.maps)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.retrofit)
     implementation(libs.retrofit2.kotlinx.serialization.converter)
