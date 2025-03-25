@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.banap.banap.ui.components.Button
 import com.banap.banap.ui.theme.BRANCO
 import com.banap.banap.ui.theme.CINZA_ESCURO
@@ -24,7 +25,8 @@ import com.banap.banap.ui.theme.VERDE_ESCURO
 @Composable
 fun Tasks (
     titulo: String,
-    subTitulo: String
+    subTitulo: String,
+    navigationController: NavController
 ) {
     Column (
         modifier = Modifier
@@ -69,7 +71,9 @@ fun Tasks (
                     .padding(vertical = 18.dp, horizontal = 15.dp),
                 icon = true,
                 shape = ShapeProperty.small,
-                onClick = {},
+                onClick = {
+                    navigationController.navigate("NewFieldFirstPage")
+                },
                 backgroundColor = VERDE_CLARO,
                 contentColor = BRANCO,
                 defaultElevetion = 3.dp

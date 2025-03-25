@@ -25,7 +25,8 @@ fun TextBoxRegistration(
     placeholder: String,
     tipoTeclado: KeyboardType,
     modifier: Modifier,
-    lastOne: Boolean = false
+    lastOne: Boolean = false,
+    maxLines: Int = 1
 ) {
     Row (
         modifier = Modifier
@@ -37,7 +38,7 @@ fun TextBoxRegistration(
                 value = value,
                 onValueChange = onValueChange,
                 modifier = modifier,
-                maxLines = 1,
+                maxLines = maxLines,
                 keyboardType = tipoTeclado,
                 icon = null,
                 iconColor = PRETO,
