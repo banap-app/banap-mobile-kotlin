@@ -75,7 +75,9 @@ fun Property(
                     .width(25.dp)
             )
 
-            NewFieldCard()
+            NewFieldCard(
+                navigationController
+            )
         }
 
         Spacer(modifier = Modifier.height(60.dp))

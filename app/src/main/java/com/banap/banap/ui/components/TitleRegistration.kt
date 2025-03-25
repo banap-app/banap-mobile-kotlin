@@ -80,12 +80,14 @@ fun TitleRegistration (
                 textAlign = TextAlign.Justify
             )
         } else {
-            Text(
-                text = subtitulo,
-                style = Typography.bodyLarge,
-                fontWeight = FontWeight.Normal,
-                textAlign = TextAlign.Justify
-            )
+            if (subtitulo.isNotEmpty()) {
+                Text(
+                    text = subtitulo,
+                    style = Typography.bodyLarge,
+                    fontWeight = FontWeight.Normal,
+                    textAlign = TextAlign.Justify
+                )
+            }
         }
 
         Spacer(modifier = Modifier.height(40.dp))

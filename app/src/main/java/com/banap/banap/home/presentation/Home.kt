@@ -76,7 +76,8 @@ fun Home(
 
             Tasks(
                 titulo = "Lista de tarefas",
-                subTitulo = "Seus afazeres da semana!"
+                subTitulo = "Seus afazeres da semana!",
+                navigationController
             )
         }
     }

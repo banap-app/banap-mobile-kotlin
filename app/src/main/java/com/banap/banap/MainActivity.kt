@@ -13,6 +13,9 @@ import com.banap.banap.ui.theme.BanapTheme
 import com.banap.banap.login.presentation.Login
 import com.banap.banap.engineer.registration.presentation.NewEngineerFirstPage
 import com.banap.banap.engineer.registration.presentation.NewEngineerSecondPage
+import com.banap.banap.field.registration.presentation.NewFieldFirstPage
+import com.banap.banap.field.registration.presentation.NewFieldSecondPage
+import com.banap.banap.field.registration.presentation.NewFieldThirdPage
 import com.banap.banap.producer.registration.presentation.NewProducer
 import com.banap.banap.property.registration.presentation.NewProperty
 import com.banap.banap.presentation.ReadyToStart
@@ -81,6 +84,24 @@ class MainActivity : ComponentActivity() {
                         route = "UserChoice"
                     ) {
                         UserChoice(navigationController)
+                    }
+
+                    composable (
+                        route = "NewFieldFirstPage"
+                    ) {
+                        NewFieldFirstPage(navigationController)
+                    }
+
+                    composable (
+                        route = "NewFieldSecondPage"
+                    ) {
+                        NewFieldSecondPage(navigationController)
+                    }
+
+                    composable (
+                        route = "NewFieldThirdPage"
+                    ) {
+                        NewFieldThirdPage(navigationController)
                     }
                 }
             }
