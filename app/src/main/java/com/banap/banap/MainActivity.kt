@@ -31,7 +31,7 @@ class MainActivity : ComponentActivity() {
             BanapTheme {
                 val navigationController = rememberNavController()
 
-                NavHost(navController = navigationController, startDestination = "Tutorial"){
+                NavHost(navController = navigationController, startDestination = "NewFieldSecondPage"){
                     composable (
                         route = "Home"
                     ) {
