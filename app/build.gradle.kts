@@ -2,7 +2,6 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.secrets.gradle)
 }
 
@@ -50,14 +49,15 @@ secrets {
 }
 
 dependencies {
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.logging.interceptor)
     implementation(libs.play.services.location)
     implementation(libs.maps.compose)
     implementation(libs.maps.compose.utils)
     implementation(libs.maps.compose.widgets)
     implementation(libs.play.services.maps)
-    implementation(libs.kotlinx.serialization.json)
     implementation(libs.retrofit)
-    implementation(libs.retrofit2.kotlinx.serialization.converter)
+    implementation(libs.converter.gson)
     implementation(libs.okhttp)
     implementation(libs.navigation.compose)
     implementation(libs.lifecycle.viewmodel.compose)

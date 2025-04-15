@@ -36,9 +36,8 @@ import androidx.navigation.NavController
 import com.banap.banap.R
 import com.banap.banap.ui.components.Button
 import com.banap.banap.login.presentation.components.TextBox
-import com.banap.banap.api.presentation.components.ApiComponent
 import com.banap.banap.api.model.DataViewModel
-import com.banap.banap.login.model.checkCredentials
+import com.banap.banap.login.model.TokenManager
 import com.banap.banap.model.setColorInText
 import com.banap.banap.ui.theme.BRANCO
 import com.banap.banap.ui.theme.PRETO
@@ -52,8 +51,13 @@ import com.banap.banap.validation.email.model.EmailTextFieldViewModel
 import com.banap.banap.validation.password.model.PasswordTextFieldFormEvent
 import com.banap.banap.validation.password.model.PasswordTextFieldViewModel
 import com.banap.banap.validation.email.data.validationDataEmail
+import com.banap.banap.validation.login.model.LoginFormEvent
 import com.banap.banap.validation.password.data.validationDataPassword
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
+@OptIn(DelicateCoroutinesApi::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun Login(
@@ -65,6 +69,23 @@ fun Login(
         containerColor = BRANCO
     ) {
         val context = LocalContext.current
+
+        val tokenManager = TokenManager(context)
+
+        var userToken: String? by remember {
+            mutableStateOf(null)
+        }
+
+        LaunchedEffect(tokenManager) {
+            GlobalScope.launch {
+                tokenManager.token.collect { token ->
+                    println("Token armazenado: $token")
+                    userToken = token
+                }
+            }
+        }
+
+        val dataViewModel: DataViewModel = viewModel()
 
         val viewModelEmail = viewModel<EmailTextFieldViewModel>()
         val stateEmail = viewModelEmail.state
@@ -92,8 +113,6 @@ fun Login(
 
         val screenWidth = LocalConfiguration.current.screenWidthDp.dp
         val screenHeight = LocalConfiguration.current.screenHeightDp.dp
-
-        val dataViewModel: DataViewModel = viewModel()
 
         Image(
             imageVector = ImageVector.vectorResource(id = R.drawable.desenho_de_cima),
@@ -133,7 +152,7 @@ fun Login(
             Spacer(modifier = Modifier.height(20.dp))
 
             Text(
-                text = "Entre com sua\n conta de id: ${ApiComponent(dataUiState = dataViewModel.dataUiState)}!",
+                text = "Entre com sua\n conta!",
                 textAlign = TextAlign.Center,
                 style = Typography.titleSmall,
                 color = VERDE_ESCURO
@@ -237,13 +256,14 @@ fun Login(
                             viewModelPassword.onEvent(PasswordTextFieldFormEvent.Submit)
 
                             if (isValidationSuccessful) {
-                                isCredentialsCorrect = checkCredentials(
-                                    email = stateEmail.email,
-                                    password = statePassword.password
-                                )
+                                dataViewModel.onEvent(LoginFormEvent.Email(stateEmail.email))
+                                dataViewModel.onEvent(LoginFormEvent.Password(statePassword.password))
+                                dataViewModel.onEvent(LoginFormEvent.Submit)
 
-                                if (isCredentialsCorrect == true) {
+                                if (!userToken.isNullOrEmpty()) {
                                     navigationController.navigate("Home")
+                                } else {
+                                    isCredentialsCorrect = false
                                 }
                             }
                         },
