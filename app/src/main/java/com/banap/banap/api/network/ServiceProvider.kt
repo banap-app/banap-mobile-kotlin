@@ -1,27 +1,34 @@
 package com.banap.banap.api.network
 
-import com.banap.banap.api.service.LoginService
+import com.banap.banap.common.Constants.BASE_URL
+import com.banap.banap.data.service.LoginService
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
-private const val BASE_URL = "http://10.0.2.2:8192"
+@Module
+@InstallIn(SingletonComponent::class)
+object Network {
+    private val client = OkHttpClient.Builder()
+        .addInterceptor(HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        })
+        .build()
 
-val client = OkHttpClient.Builder()
-    .addInterceptor(HttpLoggingInterceptor().apply {
-        level = HttpLoggingInterceptor.Level.BODY
-    })
-    .build()
-
-private val retrofit = Retrofit.Builder()
-    .addConverterFactory(GsonConverterFactory.create())
-    .baseUrl(BASE_URL)
-    .client(client)
-    .build()
-
-object ServiceProvider {
-    val retrofitService: LoginService by lazy {
-        retrofit.create(LoginService::class.java)
+    @Provides
+    @Singleton
+    fun provideRetrofitApi(): LoginService {
+        return Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(BASE_URL)
+            .client(client)
+            .build()
+            .create(LoginService::class.java)
     }
 }

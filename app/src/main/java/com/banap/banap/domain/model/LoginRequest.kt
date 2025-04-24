@@ -1,6 +1,6 @@
-package com.banap.banap.api.model
+package com.banap.banap.domain.model
 
-data class DataRequest(
+data class LoginRequest(
     val email: String,
     val password: String,
     val typeUser: Int

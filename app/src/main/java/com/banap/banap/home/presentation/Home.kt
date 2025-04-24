@@ -13,7 +13,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -29,32 +28,24 @@ import com.banap.banap.home.presentation.components.Header
 import com.banap.banap.home.presentation.components.Property
 import com.banap.banap.home.presentation.components.RecentActivities
 import com.banap.banap.home.presentation.components.Tasks
-import com.banap.banap.login.model.TokenManager
+import com.banap.banap.login.viewmodel.TokenViewModel
 import com.banap.banap.ui.theme.BRANCO
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
-@OptIn(DelicateCoroutinesApi::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun Home(
-    navigationController: NavController
+    navigationController: NavController,
+    tokenViewModel: TokenViewModel
 ) {
     val context = LocalContext.current
-
-    val tokenManager = TokenManager(context)
 
     var userToken: String? by remember {
         mutableStateOf(null)
     }
 
-    LaunchedEffect(tokenManager) {
-        GlobalScope.launch {
-            tokenManager.token.collect { token ->
-                println("Token armazenado: $token")
-                userToken = token
-            }
+    LaunchedEffect(context) {
+        tokenViewModel.getToken()?.let {
+            userToken = it
         }
     }
 
@@ -74,9 +65,7 @@ fun Home(
                     nome = "Gilmar",
                     navigationController = navigationController,
                     onItemClick = {
-                        GlobalScope.launch {
-                            tokenManager.clearToken()
-                        }
+                        tokenViewModel.clearToken()
                         navigationController.navigate("Login")
                     }
                 )

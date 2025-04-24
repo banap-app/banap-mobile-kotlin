@@ -31,13 +31,14 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.banap.banap.R
+import com.banap.banap.domain.viewmodel.LoginViewModel
 import com.banap.banap.ui.components.Button
 import com.banap.banap.login.presentation.components.TextBox
-import com.banap.banap.api.model.DataViewModel
-import com.banap.banap.login.model.TokenManager
+import com.banap.banap.login.viewmodel.TokenViewModel
 import com.banap.banap.model.setColorInText
 import com.banap.banap.ui.theme.BRANCO
 import com.banap.banap.ui.theme.PRETO
@@ -51,17 +52,14 @@ import com.banap.banap.validation.email.model.EmailTextFieldViewModel
 import com.banap.banap.validation.password.model.PasswordTextFieldFormEvent
 import com.banap.banap.validation.password.model.PasswordTextFieldViewModel
 import com.banap.banap.validation.email.data.validationDataEmail
-import com.banap.banap.validation.login.model.LoginFormEvent
 import com.banap.banap.validation.password.data.validationDataPassword
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
-@OptIn(DelicateCoroutinesApi::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun Login(
-    navigationController: NavController
+    navigationController: NavController,
+    loginViewModel: LoginViewModel = hiltViewModel(),
+    tokenViewModel: TokenViewModel
 ) {
     Scaffold(
         modifier = Modifier
@@ -70,22 +68,28 @@ fun Login(
     ) {
         val context = LocalContext.current
 
-        val tokenManager = TokenManager(context)
+        val loginState = loginViewModel.state.value
 
-        var userToken: String? by remember {
+        var isCredentialsCorrect: Boolean? by remember {
             mutableStateOf(null)
         }
 
-        LaunchedEffect(tokenManager) {
-            GlobalScope.launch {
-                tokenManager.token.collect { token ->
-                    println("Token armazenado: $token")
-                    userToken = token
+        LaunchedEffect(loginState.response) {
+            loginState.response?.token?.let { token ->
+                tokenViewModel.saveToken(token)
+                println("Token recebido: ${tokenViewModel.getToken()}")
+
+                if (tokenViewModel.getToken() != null) {
+                    navigationController.navigate("home")
                 }
             }
         }
 
-        val dataViewModel: DataViewModel = viewModel()
+        LaunchedEffect(loginState.error) {
+            if (loginState.error.isNotBlank()) {
+                isCredentialsCorrect = false
+            }
+        }
 
         val viewModelEmail = viewModel<EmailTextFieldViewModel>()
         val stateEmail = viewModelEmail.state
@@ -106,10 +110,6 @@ fun Login(
         )
 
         val isValidationSuccessful = validationDataEmail && validationDataPassword
-
-        var isCredentialsCorrect: Boolean? by remember {
-            mutableStateOf(null)
-        }
 
         val screenWidth = LocalConfiguration.current.screenWidthDp.dp
         val screenHeight = LocalConfiguration.current.screenHeightDp.dp
@@ -256,15 +256,7 @@ fun Login(
                             viewModelPassword.onEvent(PasswordTextFieldFormEvent.Submit)
 
                             if (isValidationSuccessful) {
-                                dataViewModel.onEvent(LoginFormEvent.Email(stateEmail.email))
-                                dataViewModel.onEvent(LoginFormEvent.Password(statePassword.password))
-                                dataViewModel.onEvent(LoginFormEvent.Submit)
-
-                                if (!userToken.isNullOrEmpty()) {
-                                    navigationController.navigate("Home")
-                                } else {
-                                    isCredentialsCorrect = false
-                                }
+                                loginViewModel.loginUser(stateEmail.email, statePassword.password)
                             }
                         },
                         backgroundColor = VERDE_CLARO,

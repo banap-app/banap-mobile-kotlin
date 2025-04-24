@@ -1,34 +1,23 @@
 package com.banap.banap.login.model
 
 import android.content.Context
-import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.stringPreferencesKey
-import androidx.datastore.preferences.preferencesDataStore
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-private val Context.dataStore by preferencesDataStore("auth_prefs")
+class TokenManager @Inject constructor (
+    private val context: Context,
+) {
+    private val prefs = context.getSharedPreferences("auth_token", Context.MODE_PRIVATE)
 
-class TokenManager (private val context: Context) {
-
-    companion object {
-        private val TOKEN_KEY = stringPreferencesKey("auth_token")
+    fun saveToken(token: String) {
+        prefs.edit().putString("token", token).apply()
     }
 
-    val token: Flow<String?> = context.dataStore.data.map { prefs ->
-        prefs[TOKEN_KEY]
+    fun getToken() : String? {
+        return prefs.getString("token", null)
     }
 
-    suspend fun saveToken(token: String) {
-        context.dataStore.edit { prefs ->
-            prefs[TOKEN_KEY] = token
-        }
-    }
-
-    suspend fun clearToken() {
-        context.dataStore.edit { prefs ->
-            prefs.remove(TOKEN_KEY)
-        }
+    fun clearToken() {
+        prefs.edit().remove("token").apply()
     }
 
 }

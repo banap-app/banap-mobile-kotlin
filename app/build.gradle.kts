@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.secrets.gradle)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.hilt.android)
 }
 
 android {
@@ -28,13 +30,16 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
     kotlinOptions {
         jvmTarget = "11"
     }
+
     buildFeatures {
         compose = true
         buildConfig = true
@@ -48,7 +53,14 @@ secrets {
     ignoreList.add("sdk.")
 }
 
+kapt {
+    correctErrorTypes = true
+}
+
 dependencies {
+    implementation(libs.hilt.navigation.compose)
+    implementation(libs.dagger.hilt.android)
+    kapt(libs.kapt)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.logging.interceptor)
     implementation(libs.play.services.location)
