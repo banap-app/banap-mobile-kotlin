@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -16,12 +17,15 @@ import com.banap.banap.engineer.registration.presentation.NewEngineerSecondPage
 import com.banap.banap.field.registration.presentation.NewFieldFirstPage
 import com.banap.banap.field.registration.presentation.NewFieldSecondPage
 import com.banap.banap.field.registration.presentation.NewFieldThirdPage
+import com.banap.banap.login.viewmodel.TokenViewModel
 import com.banap.banap.producer.registration.presentation.NewProducer
 import com.banap.banap.property.registration.presentation.NewProperty
 import com.banap.banap.presentation.ReadyToStart
 import com.banap.banap.presentation.Tutorial
 import com.banap.banap.presentation.UserChoice
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,18 +34,25 @@ class MainActivity : ComponentActivity() {
         setContent {
             BanapTheme {
                 val navigationController = rememberNavController()
+                val tokenViewModel: TokenViewModel = hiltViewModel()
 
-                NavHost(navController = navigationController, startDestination = "NewFieldSecondPage"){
+                NavHost(navController = navigationController, startDestination = "Tutorial"){
                     composable (
                         route = "Home"
                     ) {
-                        Home(navigationController)
+                        Home(
+                            navigationController,
+                            tokenViewModel = tokenViewModel
+                        )
                     }
 
                     composable (
                         route = "Login"
                     ) {
-                        Login(navigationController)
+                        Login(
+                            navigationController,
+                            tokenViewModel = tokenViewModel
+                        )
                     }
 
                     composable (

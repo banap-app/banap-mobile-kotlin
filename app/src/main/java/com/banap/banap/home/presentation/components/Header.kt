@@ -24,7 +24,8 @@ import com.banap.banap.ui.theme.VERDE_CLARO
 @Composable
 fun Header(
     nome: String,
-    navigationController: NavController
+    navigationController: NavController,
+    onItemClick: (DropDownItem) -> Unit
 ) {
     Row (
         modifier = Modifier
@@ -61,9 +62,7 @@ fun Header(
                 dropDownItems = listOf(
                     DropDownItem("Sair")
                 ),
-                onItemClick = {
-                    navigationController.navigate("Login")
-                }
+                onItemClick = onItemClick
             )
         }
     }

@@ -1,20 +1,34 @@
 package com.banap.banap.api.network
 
-import com.banap.banap.api.service.ServiceApi
-import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
-import kotlinx.serialization.json.Json
-import okhttp3.MediaType.Companion.toMediaType
+import com.banap.banap.common.Constants.BASE_URL
+import com.banap.banap.data.service.LoginService
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
-private const val BASE_URL = "https://android-kotlin-fun-mars-server.appspot.com"
+@Module
+@InstallIn(SingletonComponent::class)
+object Network {
+    private val client = OkHttpClient.Builder()
+        .addInterceptor(HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        })
+        .build()
 
-private val retrofit = Retrofit.Builder()
-    .baseUrl(BASE_URL)
-    .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
-    .build()
-
-object ServiceProvider {
-    val retrofitService: ServiceApi by lazy {
-        retrofit.create(ServiceApi::class.java)
+    @Provides
+    @Singleton
+    fun provideRetrofitApi(): LoginService {
+        return Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(BASE_URL)
+            .client(client)
+            .build()
+            .create(LoginService::class.java)
     }
 }

@@ -31,14 +31,14 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.banap.banap.R
+import com.banap.banap.domain.viewmodel.LoginViewModel
 import com.banap.banap.ui.components.Button
 import com.banap.banap.login.presentation.components.TextBox
-import com.banap.banap.api.presentation.components.ApiComponent
-import com.banap.banap.api.model.DataViewModel
-import com.banap.banap.login.model.checkCredentials
+import com.banap.banap.login.viewmodel.TokenViewModel
 import com.banap.banap.model.setColorInText
 import com.banap.banap.ui.theme.BRANCO
 import com.banap.banap.ui.theme.PRETO
@@ -57,7 +57,9 @@ import com.banap.banap.validation.password.data.validationDataPassword
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun Login(
-    navigationController: NavController
+    navigationController: NavController,
+    loginViewModel: LoginViewModel = hiltViewModel(),
+    tokenViewModel: TokenViewModel
 ) {
     Scaffold(
         modifier = Modifier
@@ -65,6 +67,29 @@ fun Login(
         containerColor = BRANCO
     ) {
         val context = LocalContext.current
+
+        val loginState = loginViewModel.state.value
+
+        var isCredentialsCorrect: Boolean? by remember {
+            mutableStateOf(null)
+        }
+
+        LaunchedEffect(loginState.response) {
+            loginState.response?.token?.let { token ->
+                tokenViewModel.saveToken(token)
+                println("Token recebido: ${tokenViewModel.getToken()}")
+
+                if (tokenViewModel.getToken() != null) {
+                    navigationController.navigate("home")
+                }
+            }
+        }
+
+        LaunchedEffect(loginState.error) {
+            if (loginState.error.isNotBlank()) {
+                isCredentialsCorrect = false
+            }
+        }
 
         val viewModelEmail = viewModel<EmailTextFieldViewModel>()
         val stateEmail = viewModelEmail.state
@@ -86,14 +111,8 @@ fun Login(
 
         val isValidationSuccessful = validationDataEmail && validationDataPassword
 
-        var isCredentialsCorrect: Boolean? by remember {
-            mutableStateOf(null)
-        }
-
         val screenWidth = LocalConfiguration.current.screenWidthDp.dp
         val screenHeight = LocalConfiguration.current.screenHeightDp.dp
-
-        val dataViewModel: DataViewModel = viewModel()
 
         Image(
             imageVector = ImageVector.vectorResource(id = R.drawable.desenho_de_cima),
@@ -133,7 +152,7 @@ fun Login(
             Spacer(modifier = Modifier.height(20.dp))
 
             Text(
-                text = "Entre com sua\n conta de id: ${ApiComponent(dataUiState = dataViewModel.dataUiState)}!",
+                text = "Entre com sua\n conta!",
                 textAlign = TextAlign.Center,
                 style = Typography.titleSmall,
                 color = VERDE_ESCURO
@@ -237,14 +256,7 @@ fun Login(
                             viewModelPassword.onEvent(PasswordTextFieldFormEvent.Submit)
 
                             if (isValidationSuccessful) {
-                                isCredentialsCorrect = checkCredentials(
-                                    email = stateEmail.email,
-                                    password = statePassword.password
-                                )
-
-                                if (isCredentialsCorrect == true) {
-                                    navigationController.navigate("Home")
-                                }
+                                loginViewModel.loginUser(stateEmail.email, statePassword.password)
                             }
                         },
                         backgroundColor = VERDE_CLARO,
