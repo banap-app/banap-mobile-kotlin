@@ -9,20 +9,20 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.banap.banap.home.presentation.Home
-import com.banap.banap.ui.theme.BanapTheme
-import com.banap.banap.login.presentation.Login
-import com.banap.banap.engineer.registration.presentation.NewEngineerFirstPage
-import com.banap.banap.engineer.registration.presentation.NewEngineerSecondPage
-import com.banap.banap.field.registration.presentation.NewFieldFirstPage
-import com.banap.banap.field.registration.presentation.NewFieldSecondPage
-import com.banap.banap.field.registration.presentation.NewFieldThirdPage
-import com.banap.banap.login.viewmodel.TokenViewModel
-import com.banap.banap.producer.registration.presentation.NewProducer
-import com.banap.banap.property.registration.presentation.NewProperty
-import com.banap.banap.presentation.ReadyToStart
-import com.banap.banap.presentation.Tutorial
-import com.banap.banap.presentation.UserChoice
+import com.banap.banap.app.presentation.home.ui.screen.Home
+import com.banap.banap.core.ui.theme.BanapTheme
+import com.banap.banap.app.presentation.login.ui.screen.Login
+import com.banap.banap.app.presentation.engineer.ui.registration.NewEngineerFirstPage
+import com.banap.banap.app.presentation.engineer.ui.registration.NewEngineerSecondPage
+import com.banap.banap.app.presentation.field.ui.registration.screen.NewFieldFirstPage
+import com.banap.banap.app.presentation.field.ui.registration.screen.NewFieldSecondPage
+import com.banap.banap.app.presentation.field.ui.registration.screen.NewFieldThirdPage
+import com.banap.banap.app.presentation.session.viewmodel.TokenViewModel
+import com.banap.banap.app.presentation.producer.ui.registration.NewProducer
+import com.banap.banap.app.presentation.property.ui.registration.NewProperty
+import com.banap.banap.app.presentation.readytostart.ui.ReadyToStart
+import com.banap.banap.app.presentation.tutorial.ui.Tutorial
+import com.banap.banap.app.presentation.userchoice.ui.UserChoice
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

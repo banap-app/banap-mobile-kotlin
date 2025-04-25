@@ -2,7 +2,7 @@ package com.banap.banap.data.repository
 
 import com.banap.banap.domain.model.LoginRequest
 import com.banap.banap.data.model.LoginResponse
-import com.banap.banap.data.service.LoginService
+import com.banap.banap.data.remote.login.LoginService
 import com.banap.banap.domain.repository.LoginRepository
 import javax.inject.Inject
 
