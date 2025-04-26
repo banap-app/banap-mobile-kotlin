@@ -77,7 +77,6 @@ fun Login(
         LaunchedEffect(loginState.response) {
             loginState.response?.token?.let { token ->
                 tokenViewModel.saveToken(token)
-                println("Token recebido: ${tokenViewModel.getToken()}")
 
                 if (tokenViewModel.getToken() != null) {
                     navigationController.navigate("home")
@@ -256,7 +255,7 @@ fun Login(
                             viewModelPassword.onEvent(PasswordTextFieldFormEvent.Submit)
 
                             if (isValidationSuccessful) {
-                                loginViewModel.loginUser(stateEmail.email, statePassword.password)
+                                loginViewModel.authenticateUser(stateEmail.email, statePassword.password)
                             }
                         },
                         backgroundColor = VERDE_CLARO,
