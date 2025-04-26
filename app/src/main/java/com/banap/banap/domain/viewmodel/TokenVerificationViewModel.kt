@@ -5,38 +5,37 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.banap.banap.common.Resource
-import com.banap.banap.domain.model.LoginState
-import com.banap.banap.domain.use_case.login.LoginUseCase
+import com.banap.banap.domain.model.TokenVerificationState
+import com.banap.banap.domain.use_case.login.TokenVerificationUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor (
-    private val loginUseCase: LoginUseCase
+class TokenVerificationViewModel @Inject constructor(
+    private val tokenVerificationUseCase: TokenVerificationUseCase
 ) : ViewModel() {
-    private val _state = mutableStateOf(LoginState())
-    val state: State<LoginState> = _state
+    private val _state = mutableStateOf(TokenVerificationState())
+    val state: State<TokenVerificationState> = _state
 
-    fun authenticateUser (
-        email: String,
-        password: String
+    fun verifyToken(
+        token: String
     ) {
-        loginUseCase(email, password).onEach { result ->
+        tokenVerificationUseCase(token).onEach { result ->
             when (result) {
                 is Resource.Success -> {
-                    _state.value = LoginState(response = result.data)
+                    _state.value = TokenVerificationState(response = result.data)
                 }
 
                 is Resource.Error -> {
-                    _state.value = LoginState(
+                    _state.value = TokenVerificationState(
                         error = result.message ?: "Um erro inexperado aconteceu"
                     )
                 }
 
                 is Resource.Loading -> {
-                    _state.value = LoginState(isLoading = true)
+                    _state.value = TokenVerificationState(isLoading = true)
                 }
             }
         }.launchIn(viewModelScope)

@@ -1,5 +1,6 @@
 package com.banap.banap.core.network
 
+import android.util.Log
 import com.banap.banap.common.Constants.BASE_URL
 import com.banap.banap.data.remote.login.LoginService
 import com.banap.banap.core.data.local.token.TokenManager
@@ -21,16 +22,23 @@ object NetworkModule {
     @Singleton
     fun provideOkHttpClient(tokenManager: TokenManager): OkHttpClient =
         OkHttpClient.Builder()
+            .addInterceptor { chain ->
+                val token = tokenManager.getToken()
+                Log.d("AuthInterceptor", "Token: $token")
+
+                val request = chain.request().newBuilder()
+                    .addHeader("Accept", "application/json")
+                    .addHeader("Content-Type", "application/json")
+
+                token?.let {
+                    request.addHeader("Authorization", it)
+                }
+
+                chain.proceed(request.build())
+            }
             .addInterceptor(HttpLoggingInterceptor().apply {
                 level = HttpLoggingInterceptor.Level.BODY
             })
-            .addInterceptor { chain ->
-                val req = chain.request().newBuilder()
-                tokenManager.getToken()?.let {
-                    req.addHeader("Authorization", "Bearer $it")
-                }
-                chain.proceed(req.build())
-            }
             .build()
 
     @Provides

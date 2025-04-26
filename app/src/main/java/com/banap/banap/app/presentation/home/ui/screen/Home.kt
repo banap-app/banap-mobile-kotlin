@@ -1,6 +1,7 @@
 package com.banap.banap.app.presentation.home.ui.screen
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -8,8 +9,10 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -30,22 +33,41 @@ import com.banap.banap.app.presentation.home.ui.components.RecentActivities
 import com.banap.banap.app.presentation.home.ui.components.Tasks
 import com.banap.banap.app.presentation.session.viewmodel.TokenViewModel
 import com.banap.banap.core.ui.theme.BRANCO
+import com.banap.banap.core.ui.theme.VERDE_CLARO
+import com.banap.banap.domain.viewmodel.TokenVerificationViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun Home(
     navigationController: NavController,
-    tokenViewModel: TokenViewModel
+    tokenViewModel: TokenViewModel,
+    tokenVerificationViewModel: TokenVerificationViewModel
 ) {
     val context = LocalContext.current
 
-    var userToken: String? by remember {
-        mutableStateOf(null)
+    val tokenVerificationState = tokenVerificationViewModel.state.value
+
+    var isTokenValid: Boolean by remember {
+        mutableStateOf(false)
+    }
+
+    var isLoading: Boolean by remember {
+        mutableStateOf(true)
     }
 
     LaunchedEffect(context) {
-        tokenViewModel.getToken()?.let {
-            userToken = it
+        tokenViewModel.getToken()?.let { token ->
+            tokenVerificationViewModel.verifyToken(token)
+        }
+    }
+
+    LaunchedEffect(tokenVerificationState.isLoading) {
+        isLoading = tokenVerificationState.isLoading
+    }
+
+    LaunchedEffect(tokenVerificationState.response) {
+        tokenVerificationState.response?.success?.let {
+            isTokenValid = it
         }
     }
 
@@ -54,7 +76,22 @@ fun Home(
             .fillMaxSize(),
         containerColor = BRANCO
     ) {
-        if (!userToken.isNullOrEmpty()) {
+        if (isLoading) {
+            Column (
+                modifier = Modifier
+                    .fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                CircularProgressIndicator(
+                    strokeWidth = 4.dp,
+                    modifier = Modifier.size(48.dp),
+                    color = VERDE_CLARO
+                )
+            }
+        }
+
+        if (isTokenValid) {
             Column (
                 modifier = Modifier
                     .verticalScroll(rememberScrollState())
@@ -103,17 +140,6 @@ fun Home(
                     titulo = "Lista de tarefas",
                     subTitulo = "Seus afazeres da semana!",
                     navigationController
-                )
-            }
-        } else {
-            Column (
-                modifier = Modifier
-                    .fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = "Você não está logado"
                 )
             }
         }

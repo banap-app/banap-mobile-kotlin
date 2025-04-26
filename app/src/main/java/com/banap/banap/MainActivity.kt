@@ -23,6 +23,7 @@ import com.banap.banap.app.presentation.property.ui.registration.NewProperty
 import com.banap.banap.app.presentation.readytostart.ui.ReadyToStart
 import com.banap.banap.app.presentation.tutorial.ui.Tutorial
 import com.banap.banap.app.presentation.userchoice.ui.UserChoice
+import com.banap.banap.domain.viewmodel.TokenVerificationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -35,6 +36,7 @@ class MainActivity : ComponentActivity() {
             BanapTheme {
                 val navigationController = rememberNavController()
                 val tokenViewModel: TokenViewModel = hiltViewModel()
+                val tokenVerificationViewModel: TokenVerificationViewModel = hiltViewModel()
 
                 NavHost(navController = navigationController, startDestination = "Tutorial"){
                     composable (
@@ -42,7 +44,8 @@ class MainActivity : ComponentActivity() {
                     ) {
                         Home(
                             navigationController,
-                            tokenViewModel = tokenViewModel
+                            tokenViewModel = tokenViewModel,
+                            tokenVerificationViewModel = tokenVerificationViewModel
                         )
                     }
 
