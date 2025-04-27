@@ -1,24 +1,21 @@
 package com.banap.banap.app.presentation.home.ui.screen
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
@@ -32,8 +29,8 @@ import com.banap.banap.app.presentation.home.ui.components.Property
 import com.banap.banap.app.presentation.home.ui.components.RecentActivities
 import com.banap.banap.app.presentation.home.ui.components.Tasks
 import com.banap.banap.app.presentation.session.viewmodel.TokenViewModel
+import com.banap.banap.core.ui.components.LoadingScreen
 import com.banap.banap.core.ui.theme.BRANCO
-import com.banap.banap.core.ui.theme.VERDE_CLARO
 import com.banap.banap.domain.viewmodel.TokenVerificationViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -77,18 +74,7 @@ fun Home(
         containerColor = BRANCO
     ) {
         if (isLoading) {
-            Column (
-                modifier = Modifier
-                    .fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                CircularProgressIndicator(
-                    strokeWidth = 4.dp,
-                    modifier = Modifier.size(48.dp),
-                    color = VERDE_CLARO
-                )
-            }
+            LoadingScreen()
         }
 
         if (isTokenValid) {

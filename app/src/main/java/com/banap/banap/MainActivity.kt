@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -23,14 +22,16 @@ import com.banap.banap.app.presentation.property.ui.registration.NewProperty
 import com.banap.banap.app.presentation.readytostart.ui.ReadyToStart
 import com.banap.banap.app.presentation.tutorial.ui.Tutorial
 import com.banap.banap.app.presentation.userchoice.ui.UserChoice
+import com.banap.banap.core.ui.components.SplashScreen
 import com.banap.banap.domain.viewmodel.TokenVerificationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.Theme_Banap)
+
         super.onCreate(savedInstanceState)
-        installSplashScreen()
         enableEdgeToEdge()
         setContent {
             BanapTheme {
@@ -38,7 +39,13 @@ class MainActivity : ComponentActivity() {
                 val tokenViewModel: TokenViewModel = hiltViewModel()
                 val tokenVerificationViewModel: TokenVerificationViewModel = hiltViewModel()
 
-                NavHost(navController = navigationController, startDestination = "Tutorial"){
+                NavHost(navController = navigationController, startDestination = "SplashScreen"){
+                    composable (
+                        route = "SplashScreen"
+                    ) {
+                        SplashScreen(navigationController)
+                    }
+
                     composable (
                         route = "Home"
                     ) {
