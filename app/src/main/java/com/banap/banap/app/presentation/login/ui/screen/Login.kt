@@ -1,6 +1,7 @@
 package com.banap.banap.app.presentation.login.ui.screen
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -12,6 +13,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.runtime.Composable
@@ -53,6 +58,7 @@ import com.banap.banap.app.presentation.validation.password.event.PasswordTextFi
 import com.banap.banap.app.presentation.validation.password.viewmodel.PasswordTextFieldViewModel
 import com.banap.banap.app.presentation.validation.email.utils.validationDataEmail
 import com.banap.banap.app.presentation.validation.password.utils.validationDataPassword
+import com.banap.banap.core.ui.util.ConnectivityAwareContent
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -61,10 +67,40 @@ fun Login(
     loginViewModel: LoginViewModel = hiltViewModel(),
     tokenViewModel: TokenViewModel
 ) {
+    val snackBarHostState = remember { SnackbarHostState() }
+
+    ConnectivityAwareContent { isOnline ->
+        Log.d("Connectivity", "isOnline: $isOnline")
+
+        LaunchedEffect(isOnline) {
+            if (!isOnline) {
+                snackBarHostState.showSnackbar(
+                    message = "Sem conexão de internet",
+                    actionLabel = "Reconectar",
+                    duration = SnackbarDuration.Indefinite
+                )
+            } else {
+                snackBarHostState.currentSnackbarData?.dismiss()
+            }
+        }
+    }
+
     Scaffold(
         modifier = Modifier
             .fillMaxSize(),
-        containerColor = BRANCO
+        containerColor = BRANCO,
+        snackbarHost = {
+            SnackbarHost(
+                hostState = snackBarHostState
+            ) { data ->
+                Snackbar(
+                    snackbarData = data,
+                    containerColor = VERDE_CLARO,
+                    contentColor = BRANCO,
+                    actionColor = BRANCO
+                )
+            }
+        }
     ) {
         val context = LocalContext.current
 
