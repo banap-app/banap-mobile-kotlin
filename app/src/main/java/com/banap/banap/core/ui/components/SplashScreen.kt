@@ -40,6 +40,7 @@ fun SplashScreen(
     navigationController: NavController
 ) {
     val scale = remember { Animatable(0.8f) }
+    val scaleBanapLogo = remember { Animatable(0.7f) }
     val alpha = remember { Animatable(0f) }
 
     LaunchedEffect(key1 = true) {
@@ -50,6 +51,15 @@ fun SplashScreen(
                 easing = FastOutSlowInEasing
             )
         )
+
+        scaleBanapLogo.animateTo(
+            targetValue = 0.9f,
+            animationSpec = tween(
+                durationMillis = 600,
+                easing = FastOutSlowInEasing
+            )
+        )
+
         alpha.animateTo(
             targetValue = 1f,
             animationSpec = tween(
@@ -91,7 +101,7 @@ fun SplashScreen(
                 painter = painterResource(id = R.drawable.banap),
                 contentDescription = "Logo do Banap",
                 modifier = Modifier
-                    .scale(scale.value)
+                    .scale(scaleBanapLogo.value)
                     .alpha(alpha.value)
             )
 
@@ -116,7 +126,7 @@ fun SplashScreen(
         ) {
             Text(
                 text = "from",
-                style = Typography.bodySmall,
+                style = Typography.bodyLarge,
                 color = CINZA_CLARO,
                 modifier = Modifier
                     .scale(scale.value)
@@ -125,7 +135,7 @@ fun SplashScreen(
 
             Text(
                 text = "GreenHouse",
-                style = Typography.bodySmall,
+                style = Typography.bodyLarge,
                 color = VERDE_CLARO,
                 modifier = Modifier
                     .scale(scale.value)

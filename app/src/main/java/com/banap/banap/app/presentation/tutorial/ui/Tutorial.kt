@@ -88,67 +88,68 @@ fun Tutorial(
         ) {
             Row(
                 modifier = Modifier
+                    .padding(horizontal = 30.dp)
                     .fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceAround,
+                horizontalArrangement = Arrangement.End,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(10.dp)
-                ) {
-                    Button(
-                        onClick = {
-                            scope.launch {
-                                pagerState.animateScrollToPage(
-                                    pagerState.currentPage - 1
-                                )
-                            }
-                        },
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = VERDE_CLARO,
-                            contentColor = BRANCO
-                        ),
-                        shape = RoundedCornerShape(10.dp),
-                        elevation = ButtonDefaults.elevatedButtonElevation(
-                            defaultElevation = 2.dp
-                        ),
-                        enabled = if (pagerState.currentPage >= 1) true else false,
-                        contentPadding = PaddingValues(min(0.dp, 0.dp))
-                    ) {
-                        Icon(
-                            Icons.AutoMirrored.Filled.KeyboardArrowLeft,
-                            contentDescription = "Flecha para a esquerda",
-                            modifier = Modifier
-                                .scale(1.2F)
-                        )
-                    }
-
-                    Button(
-                        onClick = {
-                            scope.launch {
-                                pagerState.animateScrollToPage(
-                                    pagerState.currentPage + 1
-                                )
-                            }
-                        },
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = VERDE_CLARO,
-                            contentColor = BRANCO
-                        ),
-                        shape = RoundedCornerShape(10.dp),
-                        elevation = ButtonDefaults.elevatedButtonElevation(
-                            defaultElevation = 2.dp
-                        ),
-                        enabled = if (pagerState.currentPage == 3) false else true,
-                        contentPadding = PaddingValues(min(0.dp, 0.dp))
-                    ) {
-                        Icon(
-                            Icons.AutoMirrored.Filled.KeyboardArrowRight,
-                            contentDescription = "Flecha para a direita",
-                            modifier = Modifier
-                                .scale(1.2F)
-                        )
-                    }
-                }
+//                Row(
+//                    horizontalArrangement = Arrangement.spacedBy(10.dp)
+//                ) {
+//                    Button(
+//                        onClick = {
+//                            scope.launch {
+//                                pagerState.animateScrollToPage(
+//                                    pagerState.currentPage - 1
+//                                )
+//                            }
+//                        },
+//                        colors = ButtonDefaults.buttonColors(
+//                            containerColor = VERDE_CLARO,
+//                            contentColor = BRANCO
+//                        ),
+//                        shape = RoundedCornerShape(10.dp),
+//                        elevation = ButtonDefaults.elevatedButtonElevation(
+//                            defaultElevation = 2.dp
+//                        ),
+//                        enabled = if (pagerState.currentPage >= 1) true else false,
+//                        contentPadding = PaddingValues(min(0.dp, 0.dp))
+//                    ) {
+//                        Icon(
+//                            Icons.AutoMirrored.Filled.KeyboardArrowLeft,
+//                            contentDescription = "Flecha para a esquerda",
+//                            modifier = Modifier
+//                                .scale(1.2F)
+//                        )
+//                    }
+//
+//                    Button(
+//                        onClick = {
+//                            scope.launch {
+//                                pagerState.animateScrollToPage(
+//                                    pagerState.currentPage + 1
+//                                )
+//                            }
+//                        },
+//                        colors = ButtonDefaults.buttonColors(
+//                            containerColor = VERDE_CLARO,
+//                            contentColor = BRANCO
+//                        ),
+//                        shape = RoundedCornerShape(10.dp),
+//                        elevation = ButtonDefaults.elevatedButtonElevation(
+//                            defaultElevation = 2.dp
+//                        ),
+//                        enabled = if (pagerState.currentPage == 3) false else true,
+//                        contentPadding = PaddingValues(min(0.dp, 0.dp))
+//                    ) {
+//                        Icon(
+//                            Icons.AutoMirrored.Filled.KeyboardArrowRight,
+//                            contentDescription = "Flecha para a direita",
+//                            modifier = Modifier
+//                                .scale(1.2F)
+//                        )
+//                    }
+//                }
 
                 Button(
                     onClick = {
@@ -218,7 +219,7 @@ fun Tutorial(
                             ),
                             contentDescription = "Imagem de uma pessoa mexendo no celular",
                             modifier = Modifier
-                                .scale(1.0F)
+                                .scale(1f)
                         )
 
                         Spacer(modifier = Modifier.height(60.dp))
@@ -226,7 +227,7 @@ fun Tutorial(
                         Text(
                             text = texto,
                             textAlign = TextAlign.Center,
-                            style = Typography.titleMedium,
+                            style = Typography.titleSmall,
                             fontWeight = FontWeight.Bold,
                             color = VERDE_ESCURO
                         )
@@ -250,7 +251,7 @@ fun Tutorial(
 
                         Card(
                             modifier = Modifier
-                                .size(20.dp),
+                                .size(15.dp),
                             shape = CircleShape,
                             colors = CardDefaults.cardColors(
                                 containerColor = color
