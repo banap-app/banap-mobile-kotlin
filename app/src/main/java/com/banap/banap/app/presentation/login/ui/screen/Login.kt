@@ -124,8 +124,6 @@ fun Login(
             }
         }
     ) {
-        val context = LocalContext.current
-
         val loginState = loginViewModel.state.value
 
         var isCredentialsCorrect: Boolean? by remember {
@@ -314,6 +312,8 @@ fun Login(
 
                             if (isValidationSuccessful && isApplicationOnline == true) {
                                 loginViewModel.authenticateUser(stateEmail.email, statePassword.password)
+                            } else {
+                                isCredentialsCorrect = false
                             }
                         },
                         backgroundColor = VERDE_CLARO,
