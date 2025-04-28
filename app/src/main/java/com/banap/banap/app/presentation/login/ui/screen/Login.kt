@@ -1,6 +1,8 @@
 package com.banap.banap.app.presentation.login.ui.screen
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.os.Build
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -12,6 +14,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.runtime.Composable
@@ -53,6 +60,12 @@ import com.banap.banap.app.presentation.validation.password.event.PasswordTextFi
 import com.banap.banap.app.presentation.validation.password.viewmodel.PasswordTextFieldViewModel
 import com.banap.banap.app.presentation.validation.email.utils.validationDataEmail
 import com.banap.banap.app.presentation.validation.password.utils.validationDataPassword
+import com.banap.banap.core.ui.util.ConnectivityAwareContent
+import android.os.Build.VERSION_CODES
+import android.provider.Settings.Panel.ACTION_INTERNET_CONNECTIVITY
+import android.provider.Settings.ACTION_WIFI_SETTINGS
+
+
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -61,13 +74,56 @@ fun Login(
     loginViewModel: LoginViewModel = hiltViewModel(),
     tokenViewModel: TokenViewModel
 ) {
+    val context = LocalContext.current
+
+    val snackBarHostState = remember { SnackbarHostState() }
+
+    var isApplicationOnline: Boolean? by remember {
+        mutableStateOf(null)
+    }
+
+    ConnectivityAwareContent { isOnline ->
+        isApplicationOnline = isOnline
+
+        LaunchedEffect(isOnline) {
+            if (!isOnline) {
+                val result = snackBarHostState.showSnackbar(
+                    message = "Sem conexão de internet",
+                    actionLabel = "RECONECTAR",
+                    duration = SnackbarDuration.Indefinite
+                )
+                if (result == SnackbarResult.ActionPerformed) {
+                    val intent = if (Build.VERSION.SDK_INT >= VERSION_CODES.Q) {
+                        Intent(ACTION_INTERNET_CONNECTIVITY)
+                    } else {
+                        Intent(ACTION_WIFI_SETTINGS)
+                    }
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    context.startActivity(intent)
+                }
+            } else {
+                snackBarHostState.currentSnackbarData?.dismiss()
+            }
+        }
+    }
+
     Scaffold(
         modifier = Modifier
             .fillMaxSize(),
-        containerColor = BRANCO
+        containerColor = BRANCO,
+        snackbarHost = {
+            SnackbarHost(
+                hostState = snackBarHostState
+            ) { data ->
+                Snackbar(
+                    snackbarData = data,
+                    containerColor = VERDE_CLARO,
+                    contentColor = BRANCO,
+                    actionColor = BRANCO
+                )
+            }
+        }
     ) {
-        val context = LocalContext.current
-
         val loginState = loginViewModel.state.value
 
         var isCredentialsCorrect: Boolean? by remember {
@@ -254,8 +310,10 @@ fun Login(
                             viewModelEmail.onEvent(EmailTextFieldFormEvent.Submit)
                             viewModelPassword.onEvent(PasswordTextFieldFormEvent.Submit)
 
-                            if (isValidationSuccessful) {
+                            if (isValidationSuccessful && isApplicationOnline == true) {
                                 loginViewModel.authenticateUser(stateEmail.email, statePassword.password)
+                            } else {
+                                isCredentialsCorrect = false
                             }
                         },
                         backgroundColor = VERDE_CLARO,
