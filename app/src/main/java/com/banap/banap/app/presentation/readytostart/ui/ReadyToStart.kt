@@ -56,7 +56,6 @@ fun ReadyToStart(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceBetween
         ) {
-
             Box {
                 Column(
                     modifier = Modifier
@@ -68,7 +67,7 @@ fun ReadyToStart(
                         painter = painterResource(id = R.drawable.tutorial_05),
                         contentDescription = "Imagem de uma mulher com uma planta na mão",
                         modifier = Modifier
-                            .scale(1.5F)
+                            .scale(1.5f)
                     )
 
                     Spacer(modifier = Modifier.height(60.dp))
@@ -118,28 +117,30 @@ fun ReadyToStart(
                     }
                 }
 
-                Image(
-                    imageVector = ImageVector.vectorResource(id = R.drawable.linhas_ready_to_start),
-                    contentDescription = "Linhas da tela",
-                    modifier = Modifier
-                        .absoluteOffset(
-                            y = 220.dp
-                        )
-                        .scale(1.1F)
-                )
+//                Image(
+//                    imageVector = ImageVector.vectorResource(id = R.drawable.linhas_ready_to_start),
+//                    contentDescription = "Linhas da tela",
+//                    modifier = Modifier
+//                        .absoluteOffset(
+//                            y = 220.dp
+//                        )
+//                        .scale(1.1F)
+//                )
             }
 
 
             Column (
                 modifier = Modifier
+                    .padding(horizontal = 80.dp)
                     .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(20.dp)
             ) {
                 Button (
-                    texto = "Cadastrar se",
+                    texto = "Cadastrar",
                     modifier = Modifier
-                        .padding(vertical = 11.dp, horizontal = 74.dp),
+                        .fillMaxWidth()
+                        .padding(vertical = 11.dp),
                     icon = false,
                     shape = ShapeLogin.small,
                     onClick = {
@@ -153,7 +154,8 @@ fun ReadyToStart(
                 Button (
                     texto = "Logar",
                     modifier = Modifier
-                        .padding(vertical = 11.dp, horizontal = 100.dp),
+                        .fillMaxWidth()
+                        .padding(vertical = 11.dp),
                     icon = false,
                     shape = ShapeLogin.small,
                     onClick = {

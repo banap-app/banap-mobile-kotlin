@@ -4,11 +4,9 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.absoluteOffset
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -29,7 +27,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
@@ -64,8 +61,6 @@ import com.banap.banap.core.ui.util.ConnectivityAwareContent
 import android.os.Build.VERSION_CODES
 import android.provider.Settings.Panel.ACTION_INTERNET_CONNECTIVITY
 import android.provider.Settings.ACTION_WIFI_SETTINGS
-
-
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -132,9 +127,9 @@ fun Login(
 
         LaunchedEffect(loginState.response) {
             loginState.response?.token?.let { token ->
-                tokenViewModel.saveToken(token)
+                tokenViewModel.saveToken("token", token)
 
-                if (tokenViewModel.getToken() != null) {
+                if (tokenViewModel.getToken("token") != null) {
                     navigationController.navigate("home")
                 }
             }
@@ -166,204 +161,201 @@ fun Login(
 
         val isValidationSuccessful = validationDataEmail && validationDataPassword
 
-        val screenWidth = LocalConfiguration.current.screenWidthDp.dp
-        val screenHeight = LocalConfiguration.current.screenHeightDp.dp
+//        Image(
+//            imageVector = ImageVector.vectorResource(id = R.drawable.circulos_cima),
+//            contentDescription = "Desenhos de esferas verdes",
+//            modifier = Modifier
+//                .absoluteOffset(
+//                    x = screenWidth - 130.dp,
+//                    y = 195.dp
+//                )
+//                .scale(0.9F)
+//        )
 
-        Image(
-            imageVector = ImageVector.vectorResource(id = R.drawable.desenho_de_cima),
-            contentDescription = "Vetor de linhas",
-            modifier = Modifier
-                .absoluteOffset(
-                    x = screenWidth - 150.dp,
-                    y = 0.dp
-                )
-                .scale(1.2F)
-        )
-
-        Image(
-            imageVector = ImageVector.vectorResource(id = R.drawable.circulos_cima),
-            contentDescription = "Desenhos de esferas verdes",
-            modifier = Modifier
-                .absoluteOffset(
-                    x = screenWidth - 130.dp,
-                    y = 195.dp
-                )
-                .scale(0.9F)
-        )
-
-        Column(
+        Box(
             modifier = Modifier
                 .fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
-                painter = painterResource(id = R.drawable.banap),
-                contentDescription = "Logo do Banap",
+                imageVector = ImageVector.vectorResource(id = R.drawable.desenho_de_cima),
+                contentDescription = "Vetor de linhas",
                 modifier = Modifier
-                    .scale(0.9F)
+                    .align(Alignment.TopEnd)
+                    .scale(1.2F)
             )
 
-            Spacer(modifier = Modifier.height(20.dp))
-
-            Text(
-                text = "Entre com sua\n conta!",
-                textAlign = TextAlign.Center,
-                style = Typography.titleSmall,
-                color = VERDE_ESCURO
-            )
-
-            Spacer(modifier = Modifier.height(40.dp))
-
-            Box(
+            Column (
                 modifier = Modifier
+                    .align(Alignment.Center)
                     .fillMaxWidth()
-                    .padding(horizontal = 70.dp)
+                    .padding(horizontal = 60.dp)
             ) {
-                Column {
-                    TextBox(
-                        value = stateEmail.email,
-                        onValueChange = {
-                            viewModelEmail.onEvent(EmailTextFieldFormEvent.EmailChanged(it))
-                            viewModelEmail.onEvent(EmailTextFieldFormEvent.Submit)
-                        },
+                Column (
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.banap),
+                        contentDescription = "Logo do Banap",
                         modifier = Modifier
-                            .onFocusChanged {
-                                if (it.isFocused) {
-                                    isCredentialsCorrect = null
-                                }
-                            }
-                            .fillMaxWidth(),
-                        maxLines = 1,
-                        keyboardType = KeyboardType.Email,
-                        icon = R.drawable.email,
-                        iconColor = PRETO,
-                        placeholder = "email@gmail.com",
-                        passwordTextBox = false,
-                        label = "Email",
-                        labelTextStyle = Typography.labelSmall,
-                        labelColor = PRETO,
-                        isError = stateEmail.emailError != null || isCredentialsCorrect == false
+                            .scale(0.9F)
                     )
 
-                    if (stateEmail.emailError != null || isCredentialsCorrect == false) {
-                        Text(
-                            text = stateEmail.emailError ?: "O email está incorreto",
-                            color = VERMELHO,
-                            style = Typography.displaySmall
-                        )
-                    }
-
-                    Spacer(modifier = Modifier.height(30.dp))
-
-                    TextBox(
-                        value = statePassword.password,
-                        onValueChange = {
-                            viewModelPassword.onEvent(PasswordTextFieldFormEvent.PasswordChanged(it))
-                            viewModelPassword.onEvent(PasswordTextFieldFormEvent.Submit)
-                        },
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        maxLines = 1,
-                        keyboardType = KeyboardType.Password,
-                        icon = R.drawable.lock,
-                        iconColor = PRETO,
-                        placeholder = "Senha123",
-                        passwordTextBox = true,
-                        label = "Senha",
-                        labelTextStyle = Typography.labelSmall,
-                        labelColor = PRETO,
-                        isError = statePassword.passwordError != null || isCredentialsCorrect == false,
-                        lastOne = true
-                    )
-
-                    if (statePassword.passwordError != null || isCredentialsCorrect == false) {
-                        Text(
-                            text = statePassword.passwordError ?: "A senha está incorreta",
-                            color = VERMELHO,
-                            style = Typography.displaySmall
-                        )
-                    }
-
-                    Spacer(modifier = Modifier.height(5.dp))
+                    Spacer(modifier = Modifier.height(20.dp))
 
                     Text(
-                        text = "Esqueceu sua senha?",
-                        textAlign = TextAlign.End,
-                        style = Typography.bodySmall,
-                        fontWeight = FontWeight.Medium,
-                        color = VERDE_ESCURO,
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                    )
-
-                    Spacer(modifier = Modifier.height(15.dp))
-
-                    Button(
-                        texto = "Entrar",
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 12.dp),
-                        icon = false,
-                        shape = ShapeLogin.small,
-                        onClick = {
-                            viewModelEmail.onEvent(EmailTextFieldFormEvent.Submit)
-                            viewModelPassword.onEvent(PasswordTextFieldFormEvent.Submit)
-
-                            if (isValidationSuccessful && isApplicationOnline == true) {
-                                loginViewModel.authenticateUser(stateEmail.email, statePassword.password)
-                            } else {
-                                isCredentialsCorrect = false
-                            }
-                        },
-                        backgroundColor = VERDE_CLARO,
-                        contentColor = BRANCO,
-                        defaultElevetion = 3.dp
-                    )
-
-                    Spacer(modifier = Modifier.height(10.dp))
-
-                    Text(
-                        text = setColorInText(
-                            texto = "Não possui uma conta? ",
-                            textoASerDestacado = "Crie uma.",
-                            fontWeight = FontWeight.Medium,
-                            fontSize = 14.sp,
-                            corEmDestaque = VERDE_ESCURO,
-                            ordemInversa = false,
-                            useLink = true,
-                            navigationController = navigationController
-                        ),
+                        text = "Entre com sua\n conta!",
                         textAlign = TextAlign.Center,
-                        style = Typography.bodySmall,
-                        fontWeight = FontWeight.Medium,
-                        modifier = Modifier
-                            .fillMaxWidth()
+                        style = Typography.titleSmall,
+                        color = VERDE_ESCURO
                     )
                 }
+
+                Spacer(modifier = Modifier.height(40.dp))
+
+                TextBox(
+                    value = stateEmail.email,
+                    onValueChange = {
+                        viewModelEmail.onEvent(EmailTextFieldFormEvent.EmailChanged(it))
+                        viewModelEmail.onEvent(EmailTextFieldFormEvent.Submit)
+                    },
+                    modifier = Modifier
+                        .onFocusChanged {
+                            if (it.isFocused) {
+                                isCredentialsCorrect = null
+                            }
+                        }
+                        .fillMaxWidth(),
+                    maxLines = 1,
+                    keyboardType = KeyboardType.Email,
+                    icon = R.drawable.email,
+                    iconColor = PRETO,
+                    placeholder = "email@gmail.com",
+                    passwordTextBox = false,
+                    label = "Email",
+                    labelTextStyle = Typography.labelSmall,
+                    labelColor = PRETO,
+                    isError = stateEmail.emailError != null || isCredentialsCorrect == false
+                )
+
+                if (stateEmail.emailError != null || isCredentialsCorrect == false) {
+                    Text(
+                        text = stateEmail.emailError ?: "O email está incorreto",
+                        color = VERMELHO,
+                        style = Typography.displaySmall
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(30.dp))
+
+                TextBox(
+                    value = statePassword.password,
+                    onValueChange = {
+                        viewModelPassword.onEvent(PasswordTextFieldFormEvent.PasswordChanged(it))
+                        viewModelPassword.onEvent(PasswordTextFieldFormEvent.Submit)
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    maxLines = 1,
+                    keyboardType = KeyboardType.Password,
+                    icon = R.drawable.lock,
+                    iconColor = PRETO,
+                    placeholder = "Senha123",
+                    passwordTextBox = true,
+                    label = "Senha",
+                    labelTextStyle = Typography.labelSmall,
+                    labelColor = PRETO,
+                    isError = statePassword.passwordError != null || isCredentialsCorrect == false,
+                    lastOne = true
+                )
+
+                if (statePassword.passwordError != null || isCredentialsCorrect == false) {
+                    Text(
+                        text = statePassword.passwordError ?: "A senha está incorreta",
+                        color = VERMELHO,
+                        style = Typography.displaySmall
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(5.dp))
+
+                Text(
+                    text = "Esqueceu sua senha?",
+                    textAlign = TextAlign.End,
+                    style = Typography.bodySmall,
+                    fontWeight = FontWeight.Medium,
+                    color = VERDE_ESCURO,
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                )
+
+                Spacer(modifier = Modifier.height(15.dp))
+
+                Button(
+                    texto = "Entrar",
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 12.dp),
+                    icon = false,
+                    shape = ShapeLogin.small,
+                    onClick = {
+                        viewModelEmail.onEvent(EmailTextFieldFormEvent.Submit)
+                        viewModelPassword.onEvent(PasswordTextFieldFormEvent.Submit)
+
+                        if (isValidationSuccessful && isApplicationOnline == true) {
+                            loginViewModel.authenticateUser(
+                                stateEmail.email,
+                                statePassword.password
+                            )
+                        } else {
+                            isCredentialsCorrect = false
+                        }
+                    },
+                    backgroundColor = VERDE_CLARO,
+                    contentColor = BRANCO,
+                    defaultElevetion = 3.dp
+                )
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                Text(
+                    text = setColorInText(
+                        texto = "Não possui uma conta? ",
+                        textoASerDestacado = "Crie uma.",
+                        fontWeight = FontWeight.Medium,
+                        fontSize = 14.sp,
+                        corEmDestaque = VERDE_ESCURO,
+                        ordemInversa = false,
+                        useLink = true,
+                        navigationController = navigationController
+                    ),
+                    textAlign = TextAlign.Center,
+                    style = Typography.bodySmall,
+                    fontWeight = FontWeight.Medium,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                )
             }
+
+            Image(
+                imageVector = ImageVector.vectorResource(id = R.drawable.desenho_de_baixo),
+                contentDescription = "Vetor de linhas",
+                modifier = Modifier
+                    .align(Alignment.BottomStart)
+                    .scale(1.2F)
+            )
         }
 
-        Image(
-            imageVector = ImageVector.vectorResource(id = R.drawable.circulos_baixo),
-            contentDescription = "Desenhos de esferas verdes",
-            modifier = Modifier
-                .absoluteOffset(
-                    x = 50.dp,
-                    y = screenHeight - 175.dp
-                )
-                .scale(0.9F)
-        )
-
-        Image(
-            imageVector = ImageVector.vectorResource(id = R.drawable.desenho_de_baixo),
-            contentDescription = "Vetor de linhas",
-            modifier = Modifier
-                .absoluteOffset(
-                    x = 0.dp,
-                    y = screenHeight - 150.dp
-                )
-                .scale(1.2F)
-        )
+//        Image(
+//            imageVector = ImageVector.vectorResource(id = R.drawable.circulos_baixo),
+//            contentDescription = "Desenhos de esferas verdes",
+//            modifier = Modifier
+//                .absoluteOffset(
+//                    x = 50.dp,
+//                    y = screenHeight - 175.dp
+//                )
+//                .scale(0.9F)
+//        )
     }
 }

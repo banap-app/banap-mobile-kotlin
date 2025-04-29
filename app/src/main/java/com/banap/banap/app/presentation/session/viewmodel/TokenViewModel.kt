@@ -9,15 +9,19 @@ import javax.inject.Inject
 class TokenViewModel @Inject constructor (
     private val tokenManager: TokenManager
 ) : ViewModel() {
-    fun saveToken(token: String) {
-        tokenManager.saveToken(token)
+    fun saveToken(key: String, token: String) {
+        tokenManager.saveToken(key, token)
     }
 
-    fun getToken() : String? {
-        return tokenManager.getToken()
+    fun getToken(key: String) : String? {
+        return tokenManager.getToken(key)
     }
 
-    fun clearToken() {
-        tokenManager.clearToken()
+    fun clearToken(key: String) {
+        tokenManager.clearToken(key)
+    }
+
+    fun clearAll() {
+        tokenManager.clearAll()
     }
 }

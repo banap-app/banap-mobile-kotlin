@@ -40,6 +40,7 @@ fun SplashScreen(
     navigationController: NavController
 ) {
     val scale = remember { Animatable(0.8f) }
+    val scaleBanapLogo = remember { Animatable(0.7f) }
     val alpha = remember { Animatable(0f) }
 
     LaunchedEffect(key1 = true) {
@@ -50,6 +51,15 @@ fun SplashScreen(
                 easing = FastOutSlowInEasing
             )
         )
+
+        scaleBanapLogo.animateTo(
+            targetValue = 0.9f,
+            animationSpec = tween(
+                durationMillis = 600,
+                easing = FastOutSlowInEasing
+            )
+        )
+
         alpha.animateTo(
             targetValue = 1f,
             animationSpec = tween(
@@ -60,10 +70,10 @@ fun SplashScreen(
         navigationController.navigate("Tutorial")
     }
 
-    val navBarPaddingBottom = WindowInsets
-        .navigationBars
-        .asPaddingValues()
-        .calculateBottomPadding()
+//    val navBarPaddingBottom = WindowInsets
+//        .navigationBars
+//        .asPaddingValues()
+//        .calculateBottomPadding()
 
     Box(
         modifier = Modifier
@@ -91,7 +101,7 @@ fun SplashScreen(
                 painter = painterResource(id = R.drawable.banap),
                 contentDescription = "Logo do Banap",
                 modifier = Modifier
-                    .scale(scale.value)
+                    .scale(scaleBanapLogo.value)
                     .alpha(alpha.value)
             )
 
@@ -105,32 +115,41 @@ fun SplashScreen(
             )
         }
 
-        Column (
+        Image(
+            imageVector = ImageVector.vectorResource(id = R.drawable.desenho_de_baixo),
+            contentDescription = "Vetor de linhas",
             modifier = Modifier
-                .padding(bottom = navBarPaddingBottom + 10.dp)
-                .align(Alignment.BottomCenter),
-            verticalArrangement = Arrangement.spacedBy(
-                space = 5.dp
-            ),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(
-                text = "from",
-                style = Typography.bodySmall,
-                color = CINZA_CLARO,
-                modifier = Modifier
-                    .scale(scale.value)
-                    .alpha(alpha.value)
-            )
+                .align(Alignment.BottomStart)
+                .scale(scale.value)
+                .alpha(alpha.value)
+        )
 
-            Text(
-                text = "GreenHouse",
-                style = Typography.bodySmall,
-                color = VERDE_CLARO,
-                modifier = Modifier
-                    .scale(scale.value)
-                    .alpha(alpha.value)
-            )
-        }
+//        Column (
+//            modifier = Modifier
+//                .padding(bottom = navBarPaddingBottom + 10.dp)
+//                .align(Alignment.BottomCenter),
+//            verticalArrangement = Arrangement.spacedBy(
+//                space = 5.dp
+//            ),
+//            horizontalAlignment = Alignment.CenterHorizontally
+//        ) {
+//            Text(
+//                text = "from",
+//                style = Typography.bodyLarge,
+//                color = CINZA_CLARO,
+//                modifier = Modifier
+//                    .scale(scale.value)
+//                    .alpha(alpha.value)
+//            )
+//
+//            Text(
+//                text = "GreenHouse",
+//                style = Typography.bodyLarge,
+//                color = VERDE_CLARO,
+//                modifier = Modifier
+//                    .scale(scale.value)
+//                    .alpha(alpha.value)
+//            )
+//        }
     }
 }

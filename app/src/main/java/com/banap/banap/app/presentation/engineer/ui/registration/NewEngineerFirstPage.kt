@@ -17,6 +17,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
@@ -41,7 +42,7 @@ import com.banap.banap.app.presentation.validation.password.viewmodel.PasswordTe
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun NewEngineerFirstPage (
+fun NewEngineerFirstPage(
     navigationController: NavController
 ) {
     // Realizar a ação de submit ao carregar a pagina
@@ -123,7 +124,7 @@ fun NewEngineerFirstPage (
         }
     }
 
-    Scaffold (
+    Scaffold(
         modifier = Modifier
             .fillMaxSize(),
         containerColor = BRANCO
@@ -144,57 +145,61 @@ fun NewEngineerFirstPage (
                 subtitulo = "Precisamos das suas informações, nos diga seu..."
             )
 
-            Column (
+            Column(
                 modifier = Modifier
                     .fillMaxSize(),
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
-                TextBoxRegistration(
-                    value = stateName.name,
-                    onValueChange = {
-                        viewModelName.onEvent(NameTextFieldFormEvent.NameChanged(it))
-                        viewModelName.onEvent(NameTextFieldFormEvent.Submit)
-                    },
-                    isError = stateName.nameError != null,
-                    errorState = stateName.nameError,
-                    label = "Nome",
-                    placeholder = "Exemplo",
-                    tipoTeclado = KeyboardType.Text,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                )
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(40.dp)
+                ) {
+                    TextBoxRegistration(
+                        value = stateName.name,
+                        onValueChange = {
+                            viewModelName.onEvent(NameTextFieldFormEvent.NameChanged(it))
+                            viewModelName.onEvent(NameTextFieldFormEvent.Submit)
+                        },
+                        isError = stateName.nameError != null,
+                        errorState = stateName.nameError,
+                        label = "Nome",
+                        placeholder = "Exemplo",
+                        tipoTeclado = KeyboardType.Text,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                    )
 
-                TextBoxRegistration(
-                    value = stateEmail.email,
-                    onValueChange = {
-                        viewModelEmail.onEvent(EmailTextFieldFormEvent.EmailChanged(it))
-                        viewModelEmail.onEvent(EmailTextFieldFormEvent.Submit)
-                    },
-                    isError = stateEmail.emailError != null,
-                    errorState = stateEmail.emailError,
-                    label = "Email",
-                    placeholder = "exemplo@gmail.com",
-                    tipoTeclado = KeyboardType.Email,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                )
+                    TextBoxRegistration(
+                        value = stateEmail.email,
+                        onValueChange = {
+                            viewModelEmail.onEvent(EmailTextFieldFormEvent.EmailChanged(it))
+                            viewModelEmail.onEvent(EmailTextFieldFormEvent.Submit)
+                        },
+                        isError = stateEmail.emailError != null,
+                        errorState = stateEmail.emailError,
+                        label = "Email",
+                        placeholder = "exemplo@gmail.com",
+                        tipoTeclado = KeyboardType.Email,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                    )
 
-                TextBoxRegistration(
-                    value = statePassword.password,
-                    onValueChange = {
-                        viewModelPassword.onEvent(PasswordTextFieldFormEvent.PasswordChanged(it))
-                        viewModelPassword.onEvent(PasswordTextFieldFormEvent.Submit)
-                    },
-                    isError = statePassword.passwordError != null,
-                    errorState = statePassword.passwordError,
-                    isPassword = true,
-                    label = "Senha",
-                    placeholder = "12345678",
-                    tipoTeclado = KeyboardType.Password,
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    lastOne = true
-                )
+                    TextBoxRegistration(
+                        value = statePassword.password,
+                        onValueChange = {
+                            viewModelPassword.onEvent(PasswordTextFieldFormEvent.PasswordChanged(it))
+                            viewModelPassword.onEvent(PasswordTextFieldFormEvent.Submit)
+                        },
+                        isError = statePassword.passwordError != null,
+                        errorState = statePassword.passwordError,
+                        isPassword = true,
+                        label = "Senha",
+                        placeholder = "12345678",
+                        tipoTeclado = KeyboardType.Password,
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        lastOne = true
+                    )
+                }
 
                 ButtonRegistration(
                     onClick = {

@@ -1,6 +1,7 @@
 package com.banap.banap.core.ui.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,12 +15,14 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.banap.banap.R
+import com.banap.banap.core.ui.theme.BRANCO
 import com.banap.banap.core.ui.theme.VERDE_CLARO
 
 @Composable
 fun LoadingScreen() {
     Box(
         modifier = Modifier
+            .background(BRANCO)
             .fillMaxSize()
     ) {
         Column (
