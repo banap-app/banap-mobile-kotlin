@@ -70,10 +70,10 @@ fun SplashScreen(
         navigationController.navigate("Tutorial")
     }
 
-    val navBarPaddingBottom = WindowInsets
-        .navigationBars
-        .asPaddingValues()
-        .calculateBottomPadding()
+//    val navBarPaddingBottom = WindowInsets
+//        .navigationBars
+//        .asPaddingValues()
+//        .calculateBottomPadding()
 
     Box(
         modifier = Modifier
@@ -115,32 +115,41 @@ fun SplashScreen(
             )
         }
 
-        Column (
+        Image(
+            imageVector = ImageVector.vectorResource(id = R.drawable.desenho_de_baixo),
+            contentDescription = "Vetor de linhas",
             modifier = Modifier
-                .padding(bottom = navBarPaddingBottom + 10.dp)
-                .align(Alignment.BottomCenter),
-            verticalArrangement = Arrangement.spacedBy(
-                space = 5.dp
-            ),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(
-                text = "from",
-                style = Typography.bodyLarge,
-                color = CINZA_CLARO,
-                modifier = Modifier
-                    .scale(scale.value)
-                    .alpha(alpha.value)
-            )
+                .align(Alignment.BottomStart)
+                .scale(scale.value)
+                .alpha(alpha.value)
+        )
 
-            Text(
-                text = "GreenHouse",
-                style = Typography.bodyLarge,
-                color = VERDE_CLARO,
-                modifier = Modifier
-                    .scale(scale.value)
-                    .alpha(alpha.value)
-            )
-        }
+//        Column (
+//            modifier = Modifier
+//                .padding(bottom = navBarPaddingBottom + 10.dp)
+//                .align(Alignment.BottomCenter),
+//            verticalArrangement = Arrangement.spacedBy(
+//                space = 5.dp
+//            ),
+//            horizontalAlignment = Alignment.CenterHorizontally
+//        ) {
+//            Text(
+//                text = "from",
+//                style = Typography.bodyLarge,
+//                color = CINZA_CLARO,
+//                modifier = Modifier
+//                    .scale(scale.value)
+//                    .alpha(alpha.value)
+//            )
+//
+//            Text(
+//                text = "GreenHouse",
+//                style = Typography.bodyLarge,
+//                color = VERDE_CLARO,
+//                modifier = Modifier
+//                    .scale(scale.value)
+//                    .alpha(alpha.value)
+//            )
+//        }
     }
 }

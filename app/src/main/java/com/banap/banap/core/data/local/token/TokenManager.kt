@@ -19,5 +19,4 @@ class TokenManager @Inject constructor (
     fun clearToken() {
         prefs.edit().remove("token").apply()
     }
-
 }
