@@ -29,6 +29,7 @@ fun Navigation() {
     val navigationController = rememberNavController()
     val tokenViewModel: TokenViewModel = hiltViewModel()
     val tokenVerificationViewModel: TokenVerificationViewModel = hiltViewModel()
+    val animationDuration: Int = 700
 
     NavHost(
         navController = navigationController,
@@ -38,12 +39,12 @@ fun Navigation() {
             route = "SplashScreen",
             enterTransition = {
                 fadeIn(
-                    animationSpec = tween(1000)
+                    animationSpec = tween(animationDuration)
                 )
             },
             exitTransition = {
                 fadeOut(
-                    animationSpec = tween(1000)
+                    animationSpec = tween(animationDuration)
                 )
             }
         ) {
@@ -54,12 +55,12 @@ fun Navigation() {
             route = "Home",
             enterTransition = {
                 fadeIn(
-                    animationSpec = tween(1000)
+                    animationSpec = tween(animationDuration)
                 )
             },
             exitTransition = {
                 fadeOut(
-                    animationSpec = tween(1000)
+                    animationSpec = tween(animationDuration)
                 )
             }
         ) {
@@ -74,12 +75,12 @@ fun Navigation() {
             route = "Login",
             enterTransition = {
                 fadeIn(
-                    animationSpec = tween(1000)
+                    animationSpec = tween(animationDuration)
                 )
             },
             exitTransition = {
                 fadeOut(
-                    animationSpec = tween(1000)
+                    animationSpec = tween(animationDuration)
                 )
             }
         ) {
@@ -93,12 +94,12 @@ fun Navigation() {
             route = "NewProperty",
             enterTransition = {
                 fadeIn(
-                    animationSpec = tween(1000)
+                    animationSpec = tween(animationDuration)
                 )
             },
             exitTransition = {
                 fadeOut(
-                    animationSpec = tween(1000)
+                    animationSpec = tween(animationDuration)
                 )
             }
         ) {
@@ -109,12 +110,12 @@ fun Navigation() {
             route = "NewProducer",
             enterTransition = {
                 fadeIn(
-                    animationSpec = tween(1000)
+                    animationSpec = tween(animationDuration)
                 )
             },
             exitTransition = {
                 fadeOut(
-                    animationSpec = tween(1000)
+                    animationSpec = tween(animationDuration)
                 )
             }
         ) {
@@ -125,12 +126,12 @@ fun Navigation() {
             route = "NewEngineerFirstPage",
             enterTransition = {
                 fadeIn(
-                    animationSpec = tween(1000)
+                    animationSpec = tween(animationDuration)
                 )
             },
             exitTransition = {
                 fadeOut(
-                    animationSpec = tween(1000)
+                    animationSpec = tween(animationDuration)
                 )
             }
         ) {
@@ -141,12 +142,12 @@ fun Navigation() {
             route = "NewEngineerSecondPage",
             enterTransition = {
                 fadeIn(
-                    animationSpec = tween(1000)
+                    animationSpec = tween(animationDuration)
                 )
             },
             exitTransition = {
                 fadeOut(
-                    animationSpec = tween(1000)
+                    animationSpec = tween(animationDuration)
                 )
             }
         ) {
@@ -157,12 +158,12 @@ fun Navigation() {
             route = "Tutorial",
             enterTransition = {
                 fadeIn(
-                    animationSpec = tween(1000)
+                    animationSpec = tween(animationDuration)
                 )
             },
             exitTransition = {
                 fadeOut(
-                    animationSpec = tween(1000)
+                    animationSpec = tween(animationDuration)
                 )
             }
         ) {
@@ -173,12 +174,12 @@ fun Navigation() {
             route = "ReadyToStart",
             enterTransition = {
                 fadeIn(
-                    animationSpec = tween(1000)
+                    animationSpec = tween(animationDuration)
                 )
             },
             exitTransition = {
                 fadeOut(
-                    animationSpec = tween(1000)
+                    animationSpec = tween(animationDuration)
                 )
             }
         ) {
@@ -189,12 +190,12 @@ fun Navigation() {
             route = "UserChoice",
             enterTransition = {
                 fadeIn(
-                    animationSpec = tween(1000)
+                    animationSpec = tween(animationDuration)
                 )
             },
             exitTransition = {
                 fadeOut(
-                    animationSpec = tween(1000)
+                    animationSpec = tween(animationDuration)
                 )
             }
         ) {
@@ -205,12 +206,12 @@ fun Navigation() {
             route = "NewFieldFirstPage",
             enterTransition = {
                 fadeIn(
-                    animationSpec = tween(1000)
+                    animationSpec = tween(animationDuration)
                 )
             },
             exitTransition = {
                 fadeOut(
-                    animationSpec = tween(1000)
+                    animationSpec = tween(animationDuration)
                 )
             }
         ) {
@@ -221,12 +222,12 @@ fun Navigation() {
             route = "NewFieldSecondPage",
             enterTransition = {
                 fadeIn(
-                    animationSpec = tween(1000)
+                    animationSpec = tween(animationDuration)
                 )
             },
             exitTransition = {
                 fadeOut(
-                    animationSpec = tween(1000)
+                    animationSpec = tween(animationDuration)
                 )
             }
         ) {
@@ -237,12 +238,12 @@ fun Navigation() {
             route = "NewFieldThirdPage",
             enterTransition = {
                 fadeIn(
-                    animationSpec = tween(1000)
+                    animationSpec = tween(animationDuration)
                 )
             },
             exitTransition = {
                 fadeOut(
-                    animationSpec = tween(1000)
+                    animationSpec = tween(animationDuration)
                 )
             }
         ) {

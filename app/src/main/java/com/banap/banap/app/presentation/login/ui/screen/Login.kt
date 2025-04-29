@@ -127,9 +127,9 @@ fun Login(
 
         LaunchedEffect(loginState.response) {
             loginState.response?.token?.let { token ->
-                tokenViewModel.saveToken(token)
+                tokenViewModel.saveToken("token", token)
 
-                if (tokenViewModel.getToken() != null) {
+                if (tokenViewModel.getToken("token") != null) {
                     navigationController.navigate("home")
                 }
             }

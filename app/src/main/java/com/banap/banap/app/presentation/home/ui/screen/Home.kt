@@ -18,7 +18,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -40,31 +39,22 @@ fun Home(
     tokenViewModel: TokenViewModel,
     tokenVerificationViewModel: TokenVerificationViewModel
 ) {
-    val context = LocalContext.current
-
     val tokenVerificationState = tokenVerificationViewModel.state.value
 
     var isTokenValid: Boolean by remember {
         mutableStateOf(false)
     }
 
-    var isLoading: Boolean by remember {
-        mutableStateOf(true)
-    }
-
-    LaunchedEffect(context) {
-        tokenViewModel.getToken()?.let { token ->
+    LaunchedEffect(true) {
+        tokenViewModel.getToken("token")?.let { token ->
             tokenVerificationViewModel.verifyToken(token)
         }
     }
 
-    LaunchedEffect(tokenVerificationState.isLoading) {
-        isLoading = tokenVerificationState.isLoading
-    }
-
     LaunchedEffect(tokenVerificationState.response) {
-        tokenVerificationState.response?.success?.let {
-            isTokenValid = it
+        tokenVerificationState.response?.let {
+            tokenViewModel.saveToken("verifiedToken", it.success.toString())
+            isTokenValid = it.success
         }
     }
 
@@ -73,7 +63,7 @@ fun Home(
             .fillMaxSize(),
         containerColor = BRANCO
     ) {
-        if (isLoading) {
+        if (tokenViewModel.getToken("verifiedToken").isNullOrEmpty() && !isTokenValid) {
             LoadingScreen()
         }
 
@@ -88,7 +78,7 @@ fun Home(
                     nome = "Gilmar",
                     navigationController = navigationController,
                     onItemClick = {
-                        tokenViewModel.clearToken()
+                        tokenViewModel.clearAll()
                         navigationController.navigate("Login")
                     }
                 )
