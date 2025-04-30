@@ -196,10 +196,10 @@ fun Login(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Image(
-                        painter = painterResource(id = R.drawable.banap),
+                        painter = painterResource(id = R.drawable.banap_vector),
                         contentDescription = "Logo do Banap",
                         modifier = Modifier
-                            .scale(0.9F)
+                            .scale(0.8F)
                     )
 
                     Spacer(modifier = Modifier.height(20.dp))

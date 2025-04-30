@@ -98,7 +98,7 @@ fun SplashScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
-                painter = painterResource(id = R.drawable.banap),
+                painter = painterResource(id = R.drawable.banap_vector),
                 contentDescription = "Logo do Banap",
                 modifier = Modifier
                     .scale(scaleBanapLogo.value)
