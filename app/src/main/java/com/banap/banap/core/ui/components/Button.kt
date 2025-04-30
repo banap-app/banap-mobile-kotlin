@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.banap.banap.core.ui.theme.Typography
@@ -24,7 +25,8 @@ import com.banap.banap.core.ui.theme.Typography
 fun Button(
     texto: String,
     modifier: Modifier,
-    icon: Boolean,
+    hasIcon: Boolean,
+    icon: ImageVector = Icons.Outlined.Add,
     shape: Shape,
     onClick: () -> Unit,
     backgroundColor: Color,
@@ -47,15 +49,17 @@ fun Button(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            if (icon) {
+            if (hasIcon) {
                 Icon(
-                    Icons.Outlined.Add,
+                    imageVector = icon,
                     contentDescription = "Icone de adicionar nova propriedade",
                     modifier = Modifier
                         .scale(scale = 1.2F)
                 )
 
-                Spacer(modifier = Modifier.width(10.dp))
+                if (texto.isNotEmpty()) {
+                    Spacer(modifier = Modifier.width(10.dp))
+                }
             }
 
             Text(

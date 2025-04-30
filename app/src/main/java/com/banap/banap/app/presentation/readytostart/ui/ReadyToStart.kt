@@ -136,7 +136,7 @@ fun ReadyToStart(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = 11.dp),
-                    icon = false,
+                    hasIcon = false,
                     shape = ShapeLogin.small,
                     onClick = {
                         navigationController.navigate("UserChoice")
@@ -151,7 +151,7 @@ fun ReadyToStart(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = 11.dp),
-                    icon = false,
+                    hasIcon = false,
                     shape = ShapeLogin.small,
                     onClick = {
                         navigationController.navigate("Login")

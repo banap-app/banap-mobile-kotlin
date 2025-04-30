@@ -61,6 +61,7 @@ import com.banap.banap.core.ui.util.ConnectivityAwareContent
 import android.os.Build.VERSION_CODES
 import android.provider.Settings.Panel.ACTION_INTERNET_CONNECTIVITY
 import android.provider.Settings.ACTION_WIFI_SETTINGS
+import android.util.Log
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -136,6 +137,8 @@ fun Login(
         }
 
         LaunchedEffect(loginState.error) {
+            Log.d("Error", "Error: $it")
+
             if (loginState.error.isNotBlank()) {
                 isCredentialsCorrect = false
             }
@@ -297,7 +300,7 @@ fun Login(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = 12.dp),
-                    icon = false,
+                    hasIcon = false,
                     shape = ShapeLogin.small,
                     onClick = {
                         viewModelEmail.onEvent(EmailTextFieldFormEvent.Submit)

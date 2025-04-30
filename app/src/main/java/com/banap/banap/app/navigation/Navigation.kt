@@ -10,6 +10,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.banap.banap.app.presentation.engineer.ui.registration.NewEngineerFirstPage
 import com.banap.banap.app.presentation.engineer.ui.registration.NewEngineerSecondPage
+import com.banap.banap.app.presentation.field.ui.information.screen.FieldInformation
 import com.banap.banap.app.presentation.field.ui.registration.screen.NewFieldFirstPage
 import com.banap.banap.app.presentation.field.ui.registration.screen.NewFieldSecondPage
 import com.banap.banap.app.presentation.field.ui.registration.screen.NewFieldThirdPage
@@ -248,6 +249,22 @@ fun Navigation() {
             }
         ) {
             NewFieldThirdPage(navigationController)
+        }
+
+        composable(
+            route = "Information",
+            enterTransition = {
+                fadeIn(
+                    animationSpec = tween(animationDuration)
+                )
+            },
+            exitTransition = {
+                fadeOut(
+                    animationSpec = tween(animationDuration)
+                )
+            }
+        ) {
+            FieldInformation(navigationController)
         }
     }
 }
