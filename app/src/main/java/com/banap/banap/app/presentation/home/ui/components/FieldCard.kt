@@ -18,6 +18,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.banap.banap.R
 import com.banap.banap.core.ui.theme.BRANCO
 import com.banap.banap.core.ui.theme.CINZA_CLARO
@@ -27,9 +28,13 @@ import com.banap.banap.core.ui.theme.VERDE_CLARO
 
 @Composable
 fun FieldCard(
-    nomeTalhao: String
+    nomeTalhao: String,
+    navigationController: NavController
 ) {
     Card (
+        onClick = {
+            navigationController.navigate("Information")
+        },
         modifier = Modifier
             .clip(
                 shape = ShapeProperty.medium

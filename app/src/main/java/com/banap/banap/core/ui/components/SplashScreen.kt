@@ -1,5 +1,6 @@
 package com.banap.banap.core.ui.components
 
+import android.util.Log
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
@@ -8,14 +9,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.navigationBars
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -29,21 +25,27 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.banap.banap.R
+import com.banap.banap.app.presentation.session.viewmodel.TokenViewModel
 import com.banap.banap.core.ui.theme.BRANCO
-import com.banap.banap.core.ui.theme.CINZA_CLARO
-import com.banap.banap.core.ui.theme.Typography
 import com.banap.banap.core.ui.theme.VERDE_CLARO
-import kotlinx.coroutines.delay
+import com.banap.banap.domain.viewmodel.TokenVerificationViewModel
 
 @Composable
 fun SplashScreen(
-    navigationController: NavController
+    navigationController: NavController,
+    tokenViewModel: TokenViewModel,
+    tokenVerificationViewModel: TokenVerificationViewModel
 ) {
     val scale = remember { Animatable(0.8f) }
     val scaleBanapLogo = remember { Animatable(0.7f) }
     val alpha = remember { Animatable(0f) }
 
+    val tokenVerificationState = tokenVerificationViewModel.state.value
+
     LaunchedEffect(key1 = true) {
+        val token = tokenViewModel.getToken("token")
+        Log.d("token", "token: $token")
+
         scale.animateTo(
             targetValue = 1f,
             animationSpec = tween(
@@ -66,14 +68,27 @@ fun SplashScreen(
                 durationMillis = 600
             )
         )
-        delay(3_000L)
-        navigationController.navigate("Tutorial")
+
+        if (token.isNullOrEmpty()) {
+            navigationController.navigate("Tutorial")
+        } else {
+            tokenVerificationViewModel.verifyToken(token)
+        }
     }
 
-//    val navBarPaddingBottom = WindowInsets
-//        .navigationBars
-//        .asPaddingValues()
-//        .calculateBottomPadding()
+    LaunchedEffect(tokenVerificationState.response) {
+        tokenVerificationState.response?.success?.let {
+            tokenViewModel.saveToken("verifiedToken", it.toString())
+            navigationController.navigate("Home")
+        }
+    }
+
+    LaunchedEffect(tokenVerificationState.error) {
+        if (tokenVerificationState.error.isNotEmpty()) {
+            Log.d("Error", tokenVerificationState.error)
+            navigationController.navigate("Login")
+        }
+    }
 
     Box(
         modifier = Modifier
@@ -89,7 +104,7 @@ fun SplashScreen(
                 .alpha(alpha.value)
         )
 
-        Column (
+        Column(
             modifier = Modifier
                 .align(Alignment.Center),
             verticalArrangement = Arrangement.spacedBy(
@@ -123,33 +138,5 @@ fun SplashScreen(
                 .scale(scale.value)
                 .alpha(alpha.value)
         )
-
-//        Column (
-//            modifier = Modifier
-//                .padding(bottom = navBarPaddingBottom + 10.dp)
-//                .align(Alignment.BottomCenter),
-//            verticalArrangement = Arrangement.spacedBy(
-//                space = 5.dp
-//            ),
-//            horizontalAlignment = Alignment.CenterHorizontally
-//        ) {
-//            Text(
-//                text = "from",
-//                style = Typography.bodyLarge,
-//                color = CINZA_CLARO,
-//                modifier = Modifier
-//                    .scale(scale.value)
-//                    .alpha(alpha.value)
-//            )
-//
-//            Text(
-//                text = "GreenHouse",
-//                style = Typography.bodyLarge,
-//                color = VERDE_CLARO,
-//                modifier = Modifier
-//                    .scale(scale.value)
-//                    .alpha(alpha.value)
-//            )
-//        }
     }
 }

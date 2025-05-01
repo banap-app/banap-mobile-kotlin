@@ -69,7 +69,7 @@ fun Tasks (
                 texto = "Novo Talhão",
                 modifier = Modifier
                     .padding(vertical = 18.dp, horizontal = 15.dp),
-                icon = true,
+                hasIcon = true,
                 shape = ShapeProperty.small,
                 onClick = {
                     navigationController.navigate("NewFieldFirstPage")

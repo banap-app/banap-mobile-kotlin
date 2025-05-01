@@ -67,7 +67,8 @@ fun Property(
             verticalAlignment = Alignment.CenterVertically
         ) {
             FieldCard(
-                nomeTalhao = "Talhão 01"
+                nomeTalhao = "Talhão 01",
+                navigationController
             )
 
             Spacer(
@@ -91,7 +92,7 @@ fun Property(
                 texto = "Nova Propriedade",
                 modifier = Modifier
                     .padding(vertical = 18.dp, horizontal = 15.dp),
-                icon = true,
+                hasIcon = true,
                 shape = ShapeProperty.small,
                 onClick = {
                     navigationController.navigate("NewProperty")
