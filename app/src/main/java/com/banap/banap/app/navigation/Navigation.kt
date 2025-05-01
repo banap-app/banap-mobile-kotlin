@@ -49,7 +49,11 @@ fun Navigation() {
                 )
             }
         ) {
-            SplashScreen(navigationController)
+            SplashScreen(
+                navigationController,
+                tokenViewModel = tokenViewModel,
+                tokenVerificationViewModel = tokenVerificationViewModel
+            )
         }
 
         composable (

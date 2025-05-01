@@ -62,7 +62,7 @@ fun Home(
     }
 
     LaunchedEffect(tokenVerificationState.error) {
-        tokenVerificationState.error.let {
+        if (tokenVerificationState.error.isNotEmpty()) {
             tokenViewModel.clearAll()
             navigationController.navigate("Login")
         }

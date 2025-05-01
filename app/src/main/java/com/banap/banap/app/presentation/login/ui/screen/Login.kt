@@ -137,9 +137,8 @@ fun Login(
         }
 
         LaunchedEffect(loginState.error) {
-            Log.d("Error", "Error: $it")
-
-            if (loginState.error.isNotBlank()) {
+            if (loginState.error.isNotEmpty()) {
+                Log.d("Error", "Error: $it")
                 isCredentialsCorrect = false
             }
         }
@@ -163,17 +162,6 @@ fun Login(
         )
 
         val isValidationSuccessful = validationDataEmail && validationDataPassword
-
-//        Image(
-//            imageVector = ImageVector.vectorResource(id = R.drawable.circulos_cima),
-//            contentDescription = "Desenhos de esferas verdes",
-//            modifier = Modifier
-//                .absoluteOffset(
-//                    x = screenWidth - 130.dp,
-//                    y = 195.dp
-//                )
-//                .scale(0.9F)
-//        )
 
         Box(
             modifier = Modifier
@@ -349,16 +337,5 @@ fun Login(
                     .scale(1.2F)
             )
         }
-
-//        Image(
-//            imageVector = ImageVector.vectorResource(id = R.drawable.circulos_baixo),
-//            contentDescription = "Desenhos de esferas verdes",
-//            modifier = Modifier
-//                .absoluteOffset(
-//                    x = 50.dp,
-//                    y = screenHeight - 175.dp
-//                )
-//                .scale(0.9F)
-//        )
     }
 }
