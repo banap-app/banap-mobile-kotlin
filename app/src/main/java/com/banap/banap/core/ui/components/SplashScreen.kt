@@ -85,7 +85,7 @@ fun SplashScreen(
 
     LaunchedEffect(tokenVerificationState.error) {
         if (tokenVerificationState.error.isNotEmpty()) {
-            Log.d("Error", "Error: ${tokenVerificationState.error}")
+            Log.d("Error", tokenVerificationState.error)
             navigationController.navigate("Login")
         }
     }

@@ -91,7 +91,8 @@ fun Navigation() {
         ) {
             Login(
                 navigationController,
-                tokenViewModel = tokenViewModel
+                tokenViewModel = tokenViewModel,
+                tokenVerificationViewModel = tokenVerificationViewModel
             )
         }
 
