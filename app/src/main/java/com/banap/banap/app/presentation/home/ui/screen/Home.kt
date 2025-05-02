@@ -29,7 +29,7 @@ import com.banap.banap.app.presentation.home.ui.components.Property
 import com.banap.banap.app.presentation.home.ui.components.RecentActivities
 import com.banap.banap.app.presentation.home.ui.components.Tasks
 import com.banap.banap.app.presentation.session.viewmodel.TokenViewModel
-import com.banap.banap.core.ui.components.LoadingScreen
+import com.banap.banap.app.presentation.skeleton.ui.home.HomeSkeleton
 import com.banap.banap.core.ui.theme.BRANCO
 import com.banap.banap.domain.viewmodel.TokenVerificationViewModel
 
@@ -73,10 +73,6 @@ fun Home(
             .fillMaxSize(),
         containerColor = BRANCO
     ) {
-        if (tokenViewModel.getToken("verifiedToken").isNullOrEmpty() && !isTokenValid) {
-            LoadingScreen()
-        }
-
         if (isTokenValid) {
             Column (
                 modifier = Modifier
@@ -128,6 +124,8 @@ fun Home(
                     navigationController
                 )
             }
+        } else {
+            HomeSkeleton()
         }
     }
 }
