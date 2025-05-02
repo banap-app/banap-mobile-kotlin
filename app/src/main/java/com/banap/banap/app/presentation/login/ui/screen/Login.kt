@@ -117,10 +117,6 @@ fun Login(
         }
     }
 
-    LaunchedEffect(loginState.isLoading) {
-        isLoading = loginState.isLoading
-    }
-
     LaunchedEffect(loginState.response) {
         loginState.response?.token?.let { token ->
             tokenViewModel.saveToken("token", token)
@@ -133,6 +129,8 @@ fun Login(
 
     LaunchedEffect(loginState.error) {
         if (loginState.error.isNotEmpty()) {
+            isLoading = false
+
             var message: String = ""
             var showSnackBar: Boolean = false
 
