@@ -3,11 +3,14 @@ package com.banap.banap.app.navigation
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.banap.banap.app.presentation.analysis.ui.registration.screen.ExplanationFormData
 import com.banap.banap.app.presentation.analysis.ui.registration.screen.NewAnalysis
 import com.banap.banap.app.presentation.engineer.ui.registration.NewEngineerFirstPage
 import com.banap.banap.app.presentation.engineer.ui.registration.NewEngineerSecondPage
@@ -287,6 +290,28 @@ fun Navigation() {
             }
         ) {
             NewAnalysis(navigationController)
+        }
+
+        composable(
+            route = "ExplanationFormData",
+            enterTransition = {
+                slideInVertically (
+                    initialOffsetY = { fullHeight ->
+                        fullHeight
+                    },
+                    animationSpec = tween(animationDuration)
+                )
+            },
+            exitTransition = {
+                slideOutVertically(
+                    targetOffsetY = { fullHeight ->
+                        fullHeight
+                    },
+                    animationSpec = tween(animationDuration)
+                )
+            }
+        ) {
+            ExplanationFormData(navigationController)
         }
     }
 }

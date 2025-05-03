@@ -57,7 +57,8 @@ fun TextBox(
     labelColor: Color,
     isError: Boolean,
     lastOne: Boolean = false,
-    informationIcon: Boolean = false
+    informationIcon: Boolean = false,
+    informationIconOnClick: () -> Unit = {}
 ) {
     val focusManager = LocalFocusManager.current
 
@@ -69,7 +70,7 @@ fun TextBox(
             mutableStateOf(false)
         }
 
-        Row (
+        Row(
             modifier = Modifier
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
@@ -82,12 +83,17 @@ fun TextBox(
             )
 
             if (informationIcon) {
-                Icon(
-                    imageVector = Icons.Outlined.Info,
-                    contentDescription = "Icone de Informação",
-                    modifier = Modifier
-                        .size(22.dp)
-                )
+                IconButton(
+                    onClick = informationIconOnClick
+                ) {
+                    Icon(
+                        imageVector = Icons.Outlined.Info,
+                        contentDescription = "Icone de Informação",
+                        modifier = Modifier
+                            .size(22.dp)
+                    )
+                }
+
             }
         }
 

@@ -108,7 +108,10 @@ fun NewAnalysis(
                             modifier = Modifier
                                 .fillMaxWidth(),
                             lastOne = true,
-                            informationIcon = true
+                            informationIcon = true,
+                            informationIconOnClick = {
+                                navigationController.navigate("ExplanationFormData")
+                            }
                         )
 
                         TextBoxRegistration(
@@ -125,7 +128,10 @@ fun NewAnalysis(
                             modifier = Modifier
                                 .fillMaxWidth(),
                             lastOne = true,
-                            informationIcon = true
+                            informationIcon = true,
+                            informationIconOnClick = {
+                                navigationController.navigate("ExplanationFormData")
+                            }
                         )
 
                         TextBoxRegistration(
@@ -142,7 +148,10 @@ fun NewAnalysis(
                             modifier = Modifier
                                 .fillMaxWidth(),
                             lastOne = true,
-                            informationIcon = true
+                            informationIcon = true,
+                            informationIconOnClick = {
+                                navigationController.navigate("ExplanationFormData")
+                            }
                         )
                     }
                 }

@@ -27,7 +27,8 @@ fun TextBoxRegistration(
     modifier: Modifier,
     lastOne: Boolean = false,
     maxLines: Int = 1,
-    informationIcon: Boolean = false
+    informationIcon: Boolean = false,
+    informationIconOnClick: () -> Unit = {}
 ) {
     Row (
         modifier = Modifier
@@ -50,7 +51,8 @@ fun TextBoxRegistration(
                 labelColor = PRETO,
                 isError = isError,
                 lastOne = lastOne,
-                informationIcon = informationIcon
+                informationIcon = informationIcon,
+                informationIconOnClick = informationIconOnClick
             )
 
             if (errorState != null) {
