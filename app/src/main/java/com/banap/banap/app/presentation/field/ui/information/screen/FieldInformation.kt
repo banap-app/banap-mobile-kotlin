@@ -191,7 +191,7 @@ fun FieldInformation(
                                     hasIcon = true,
                                     shape = ShapeProperty.small,
                                     onClick = {
-                                        navigationController.navigate("NewFieldFirstPage")
+                                        navigationController.navigate("NewAnalysis")
                                     },
                                     backgroundColor = VERDE_CLARO,
                                     contentColor = BRANCO,

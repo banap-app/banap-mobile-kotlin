@@ -31,13 +31,12 @@ fun ButtonRegistration(
     onClick: () -> Unit,
     buttonValue: String,
     backgroundColor: Color,
-    contentColor: Color
+    contentColor: Color,
+    modifier: Modifier = Modifier
 ) {
     Card(
         onClick = onClick,
-        modifier = Modifier
-            .height(98.dp)
-            .fillMaxWidth(),
+        modifier = modifier.height(98.dp).fillMaxWidth(),
         colors = CardDefaults.cardColors(
             containerColor = backgroundColor,
             contentColor = contentColor

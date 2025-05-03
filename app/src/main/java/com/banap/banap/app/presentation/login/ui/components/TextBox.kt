@@ -1,11 +1,17 @@
 package com.banap.banap.app.presentation.login.ui.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
@@ -15,6 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.focus.FocusDirection
@@ -49,7 +56,8 @@ fun TextBox(
     labelTextStyle: TextStyle,
     labelColor: Color,
     isError: Boolean,
-    lastOne: Boolean = false
+    lastOne: Boolean = false,
+    informationIcon: Boolean = false
 ) {
     val focusManager = LocalFocusManager.current
 
@@ -61,11 +69,28 @@ fun TextBox(
             mutableStateOf(false)
         }
 
-        Text(
-            text = label,
-            style = labelTextStyle,
-            color = labelColor
-        )
+        Row (
+            modifier = Modifier
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = if (informationIcon) Arrangement.SpaceBetween else Arrangement.Start
+        ) {
+            Text(
+                text = label,
+                style = labelTextStyle,
+                color = labelColor
+            )
+
+            if (informationIcon) {
+                Icon(
+                    imageVector = Icons.Outlined.Info,
+                    contentDescription = "Icone de Informação",
+                    modifier = Modifier
+                        .size(22.dp)
+                )
+            }
+        }
+
 
         if (icon != null) {
 
