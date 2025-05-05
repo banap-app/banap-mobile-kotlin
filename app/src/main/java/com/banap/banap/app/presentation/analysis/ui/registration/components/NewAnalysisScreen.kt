@@ -1,15 +1,16 @@
-package com.banap.banap.app.presentation.field.ui.registration.screen
+package com.banap.banap.app.presentation.analysis.ui.registration.components
 
 import android.annotation.SuppressLint
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -20,8 +21,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.banap.banap.app.presentation.field.ui.registration.components.MapView
 import com.banap.banap.core.ui.components.ButtonRegistration
+import com.banap.banap.core.ui.components.LoadingScreen
 import com.banap.banap.core.ui.components.RegistrationHeader
 import com.banap.banap.core.ui.components.TitleRegistration
 import com.banap.banap.core.ui.theme.BRANCO
@@ -32,13 +33,18 @@ import com.banap.banap.core.ui.theme.VERDE_ESCURO
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun NewFieldSecondPage(
-    navigationController: NavController
+fun NewAnalysisScreen(
+    navigationController: NavController,
+    texto: String,
+    textoASerDestacado: String,
+    subTitulo: String,
+    children: @Composable () -> Unit,
+    onClick: () -> Unit,
+    buttonValue: String,
+    isValidationSuccessful: Boolean,
+    stateError: String?,
+    isLoading: Boolean
 ) {
-    var isValidationSuccessful by remember {
-        mutableStateOf(true)
-    }
-
     var backgroundColorButton by remember {
         mutableStateOf(CINZA_CLARO)
     }
@@ -46,8 +52,6 @@ fun NewFieldSecondPage(
     var contentColorButton by remember {
         mutableStateOf(CINZA_ESCURO)
     }
-
-    var isExpanded = remember { mutableStateOf(false) }
 
     val backgroundColor by animateColorAsState(
         targetValue = backgroundColorButton,
@@ -68,7 +72,7 @@ fun NewFieldSecondPage(
     )
 
     backgroundColorButton = when {
-        isValidationSuccessful -> {
+        isValidationSuccessful && stateError == null -> {
             VERDE_CLARO
         }
 
@@ -78,7 +82,7 @@ fun NewFieldSecondPage(
     }
 
     contentColorButton = when {
-        isValidationSuccessful -> {
+        isValidationSuccessful && stateError == null -> {
             BRANCO
         }
 
@@ -92,57 +96,48 @@ fun NewFieldSecondPage(
             .fillMaxSize(),
         containerColor = BRANCO
     ) {
-        if (!isExpanded.value) {
-            Column {
+        if (!isLoading) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+            ) {
                 RegistrationHeader(
                     navigationController = navigationController,
-                    fallbackRoute = "NewFieldFirstPage"
+                    fallbackRoute = "Information"
                 )
 
                 TitleRegistration(
-                    texto = "Cadastrando seu ",
-                    textoASerDestacado = "Talhão...",
+                    texto = texto,
+                    textoASerDestacado = textoASerDestacado,
                     corEmDestaque = VERDE_ESCURO,
                     subTexto = "",
-                    tamanhoTextoDestacado = 36.sp,
+                    tamanhoTextoDestacado = 32.sp,
                     paginaUsuario = false,
                     subtituloDestacado = "",
-                    subtitulo = "Você deve clicar em pelo menos 3 pontos do mapa para que uma área seja delimitada, demonstrando assim, a localização do talhão."
+                    subtitulo = subTitulo
                 )
 
-                MapView(
-                    isExpanded = isExpanded.value,
-                    onClick = {
-                        isExpanded.value = true
-                    },
-                    mapModifier = Modifier
-                        .height(350.dp)
-                        .padding(horizontal = 30.dp)
-                        .fillMaxWidth()
-                )
+                Column(
+                    modifier = Modifier
+                        .verticalScroll(rememberScrollState())
+                        .weight(1f)
+                        .fillMaxSize(),
+                    verticalArrangement = Arrangement.SpaceBetween
+                ) {
+                    children()
 
-                Spacer(modifier = Modifier.weight(1f))
+                    Spacer(modifier = Modifier.height(40.dp))
 
-                ButtonRegistration(
-                    onClick = {
-                        if (isValidationSuccessful) {
-                            navigationController.navigate("NewFieldThirdPage")
-                        }
-                    },
-                    buttonValue = "Continuar",
-                    backgroundColor = backgroundColor,
-                    contentColor = contentColor
-                )
+                    ButtonRegistration(
+                        onClick = onClick,
+                        buttonValue = buttonValue,
+                        backgroundColor = backgroundColor,
+                        contentColor = contentColor
+                    )
+                }
             }
         } else {
-            MapView(
-                isExpanded = isExpanded.value,
-                onClick = {
-                    isExpanded.value = false
-                },
-                mapModifier = Modifier
-                    .fillMaxSize()
-            )
+            LoadingScreen()
         }
     }
 }

@@ -14,6 +14,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,6 +27,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.banap.banap.R
+import com.banap.banap.app.navigation.viewmodel.NavigationViewModel
 import com.banap.banap.app.presentation.session.viewmodel.TokenViewModel
 import com.banap.banap.core.ui.theme.BRANCO
 import com.banap.banap.core.ui.theme.VERDE_CLARO
@@ -34,13 +37,15 @@ import com.banap.banap.domain.viewmodel.TokenVerificationViewModel
 fun SplashScreen(
     navigationController: NavController,
     tokenViewModel: TokenViewModel,
-    tokenVerificationViewModel: TokenVerificationViewModel
+    tokenVerificationViewModel: TokenVerificationViewModel,
+    navigationViewModel: NavigationViewModel
 ) {
     val scale = remember { Animatable(0.8f) }
     val scaleBanapLogo = remember { Animatable(0.7f) }
     val alpha = remember { Animatable(0f) }
 
     val tokenVerificationState = tokenVerificationViewModel.state.value
+    val lastRoute by navigationViewModel.lastScreen.collectAsState()
 
     LaunchedEffect(key1 = true) {
         val token = tokenViewModel.getToken("token")
@@ -70,7 +75,11 @@ fun SplashScreen(
         )
 
         if (token.isNullOrEmpty()) {
-            navigationController.navigate("Tutorial")
+            navigationController.navigate("Tutorial") {
+                popUpTo("SplashScreen") {
+                    inclusive = true
+                }
+            }
         } else {
             tokenVerificationViewModel.verifyToken(token)
         }
@@ -79,14 +88,27 @@ fun SplashScreen(
     LaunchedEffect(tokenVerificationState.response) {
         tokenVerificationState.response?.success?.let {
             tokenViewModel.saveToken("verifiedToken", it.toString())
-            navigationController.navigate("Home")
+            val target = when {
+                lastRoute.isBlank() || lastRoute.contains("SplashScreen") -> "Home"
+                else -> lastRoute
+            }
+
+            navigationController.navigate(target) {
+                popUpTo("SplashScreen") {
+                    inclusive = true
+                }
+            }
         }
     }
 
     LaunchedEffect(tokenVerificationState.error) {
         if (tokenVerificationState.error.isNotEmpty()) {
             Log.d("Error", tokenVerificationState.error)
-            navigationController.navigate("Login")
+            navigationController.navigate("Login") {
+                popUpTo("SplashScreen") {
+                    inclusive = true
+                }
+            }
         }
     }
 

@@ -64,6 +64,8 @@ import android.provider.Settings.ACTION_WIFI_SETTINGS
 import android.util.Log
 import com.banap.banap.core.ui.components.LoadingScreen
 import com.banap.banap.domain.viewmodel.TokenVerificationViewModel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -159,6 +161,8 @@ fun Login(
 
     LaunchedEffect(tokenVerificationState.error) {
         if (tokenVerificationState.error.isNotEmpty()) {
+            Log.d("Error token verification", tokenVerificationState.error)
+
             val message: String = when {
                 tokenVerificationState.error.contains("422") -> {
                     "Sessão expirada, logue novamente"
@@ -169,11 +173,19 @@ fun Login(
                 }
             }
 
+            val autoDismissJob = launch {
+                delay(5_000L)
+                tokenVerificationViewModel.clearError()
+                snackBarHostState.currentSnackbarData?.dismiss()
+            }
+
             snackBarHostState.showSnackbar(
                 message = message,
                 actionLabel = "Entendi",
                 duration = SnackbarDuration.Indefinite
             )
+
+            autoDismissJob.cancel()
 
             tokenVerificationViewModel.clearError()
         }

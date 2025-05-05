@@ -26,7 +26,9 @@ fun TextBoxRegistration(
     tipoTeclado: KeyboardType,
     modifier: Modifier,
     lastOne: Boolean = false,
-    maxLines: Int = 1
+    maxLines: Int = 1,
+    informationIcon: Boolean = false,
+    informationIconOnClick: () -> Unit = {}
 ) {
     Row (
         modifier = Modifier
@@ -48,7 +50,9 @@ fun TextBoxRegistration(
                 labelTextStyle = Typography.titleMedium,
                 labelColor = PRETO,
                 isError = isError,
-                lastOne = lastOne
+                lastOne = lastOne,
+                informationIcon = informationIcon,
+                informationIconOnClick = informationIconOnClick
             )
 
             if (errorState != null) {

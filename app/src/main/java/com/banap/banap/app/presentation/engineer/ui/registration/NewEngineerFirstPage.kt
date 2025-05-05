@@ -131,7 +131,8 @@ fun NewEngineerFirstPage(
     ) {
         Column {
             RegistrationHeader(
-                navigationController
+                navigationController = navigationController,
+                fallbackRoute = "UserChoice"
             )
 
             TitleRegistration(

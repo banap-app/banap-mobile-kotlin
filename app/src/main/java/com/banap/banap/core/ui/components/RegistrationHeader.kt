@@ -17,7 +17,9 @@ import com.banap.banap.R
 
 @Composable
 fun RegistrationHeader(
-    navigationController: NavController
+    navigationController: NavController,
+    fixedRoute: String? = null,
+    fallbackRoute: String = ""
 ) {
     Box{
         Image(
@@ -33,7 +35,15 @@ fun RegistrationHeader(
 
         IconButton(
             onClick = {
-                navigationController.popBackStack()
+                fixedRoute
+                    ?.let {
+                        navigationController.navigate(it)
+                    }
+                    ?: run {
+                        if (!navigationController.popBackStack()) {
+                            navigationController.navigate(fallbackRoute)
+                        }
+                    }
             },
             modifier = Modifier
                 .padding(

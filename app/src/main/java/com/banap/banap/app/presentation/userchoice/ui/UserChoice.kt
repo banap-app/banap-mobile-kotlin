@@ -121,7 +121,8 @@ fun UserChoice(
     ) {
         Column {
             RegistrationHeader(
-                navigationController
+                navigationController = navigationController,
+                fallbackRoute = "ReadyToStart"
             )
 
             TitleRegistration(
