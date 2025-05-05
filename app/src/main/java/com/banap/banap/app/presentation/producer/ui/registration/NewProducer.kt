@@ -128,7 +128,8 @@ fun NewProducer(
     ) {
         Column {
             RegistrationHeader(
-                navigationController
+                navigationController = navigationController,
+                fallbackRoute = "UserChoice"
             )
 
             TitleRegistration(

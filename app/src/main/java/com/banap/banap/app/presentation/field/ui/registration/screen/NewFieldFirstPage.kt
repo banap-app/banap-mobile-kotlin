@@ -106,7 +106,8 @@ fun NewFieldFirstPage (
     ) {
         Column {
             RegistrationHeader(
-                navigationController
+                navigationController = navigationController,
+                fallbackRoute = "Home"
             )
 
             TitleRegistration(

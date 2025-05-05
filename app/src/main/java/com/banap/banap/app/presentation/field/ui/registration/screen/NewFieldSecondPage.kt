@@ -95,7 +95,8 @@ fun NewFieldSecondPage(
         if (!isExpanded.value) {
             Column {
                 RegistrationHeader(
-                    navigationController
+                    navigationController = navigationController,
+                    fallbackRoute = "NewFieldFirstPage"
                 )
 
                 TitleRegistration(

@@ -106,7 +106,8 @@ fun NewEngineerSecondPage (
     ) {
         Column {
             RegistrationHeader(
-                navigationController
+                navigationController = navigationController,
+                fallbackRoute = "NewEngineerFirstPage"
             )
 
             TitleRegistration(

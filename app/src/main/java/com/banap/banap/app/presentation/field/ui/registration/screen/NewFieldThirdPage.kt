@@ -111,7 +111,8 @@ fun NewFieldThirdPage (
     ) {
         Column {
             RegistrationHeader(
-                navigationController
+                navigationController = navigationController,
+                fallbackRoute = "NewFieldSecondPage"
             )
 
             TitleRegistration(

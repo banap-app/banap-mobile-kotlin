@@ -102,7 +102,8 @@ fun NewAnalysisScreen(
                     .fillMaxSize()
             ) {
                 RegistrationHeader(
-                    navigationController
+                    navigationController = navigationController,
+                    fallbackRoute = "Information"
                 )
 
                 TitleRegistration(

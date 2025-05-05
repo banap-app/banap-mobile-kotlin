@@ -106,7 +106,8 @@ fun NewProperty(
     ) {
         Column {
             RegistrationHeader(
-                navigationController
+                navigationController = navigationController,
+                fallbackRoute = "Home"
             )
 
             TitleRegistration(

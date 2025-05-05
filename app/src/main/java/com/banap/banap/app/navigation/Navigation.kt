@@ -1,15 +1,18 @@
 package com.banap.banap.app.navigation
 
+import android.util.Log
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.banap.banap.app.navigation.viewmodel.NavigationViewModel
 import com.banap.banap.app.presentation.analysis.ui.registration.screen.ExplanationFormData
 import com.banap.banap.app.presentation.analysis.ui.registration.screen.NewAnalysis
 import com.banap.banap.app.presentation.engineer.ui.registration.NewEngineerFirstPage
@@ -28,13 +31,29 @@ import com.banap.banap.app.presentation.tutorial.ui.Tutorial
 import com.banap.banap.app.presentation.userchoice.ui.UserChoice
 import com.banap.banap.core.ui.components.SplashScreen
 import com.banap.banap.domain.viewmodel.TokenVerificationViewModel
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.mapNotNull
 
 @Composable
 fun Navigation() {
     val navigationController = rememberNavController()
     val tokenViewModel: TokenViewModel = hiltViewModel()
     val tokenVerificationViewModel: TokenVerificationViewModel = hiltViewModel()
+    val navigationViewModel: NavigationViewModel = hiltViewModel()
     val animationDuration: Int = 700
+
+    LaunchedEffect(navigationController) {
+        navigationController
+            .currentBackStackEntryFlow
+            .mapNotNull { it.destination.route }
+            .filter { it != "SplashScreen" }
+            .distinctUntilChanged()
+            .collect {
+                Log.d("Navigation route", it)
+                navigationViewModel.recordRoute(it)
+            }
+    }
 
     NavHost(
         navController = navigationController,
@@ -56,7 +75,8 @@ fun Navigation() {
             SplashScreen(
                 navigationController,
                 tokenViewModel = tokenViewModel,
-                tokenVerificationViewModel = tokenVerificationViewModel
+                tokenVerificationViewModel = tokenVerificationViewModel,
+                navigationViewModel = navigationViewModel
             )
         }
 
