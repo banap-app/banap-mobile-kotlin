@@ -13,6 +13,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.KeyboardArrowUp
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -27,40 +28,52 @@ import com.banap.banap.core.ui.theme.ShapeProperty
 import com.banap.banap.core.ui.theme.Typography
 import com.banap.banap.core.ui.theme.VERDE_CLARO
 import com.banap.banap.core.ui.theme.VERDE_ESCURO
+import com.banap.banap.core.ui.util.clickableText
 
 @Composable
 fun Property(
     titulo: String,
     navigationController: NavController
 ) {
-    Column (
+    Column(
         modifier = Modifier
             .padding(horizontal = 30.dp)
             .fillMaxWidth()
     ) {
-        Row (
+        Row(
             modifier = Modifier
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = titulo,
+                text = clickableText(
+                    navigationController = navigationController,
+                    route = "Property",
+                    text = titulo
+                ),
                 style = Typography.titleLarge,
                 color = VERDE_ESCURO
             )
 
-            Icon(
-                Icons.Outlined.KeyboardArrowUp,
-                contentDescription = "Flecha clicavel",
-                modifier = Modifier
-                    .rotate(90.0F)
-                    .scale(scale = 1.2F),
-                tint = VERDE_ESCURO
-            )
+            IconButton(
+                onClick = {
+                    navigationController.navigate("Property")
+                }
+            ) {
+                Icon(
+                    Icons.Outlined.KeyboardArrowUp,
+                    contentDescription = "Flecha clicavel",
+                    modifier = Modifier
+                        .rotate(90.0F)
+                        .scale(scale = 1.2F),
+                    tint = VERDE_ESCURO
+                )
+            }
+
         }
 
-        Row (
+        Row(
             modifier = Modifier
                 .horizontalScroll(rememberScrollState())
                 .fillMaxWidth(),
@@ -83,7 +96,7 @@ fun Property(
 
         Spacer(modifier = Modifier.height(60.dp))
 
-        Row (
+        Row(
             modifier = Modifier
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.End
