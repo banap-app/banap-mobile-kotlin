@@ -24,6 +24,7 @@ import com.banap.banap.app.presentation.field.ui.registration.screen.NewFieldThi
 import com.banap.banap.app.presentation.home.ui.screen.Home
 import com.banap.banap.app.presentation.login.ui.screen.Login
 import com.banap.banap.app.presentation.producer.ui.registration.NewProducer
+import com.banap.banap.app.presentation.property.ui.listing.screen.Property
 import com.banap.banap.app.presentation.property.ui.registration.NewProperty
 import com.banap.banap.app.presentation.readytostart.ui.ReadyToStart
 import com.banap.banap.app.presentation.session.viewmodel.TokenViewModel
@@ -332,6 +333,22 @@ fun Navigation() {
             }
         ) {
             ExplanationFormData(navigationController)
+        }
+
+        composable(
+            route = "Property",
+            enterTransition = {
+                fadeIn(
+                    animationSpec = tween(animationDuration)
+                )
+            },
+            exitTransition = {
+                fadeOut(
+                    animationSpec = tween(animationDuration)
+                )
+            }
+        ) {
+            Property(navigationController)
         }
     }
 }
