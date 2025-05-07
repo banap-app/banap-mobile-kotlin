@@ -58,6 +58,7 @@ kapt {
 }
 
 dependencies {
+    implementation(libs.socket.io)
     implementation(libs.hilt.navigation.compose)
     implementation(libs.dagger.hilt.android)
     kapt(libs.kapt)
